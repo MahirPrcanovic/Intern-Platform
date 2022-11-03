@@ -229,11 +229,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\MahirPrcanovic\\OneDrive - Maestral Solutions\\Desktop\\InternApp\\server\\InternshipPlatformAPI\\InternshipPlatformAPI\\InternshipPlatformAPI.csproj",
+      "projectUniqueName": "C:\\Users\\MahirPrcanovic\\OneDrive - Maestral Solutions\\Desktop\\Project\\server\\InternshipPlatformAPI\\InternshipPlatformAPI\\InternshipPlatformAPI.csproj",
       "projectName": "InternshipPlatformAPI",
-      "projectPath": "C:\\Users\\MahirPrcanovic\\OneDrive - Maestral Solutions\\Desktop\\InternApp\\server\\InternshipPlatformAPI\\InternshipPlatformAPI\\InternshipPlatformAPI.csproj",
+      "projectPath": "C:\\Users\\MahirPrcanovic\\OneDrive - Maestral Solutions\\Desktop\\Project\\server\\InternshipPlatformAPI\\InternshipPlatformAPI\\InternshipPlatformAPI.csproj",
       "packagesPath": "C:\\Users\\MahirPrcanovic\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\MahirPrcanovic\\OneDrive - Maestral Solutions\\Desktop\\InternApp\\server\\InternshipPlatformAPI\\InternshipPlatformAPI\\obj\\",
+      "outputPath": "C:\\Users\\MahirPrcanovic\\OneDrive - Maestral Solutions\\Desktop\\Project\\server\\InternshipPlatformAPI\\InternshipPlatformAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\MahirPrcanovic\\AppData\\Roaming\\NuGet\\NuGet.Config",

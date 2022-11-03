@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vAuV8vvsLyjk9smsBC1W7BRhjp1k/Q5X/GWDH0hoWTXWVR7J8P+Vwpzp/7vMvmpHoSwC1sr09lP250ljQE+Ztg==",
+  "dgSpecHash": "wirtYXuos/J54DEe5LSPgDqtbTZR5FsQCMrwFBHcCCqUeHHlepKs0Ed/pOZIF/NSLZsskduDZyNLi+iAc9zQ4w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\MahirPrcanovic\\OneDrive - Maestral Solutions\\Desktop\\InternApp\\server\\InternshipPlatformAPI\\InternshipPlatformAPI\\InternshipPlatformAPI.csproj",
+  "projectFilePath": "C:\\Users\\MahirPrcanovic\\OneDrive - Maestral Solutions\\Desktop\\Project\\server\\InternshipPlatformAPI\\InternshipPlatformAPI\\InternshipPlatformAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\MahirPrcanovic\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\MahirPrcanovic\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",

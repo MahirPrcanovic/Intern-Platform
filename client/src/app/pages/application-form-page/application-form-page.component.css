@@ -1,0 +1,23 @@
+.form-group{
+
+    padding-top:2%;
+    
+}
+
+#exampleFormControlInput1{
+   width: 40%;
+}
+
+.form-control{
+    width: 40%;
+    height: 60%;
+ }
+
+.applybutton{
+    margin-right: 5%;
+}
+
+button{
+    margin-left: 40%;
+ 
+}

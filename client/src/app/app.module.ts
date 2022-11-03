@@ -10,6 +10,7 @@ import { LoginComponent } from './pages/login-page/login.component';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, HeaderComponent, LandingPageComponent],
+
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],

@@ -11,8 +11,9 @@ import { HeroSectionComponent } from './components/landing-page/hero-section/her
 import { SelectionSectionComponent } from './components/landing-page/selection-section/selection-section.component';
 import { SubscribeSectionComponent } from './components/landing-page/subscribe-section/subscribe-section.component';
 import { FooterComponent } from './components/footer/footer/footer.component';
+import { ApplicationFormPageComponent } from './pages/application-form-page/application-form-page.component';
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, LoginComponent,LandingPageComponent, HeroSectionComponent, SelectionSectionComponent, SubscribeSectionComponent, FooterComponent],
+  declarations: [AppComponent, HeaderComponent, LoginComponent,LandingPageComponent, HeroSectionComponent, SelectionSectionComponent, SubscribeSectionComponent, FooterComponent, ApplicationFormPageComponent],
 
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],

@@ -1,53 +1,220 @@
-<div class="container">
-    <div class="row">
-       
-        <div class="col">
-            <h1>Application form</h1>
-<form>
-    <div class="form-group">
+<div class="container d-flex">
+  <div class="col-4 mt-5" *ngIf="!submitted">
+    <h1 class="text-truncate">Application form</h1>
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <div class="form-group">
         <label for="exampleFormControlInput1">First name</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="John">
+        <input
+          type="text"
+          class="form-control w-100"
+          id="exampleFormControlInput1"
+          placeholder="John"
+          ngModel
+          name="firstName"
+          required
+        />
       </div>
       <div class="form-group">
         <label for="exampleFormControlInput1">Last name</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Doe">
+        <input
+          type="text"
+          class="form-control w-100"
+          id="exampleFormControlInput1"
+          placeholder="Doe"
+          ngModel
+          name="lastName"
+          required
+        />
       </div>
-    <div class="form-group">
-      <label for="exampleFormControlInput1">Email address</label>
-      <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-    </div>
-    <div class = "form-group"> Education level
-        <div class="row">
-                <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio1">High school</label>
-                </div>
-                <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio2">Bachelor's degree/student</label>
-                </div>
-                <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
-                     <label class="custom-control-label" for="customRadio2">Master's degree/student</label>
-                </div>
-        </div>
-    </div>     
-    <div class="form-group">
-      <label for="exampleFormControlTextarea1">Cover letter</label>
-      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-    </div>
-    <form>
-        <div class="form-group">
-          <label for="exampleFormControlFile1">CV </label>
-          <input type="file" class="form-control-file" id="exampleFormControlFile1">
-        </div>
-      </form>
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Email address</label>
+        <input
+          type="email"
+          class="form-control w-100"
+          id="exampleFormControlInput1"
+          placeholder="name@example.com"
+          ngModel
+          name="email"
+          required
+          email
+        />
+      </div>
+      <div class="form-group">
+        Education level
+        <select
+          class="form-control w-100"
+          ngModel
+          name="educationLevel"
+          required
+        >
+          <option value="High-School">High School Graduate</option>
+          <option value="College-Undergraduate">College Undergraduate</option>
+          <option value="College-Graduate">College Graduate</option>
+          <option value="Master-Undergraduate">Master's Undergraduate</option>
+          <option value="Master-Graduate">Master's Graduate</option>
+          <option value="Doctor-Undergraduate">Doctor's undergraduate</option>
+          <option value="Doctor-Graduate">Doctor's Graduate</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">Cover letter</label>
+        <textarea
+          class="form-control w-100"
+          id="exampleFormControlTextarea1"
+          rows="3"
+          ngModel
+          name="coverLetter"
+          required
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>CV url</label>
+        <input
+          required
+          type="text"
+          class="form-control w-100"
+          id="exampleFormControlInput1"
+          ngModel
+          name="cv"
+        />
+      </div>
+
       <div class="text-center text-lg-start mt-4 pt-2">
-        <button type="button" class="btn btn-primary btn-lg">Apply</button>
-    
+        <button type="submit" class="btn btn-primary btn-lg">Apply</button>
       </div>
-      
-  </form>
-        </div>
+    </form>
+  </div>
+  <div class="col mt-5" *ngIf="formValid && submitted">
+    <div class="alert alert-success" role="alert">
+      <h4 class="alert-heading">Well done!</h4>
+      <p>
+        You have successfully submitted application form.Our team will review
+        your application and email you as soon as we have a spot for you!
+      </p>
+      <hr />
+      <p class="mb-0">Thank you for your time.</p>
     </div>
+    <button class="btn btn-primary" (click)="goHome()">Home Page</button>
+  </div>
+  <div class="col mt-5" *ngIf="!formValid && submitted">
+    <div class="alert alert-danger" role="alert">
+      <h4 class="alert-heading">Form is not valid!</h4>
+      <p>
+        Please try again and make sure you inserted your information correctly!
+      </p>
+      <hr />
+      <p class="mb-0">Thank you for your time.</p>
+    </div>
+    <button class="btn btn-success" (click)="resetForm()">Try again</button>
+  </div>
+  <div
+    class="col d-flex justify-content-center align-items-center"
+    *ngIf="!submitted"
+  >
+    <div class="col-10 col-sm-8 col-lg-6">
+      <img
+        src="https://www.mistral.ba/m/t/mistral/dist/assets/images/mistral-trademark-black.svg"
+        class="d-block mx-lg-auto img-fluid rounded"
+        alt="Bootstrap Themes"
+        width="700"
+        height="500"
+        loading="lazy"
+      />
+    </div>
+  </div>
 </div>
+
+<!-- <div class="container d-flex">
+  <div class="col border">
+    <h1>Application form</h1>
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <div class="form-group">
+        <label for="exampleFormControlInput1">First name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="exampleFormControlInput1"
+          placeholder="John"
+          ngModel
+          name="firstName"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Last name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="exampleFormControlInput1"
+          placeholder="Doe"
+          ngModel
+          name="lastName"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Email address</label>
+        <input
+          type="email"
+          class="form-control"
+          id="exampleFormControlInput1"
+          placeholder="name@example.com"
+          ngModel
+          name="email"
+          required
+          email
+        />
+      </div>
+      <div class="form-group">
+        Education level
+        <select class="form-control" ngModel name="educationLevel" required>
+          <option value="High-School">High School Graduate</option>
+          <option value="College-Undergraduate">College Undergraduate</option>
+          <option value="College-Graduate">College Graduate</option>
+          <option value="Master-Undergraduate">Master's Undergraduate</option>
+          <option value="Master-Graduate">Master's Graduate</option>
+          <option value="Doctor-Undergraduate">Doctor's undergraduate</option>
+          <option value="Doctor-Graduate">Doctor's Graduate</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">Cover letter</label>
+        <textarea
+          class="form-control"
+          id="exampleFormControlTextarea1"
+          rows="3"
+          ngModel
+          name="coverLetter"
+          required
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>CV url</label>
+        <input
+          required
+          type="text"
+          class="form-control"
+          id="exampleFormControlInput1"
+          ngModel
+          name="cv"
+        />
+      </div>
+
+      <div class="text-center text-lg-start mt-4 pt-2">
+        <button type="submit" class="btn btn-primary btn-lg">Apply</button>
+      </div>
+    </form>
+  </div>
+  <div class="col border">PART2</div>
+</div> -->
+
+<!--69 <label for="exampleFormControlFile1">CV </label>
+            <input
+              type="file"
+              class="form-control-file"
+              id="exampleFormControlFile1"
+            />  -->

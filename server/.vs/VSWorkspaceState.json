@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\InternshipPlatformAPI",
+    "\\InternshipPlatformAPI\\InternshipPlatformAPI",
+    "\\InternshipPlatformAPI\\InternshipPlatformAPI\\Models"
   ],
+  "SelectedNode": "\\InternshipPlatformAPI\\InternshipPlatformAPI\\Models\\Selection.cs",
   "PreviewInSolutionExplorer": false
 }

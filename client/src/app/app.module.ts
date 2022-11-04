@@ -13,8 +13,9 @@ import { SubscribeSectionComponent } from './components/landing-page/subscribe-s
 import { FooterComponent } from './components/footer/footer/footer.component';
 import { DashboardHeaderComponent } from './components/applications-page/header/dashboard-header/dashboard-header.component';
 import { ApplicationsPageComponent } from './pages/applications-page/applications-page/applications-page.component';
+import { ApplicationHeroComponent } from './components/applications-page/hero-section/application-hero/application-hero.component';
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, LoginComponent,LandingPageComponent, HeroSectionComponent, SelectionSectionComponent, SubscribeSectionComponent, FooterComponent, DashboardHeaderComponent, ApplicationsPageComponent],
+  declarations: [AppComponent, HeaderComponent, LoginComponent,LandingPageComponent, HeroSectionComponent, SelectionSectionComponent, SubscribeSectionComponent, FooterComponent, DashboardHeaderComponent, ApplicationsPageComponent, ApplicationHeroComponent],
 
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],

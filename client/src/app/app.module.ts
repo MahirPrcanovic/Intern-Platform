@@ -11,8 +11,10 @@ import { HeroSectionComponent } from './components/landing-page/hero-section/her
 import { SelectionSectionComponent } from './components/landing-page/selection-section/selection-section.component';
 import { SubscribeSectionComponent } from './components/landing-page/subscribe-section/subscribe-section.component';
 import { FooterComponent } from './components/footer/footer/footer.component';
+import { DashboardHeaderComponent } from './components/applications-page/header/dashboard-header/dashboard-header.component';
+import { ApplicationsPageComponent } from './pages/applications-page/applications-page/applications-page.component';
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, LoginComponent,LandingPageComponent, HeroSectionComponent, SelectionSectionComponent, SubscribeSectionComponent, FooterComponent],
+  declarations: [AppComponent, HeaderComponent, LoginComponent,LandingPageComponent, HeroSectionComponent, SelectionSectionComponent, SubscribeSectionComponent, FooterComponent, DashboardHeaderComponent, ApplicationsPageComponent],
 
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],

@@ -15,6 +15,7 @@ export class ApplicationHeroComponent implements OnInit, OnDestroy {
   pagesNumber!: number;
   currentPage = 1;
   qParamsSubscribition!: Subscription;
+  numberOfPostsToFetch = 10;
   ngOnInit(): void {
     this.currentPage = this.route.snapshot.queryParams['page'];
     this.qParamsSubscribition = this.route.queryParams.subscribe(
@@ -34,7 +35,87 @@ export class ApplicationHeroComponent implements OnInit, OnDestroy {
         'Applied'
       ),
       new Application(
-        1,
+        2,
+        'Adna',
+        'Salcin',
+        'adnasalcin@etf.ba',
+        'Bachelor',
+        'Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum',
+        'Lorem ipsum Lorem ipsum Lorem ipsum',
+        'Applied'
+      ),
+      new Application(
+        3,
+        'Mahir',
+        'Prcanovic',
+        'mahir.prcanovic.20@size.ba',
+        'Bachelor',
+        'Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum',
+        'Lorem ipsum Lorem ipsum Lorem ipsum',
+        'Applied'
+      ),
+      new Application(
+        4,
+        'Adna',
+        'Salcin',
+        'adnasalcin@etf.ba',
+        'Bachelor',
+        'Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum',
+        'Lorem ipsum Lorem ipsum Lorem ipsum',
+        'Applied'
+      ),
+      new Application(
+        5,
+        'Mahir',
+        'Prcanovic',
+        'mahir.prcanovic.20@size.ba',
+        'Bachelor',
+        'Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum',
+        'Lorem ipsum Lorem ipsum Lorem ipsum',
+        'Applied'
+      ),
+      new Application(
+        6,
+        'Adna',
+        'Salcin',
+        'adnasalcin@etf.ba',
+        'Bachelor',
+        'Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum',
+        'Lorem ipsum Lorem ipsum Lorem ipsum',
+        'Applied'
+      ),
+      new Application(
+        7,
+        'Mahir',
+        'Prcanovic',
+        'mahir.prcanovic.20@size.ba',
+        'Bachelor',
+        'Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum',
+        'Lorem ipsum Lorem ipsum Lorem ipsum',
+        'Applied'
+      ),
+      new Application(
+        8,
+        'Adna',
+        'Salcin',
+        'adnasalcin@etf.ba',
+        'Bachelor',
+        'Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum',
+        'Lorem ipsum Lorem ipsum Lorem ipsum',
+        'Applied'
+      ),
+      new Application(
+        9,
+        'Mahir',
+        'Prcanovic',
+        'mahir.prcanovic.20@size.ba',
+        'Bachelor',
+        'Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum',
+        'Lorem ipsum Lorem ipsum Lorem ipsum',
+        'Applied'
+      ),
+      new Application(
+        10,
         'Adna',
         'Salcin',
         'adnasalcin@etf.ba',
@@ -44,7 +125,8 @@ export class ApplicationHeroComponent implements OnInit, OnDestroy {
         'Applied'
       ),
     ];
-    this.pagesNumber = this.DUMMYDATA.length;
+    console.log(this.DUMMYDATA.length / 5);
+    this.pagesNumber = this.DUMMYDATA.length / 5;
   }
   goPreviousPage() {
     if (+this.currentPage === 1) {

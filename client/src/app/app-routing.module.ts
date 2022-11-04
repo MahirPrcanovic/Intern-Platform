@@ -3,21 +3,24 @@ import { RouterModule, Routes } from '@angular/router';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { LoginComponent } from './pages/login-page/login.component';
 import { AppComponent } from './app.component';
+import { ApplicationsPageComponent } from './pages/applications-page/applications-page/applications-page.component';
 import { ApplicationFormPageComponent } from './pages/application-form-page/application-form-page.component';
+
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent, pathMatch: 'full' },
-   {
-    path : 'login' , 
-    component : LoginComponent
+  {
+    path: 'login',
+    component: LoginComponent,
   },
+  { path: 'applications', component: ApplicationsPageComponent },
+
   {
     path : 'applicationForm' , 
     component : ApplicationFormPageComponent
   },
   
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

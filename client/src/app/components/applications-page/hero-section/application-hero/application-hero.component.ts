@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Application } from 'src/app/models/Application';
 
@@ -9,7 +9,7 @@ import { Application } from 'src/app/models/Application';
   styleUrls: ['./application-hero.component.css'],
 })
 export class ApplicationHeroComponent implements OnInit, OnDestroy {
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
   DUMMYDATA: Application[] = [];
   pagesNumber!: number;
@@ -45,6 +45,24 @@ export class ApplicationHeroComponent implements OnInit, OnDestroy {
       ),
     ];
     this.pagesNumber = this.DUMMYDATA.length;
+  }
+  goPreviousPage() {
+    if (+this.currentPage === 1) {
+      return;
+    } else {
+      this.router.navigate(['/applications'], {
+        queryParams: { page: this.currentPage - 1 },
+      });
+    }
+  }
+  goNextPage() {
+    if (+this.currentPage === this.pagesNumber) {
+      return;
+    } else {
+      this.router.navigate(['/applications'], {
+        queryParams: { page: +this.currentPage + 1 },
+      });
+    }
   }
   ngOnDestroy(): void {
     this.qParamsSubscribition.unsubscribe();

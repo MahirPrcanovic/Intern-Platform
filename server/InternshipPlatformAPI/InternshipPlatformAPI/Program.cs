@@ -1,4 +1,5 @@
 using InternshipPlatformAPI.Data;
+using InternshipPlatformAPI.Service.UserService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,7 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContextPool<DataContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<DataContext>();
-
+builder.Services.AddScoped<IUserService,UserService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

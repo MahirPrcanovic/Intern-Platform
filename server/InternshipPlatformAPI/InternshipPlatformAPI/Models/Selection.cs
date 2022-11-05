@@ -16,7 +16,7 @@ namespace InternshipPlatformAPI.Models
         [MaxLength(255)]
         public string Description { get; set; } = string.Empty;
         //Jedna selekcija moze imati vise aplikanata
-        public IQueryable<Application>? Applications { get; set; }
+        public ICollection<Application>? Applications { get; set; }
         //Jedna selekcija moze imati vise komentara
         public ICollection<SelectionComment>? Comments { get; set; }
     }

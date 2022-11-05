@@ -18,11 +18,23 @@ namespace InternshipPlatformAPI.Controllers
         {
             this._applicationService = applicationService;
         }
+        [HttpGet]
+        public async Task<ActionResult<ServiceResponse<List<Application>>>> GetApplications(int? page=1, int? pageSize=10, string? sortBy="name", string? filterName= "name", string? filterValue="")
+        {
+            
+            return Ok(await this._applicationService.GetApplications((int)page, (int)pageSize, sortBy, filterName,filterValue));
+        }
+
         [HttpPost]
         public async Task<ActionResult<ServiceResponse<ApplicationFormDto>>> PostApplication(ApplicationFormDto formData)
         {
-            
-            return Ok(await this._applicationService.PostApplication(formData));
+
+            var serviceR = await this._applicationService.PostApplication(formData);
+            if (serviceR.Success)
+            {
+                return Ok(serviceR);
+            }
+            return BadRequest(serviceR);
         }
     }
 }

@@ -7,6 +7,6 @@ namespace InternshipPlatformAPI.Services
     public interface IApplicationService
     {
         Task<ServiceResponse<ApplicationFormDto>> PostApplication(ApplicationFormDto applicationFormDto);
-        Task<ServiceResponse<List<Application>>> GetApplications(int page,int pageSize,string sortBy,string filterName,string filterValue);
+        Task<ServiceResponse<List<Application>>> GetApplications(int page,int pageSize,string sortBy,string filter);
     }
 }

@@ -5,7 +5,10 @@ using InternshipPlatformAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient.Server;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace InternshipPlatformAPI.Services
 {
@@ -39,20 +42,21 @@ namespace InternshipPlatformAPI.Services
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<List<Application>>> GetApplications(int page , int pageSize, string sortBy, string filterName,string filterValue)
+        public async Task<ServiceResponse<List<Application>>> GetApplications(int page , int pageSize, string sortBy,string filter)
         {
             var serviceResponse = new ServiceResponse<List<Application>>();
             IQueryable<Application> applications;
             switch (sortBy)
             {
                 case "name":
-                    applications = this._dataContext.Applications.OrderBy(x => x.FirstName).Skip((page - 1) * pageSize).Take(pageSize);
+                    applications = this._dataContext.Applications.OrderBy(x => x.FirstName).Where(x =>
+                   x.FirstName.ToLower().Contains(filter.ToLower())).Skip((page - 1) * pageSize).Take(pageSize);
                     break;
                 case "EducationLevel":
-                    applications = this._dataContext.Applications.OrderBy(x => x.EducationLevel).Skip((page - 1) * pageSize).Take(pageSize);
+                    applications = this._dataContext.Applications.OrderBy(x => x.EducationLevel).Where(x=>x.EducationLevel.ToLower().Contains(filter.ToLower())).Skip((page - 1) * pageSize).Take(pageSize);
                     break;
                 case "Status":
-                    applications = this._dataContext.Applications.OrderBy(x => x.Status).Skip((page - 1) * pageSize).Take(pageSize);
+                    applications = this._dataContext.Applications.OrderBy(x => x.Status).Where(x=>x.Status.ToLower().Contains(filter.ToLower())).Skip((page - 1) * pageSize).Take(pageSize);
                     break;
                  default:
                     applications = this._dataContext.Applications.OrderBy(x => x.Id).Skip((page - 1) * pageSize).Take(pageSize);

@@ -2,6 +2,7 @@
 using InternshipPlatformAPI.Data;
 using InternshipPlatformAPI.Dtos;
 using InternshipPlatformAPI.Models;
+using InternshipPlatformAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,24 +12,29 @@ namespace InternshipPlatformAPI.Controllers
     [ApiController]
     public class ApplicationFormController : ControllerBase
     {
-        private readonly DataContext _dataContext;
-        private readonly IMapper _mapper;
+        private readonly IApplicationService _applicationService;
 
-        public ApplicationFormController(DataContext dataContext,IMapper mapper)
+        public ApplicationFormController(IApplicationService applicationService)
         {
-            this._dataContext = dataContext ?? throw new ArgumentNullException(nameof(dataContext));
-            this._mapper = mapper ?? throw new ArgumentNullException(nameof(dataContext));
-            ;
+            this._applicationService = applicationService;
         }
+        [HttpGet]
+        public async Task<ActionResult<ServiceResponse<List<Application>>>> GetApplications(int? page=1, int? pageSize=10, string? sortBy="name", string? filterName= "name", string? filterValue="")
+        {
+            
+            return Ok(await this._applicationService.GetApplications((int)page, (int)pageSize, sortBy, filterName,filterValue));
+        }
+
         [HttpPost]
         public async Task<ActionResult<ServiceResponse<ApplicationFormDto>>> PostApplication(ApplicationFormDto formData)
         {
-            var insertData = this._mapper.Map<Application>(formData);
-            this._dataContext.Applications.Add(insertData);
-            await this._dataContext.SaveChangesAsync();
-            var serviceResponse = new ServiceResponse<ApplicationFormDto>();
-            serviceResponse.Data = formData;
-            return Ok(serviceResponse);
+
+            var serviceR = await this._applicationService.PostApplication(formData);
+            if (serviceR.Success)
+            {
+                return Ok(serviceR);
+            }
+            return BadRequest(serviceR);
         }
     }
 }

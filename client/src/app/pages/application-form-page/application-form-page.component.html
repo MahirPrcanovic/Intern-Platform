@@ -1,5 +1,13 @@
-<div class="container d-flex">
-  <div class="col-4 mt-5" *ngIf="!submitted">
+<div
+  class="container d-flex justify-content-center align-items-center"
+  *ngIf="loading"
+>
+  <div class="spinner-border">
+    <span class="visually-hidden"></span>
+  </div>
+</div>
+<div class="container d-flex flex-column-reverse flex-md-row">
+  <div class="col-md-4 mt-5 col" *ngIf="!submitted && !loading">
     <h1 class="text-truncate">Application form</h1>
     <form (ngSubmit)="onSubmit(f)" #f="ngForm">
       <div class="form-group">
@@ -91,7 +99,7 @@
       </div>
     </form>
   </div>
-  <div class="col mt-5" *ngIf="formValid && submitted">
+  <div class="col mt-5" *ngIf="formValid && submitted && !loading">
     <div class="alert alert-success" role="alert">
       <h4 class="alert-heading">Well done!</h4>
       <p>
@@ -103,20 +111,21 @@
     </div>
     <button class="btn btn-primary" (click)="goHome()">Home Page</button>
   </div>
-  <div class="col mt-5" *ngIf="!formValid && submitted">
+  <div class="col mt-5" *ngIf="!formValid && submitted && !loading">
     <div class="alert alert-danger" role="alert">
       <h4 class="alert-heading">Form is not valid!</h4>
       <p>
         Please try again and make sure you inserted your information correctly!
       </p>
       <hr />
+      <p>{{ message }}</p>
       <p class="mb-0">Thank you for your time.</p>
     </div>
     <button class="btn btn-success" (click)="resetForm()">Try again</button>
   </div>
   <div
-    class="col d-flex justify-content-center align-items-center"
-    *ngIf="!submitted"
+    class="col d-md-flex justify-content-center align-items-center d-none"
+    *ngIf="!submitted && !loading"
   >
     <div class="col-10 col-sm-8 col-lg-6">
       <img

@@ -20,10 +20,9 @@ namespace InternshipPlatformAPI.Models
         public string CV { get; set; } = string.Empty;
         [Required]
         public string Status { get; set; } = "applied";
-        //IQueryable zbog spasavanja resursa prije queryanju 
-        //svaka aplikacija moze imati vise komentara
-        public IQueryable<ApplicationComment>? Comments { get; set; }
-        //aplikant moze biti u jednoj ili vise selekcija
-        public IQueryable<Selection>? Selections { get; set; }
+     
+        public ICollection<ApplicationComment>? Comments { get; set; }
+       
+        public ICollection<Selection>? Selections { get; set; }
     }
 }

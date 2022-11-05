@@ -16,16 +16,34 @@ export class ApplicationFormPageComponent implements OnInit {
     private applicationService: ApplicationsService
   ) {}
   formValid = true;
+  loading = false;
   submitted = false;
+  message = '';
   ngOnInit(): void {}
   onSubmit(f: NgForm) {
+    this.loading = true;
     console.log(f);
-    this.applicationService.postData(f.form.value).subscribe((response) => {
-      this.submitted = f.submitted;
-      this.formValid = f.form.valid;
-
-      console.log(response);
-    });
+    if (!f.valid) {
+      this.submitted = true;
+      this.formValid = false;
+      this.loading = false;
+      return;
+    }
+    this.applicationService.postData(f.form.value).subscribe(
+      (response) => {
+        this.submitted = f.submitted;
+        this.formValid = f.form.valid;
+        this.loading = false;
+        console.log(response);
+      },
+      (error) => {
+        this.loading = false;
+        this.message = error.statusText;
+        this.submitted = f.submitted;
+        this.formValid = false;
+        console.log(error);
+      }
+    );
   }
   resetForm() {
     this.formValid = true;

@@ -11,6 +11,7 @@ namespace InternshipPlatformAPI
             CreateMap<EditSelectionDto, Selection>();
             CreateMap<AddSelectionDto, Selection>();
             CreateMap<Selection, GetSelectionDto>();
+            CreateMap<Application,AddApplicantDto>();
         }
     }
 }

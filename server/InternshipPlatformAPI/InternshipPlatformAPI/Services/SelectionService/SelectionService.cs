@@ -31,7 +31,7 @@ namespace InternshipPlatformAPI.Services.SelectionService
             return response;
         }
 
-        public async Task<ServiceResponse<GetSelectionDto>> EditSelection(EditSelectionDto newSelection, int id)
+        public async Task<ServiceResponse<GetSelectionDto>> EditSelection(EditSelectionDto newSelection, Guid id)
         {
             ServiceResponse<GetSelectionDto> response = new ServiceResponse<GetSelectionDto>();
              
@@ -66,7 +66,7 @@ namespace InternshipPlatformAPI.Services.SelectionService
                 
         }
 
-        public async Task<ServiceResponse<GetSelectionDto>> GetSelectionById(int selectionId)
+        public async Task<ServiceResponse<GetSelectionDto>> GetSelectionById(Guid selectionId)
         {
             var response = new ServiceResponse<GetSelectionDto>();
             var singleSelection = await _dataContext.Selections.FirstOrDefaultAsync(i => i.Id.Equals(selectionId));
@@ -81,14 +81,14 @@ namespace InternshipPlatformAPI.Services.SelectionService
 
         }
 
-        public async Task<ServiceResponse<List<GetSelectionDto>>> RemoveSelectionApplicant(int selectionId, int applicantId)
+        public async Task<ServiceResponse<List<GetSelectionDto>>> RemoveSelectionApplicant(Guid selectionId, Guid applicantId)
         {
             ServiceResponse<List<GetSelectionDto>> response = new ServiceResponse<List<GetSelectionDto>>();
 
             var selection = await _dataContext.Selections
                 .FirstOrDefaultAsync(s => s.Id.Equals(selectionId));
 
-          var removeApplicant = await selection.Applications.FirstOrDefaultAsync(a => a.Id.Equals(applicantId));
+          var removeApplicant = selection.Applications.Where(a => a.Id.Equals(applicantId)).FirstOrDefault();
 
             if (selection != null && removeApplicant!=null)
             {
@@ -106,5 +106,30 @@ namespace InternshipPlatformAPI.Services.SelectionService
 
             return response;
         }
+
+         public async Task<ServiceResponse<List<Application>>> AddApplicantToSelection(Guid selectionId, Guid applicantId)
+        {
+            var response = new ServiceResponse<List<Application>>();
+            var newApp= await _dataContext.Applications.Where(a => a.Id == applicantId).FirstOrDefaultAsync();
+            if(newApp == null)
+            {
+                response.Success = false;
+                response.Message = "Invalid Id Application";
+                    return response;
+            }
+
+            var selekcija = await _dataContext.Selections
+                .Include(y => y.Applications)
+                .Where(x => x.Id == selectionId).FirstOrDefaultAsync();
+            selekcija.Applications.Add(newApp);
+            await _dataContext.SaveChangesAsync();
+
+
+            response.Data = selekcija.Applications.ToList();
+            return response;
+
+
+        }
+
     }
 }

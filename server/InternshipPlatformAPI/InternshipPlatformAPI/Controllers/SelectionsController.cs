@@ -29,8 +29,8 @@ namespace InternshipPlatformAPI.Controllers
             return Ok(await _selectionService.GetAllSelections());
         }
 
-        [HttpGet("{id}", Name = "GetSelectionById")]
-        public async Task<ActionResult<ServiceResponse<GetSelectionDto>>>GetSelectionById(int id)
+        [HttpGet("GetSelectionsById/{id}")]
+        public async Task<ActionResult<ServiceResponse<GetSelectionDto>>>GetSelectionById(Guid id)
         {
             return Ok(await _selectionService.GetSelectionById(id));
         }
@@ -41,18 +41,23 @@ namespace InternshipPlatformAPI.Controllers
             return Ok(await _selectionService.AddSelection(newSelection));
         }
 
-        [HttpPut("{id}", Name ="EditSelection" )]
-        public async Task<ActionResult<ServiceResponse<GetSelectionDto>>>EditSelection([FromBody] EditSelectionDto editSelection, int id)
+        [HttpPut("EditSelection/{id}" )]
+        public async Task<ActionResult<ServiceResponse<GetSelectionDto>>>EditSelection([FromBody] EditSelectionDto editSelection, Guid id)
         {
             return Ok(await _selectionService.EditSelection(editSelection, id));
         }
-        //provjeriti kako treba ruu definisai
+        
 
-        [HttpDelete("DeleteApplicants")]
-        public async Task<ActionResult<ServiceResponse<List<GetSelectionDto>>>> RemoveSelectionApplicant(int selecionId,int applicationId)
+        [HttpDelete("DeleteApplicants/{selectionId}/{applicationId}")]
+        public async Task<ActionResult<ServiceResponse<List<GetSelectionDto>>>> RemoveSelectionApplicant(Guid selecionId,Guid applicationId)
         {
             return Ok(await _selectionService.RemoveSelectionApplicant(selecionId, applicationId));
         }
 
+        [HttpPost("AddNewApplicantToSelection/{selectionId}/{applicantId}")]
+        public async Task<ActionResult<ServiceResponse<List<GetSelectionDto>>>> AddNewApplicantToSelection(Guid selectionId,Guid applicantId)
+        {
+            return Ok(await _selectionService.AddApplicantToSelection(selectionId,applicantId));
+        }
     }
 }

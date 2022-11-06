@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+using InternshipPlatformAPI.Models;
+using System.ComponentModel.DataAnnotations;
 
-namespace InternshipPlatformAPI.Models
+namespace InternshipPlatformAPI.Dtos.SelectionDto
 {
-    public class Application
+    public class AddApplicantDto
     {
         public Guid Id { get; set; } = Guid.NewGuid();
-        [Required]
+
         public string FirstName { get; set; } = string.Empty;
         [Required]
         public string LastName { get; set; } = string.Empty;

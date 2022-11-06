@@ -9,6 +9,6 @@ import { catchError, throwError } from 'rxjs';
 export class ApplicationsService {
   constructor(private http: HttpClient) {}
   postData(postData: Application) {
-    return this.http.post(environment.apiUrl, postData);
+    return this.http.post(environment.apiUrl + '/ApplicationForm', postData);
   }
 }

@@ -5,6 +5,7 @@ import { LoginComponent } from './pages/login-page/login.component';
 import { AppComponent } from './app.component';
 import { ApplicationsPageComponent } from './pages/applications-page/applications-page/applications-page.component';
 import { ApplicationFormPageComponent } from './pages/application-form-page/application-form-page.component';
+import { SelectionsPageComponent } from './components/selections-page/selections-page.component';
 
 
 const routes: Routes = [
@@ -19,6 +20,8 @@ const routes: Routes = [
     path : 'applicationForm' , 
     component : ApplicationFormPageComponent
   },
+
+  { path: 'selections', component: SelectionsPageComponent },
   
 ];
 

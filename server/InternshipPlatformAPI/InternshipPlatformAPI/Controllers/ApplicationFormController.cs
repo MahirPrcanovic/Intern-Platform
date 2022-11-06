@@ -1,15 +1,16 @@
-﻿using AutoMapper;
-using InternshipPlatformAPI.Data;
-using InternshipPlatformAPI.Dtos;
+﻿using InternshipPlatformAPI.Dtos;
 using InternshipPlatformAPI.Models;
 using InternshipPlatformAPI.Services;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InternshipPlatformAPI.Controllers
 {
-    [Route("api/[controller]")]
+    //[Authorize(Roles = "Administrator")]
+    //Samo ako je role administrator dopusti pristup
+    //[Authorize]
     [ApiController]
+    [Route("api/[controller]")]
     public class ApplicationFormController : ControllerBase
     {
         private readonly IApplicationService _applicationService;
@@ -19,7 +20,7 @@ namespace InternshipPlatformAPI.Controllers
             this._applicationService = applicationService;
         }
         [HttpGet]
-        public async Task<ActionResult<ServiceResponse<List<Application>>>> GetApplications(int? page=1, int? pageSize=10, string? sortBy="name",string? filter="")
+        public async Task<ActionResult<ServiceResponse<List<ApplicationDto>>>> GetApplications(int? page=1, int? pageSize=10, string? sortBy="name",string? filter="")
         {
             
             return Ok(await this._applicationService.GetApplications((int)page, (int)pageSize, sortBy, filter));
@@ -36,5 +37,6 @@ namespace InternshipPlatformAPI.Controllers
             }
             return BadRequest(serviceR);
         }
+
     }
 }

@@ -42,9 +42,12 @@ namespace InternshipPlatformAPI.Services
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<List<Application>>> GetApplications(int page , int pageSize, string sortBy,string filter)
+        public async Task<ServiceResponse<List<ApplicationDto>>> GetApplications(int page , int pageSize, string sortBy,string filter)
         {
-            var serviceResponse = new ServiceResponse<List<Application>>();
+            var serviceResponse = new ServiceResponse<List<ApplicationDto>>();
+            var pagesCount = await this._dataContext.Applications.CountAsync() / pageSize;
+            serviceResponse.PagesCount = pagesCount  == 0 ? 1 : pagesCount ;
+
             IQueryable<Application> applications;
             switch (sortBy)
             {
@@ -63,7 +66,7 @@ namespace InternshipPlatformAPI.Services
                     break;
             }
             var results = await applications.ToListAsync();
-            serviceResponse.Data = results;
+            serviceResponse.Data = results.Select(c=>this._mapper.Map<ApplicationDto>(c)).ToList();
             return serviceResponse;
         }
     }

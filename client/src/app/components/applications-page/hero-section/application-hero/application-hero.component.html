@@ -14,25 +14,25 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let applicant of DUMMYDATA; let x = index">
-          <td>1</td>
+        <tr *ngFor="let applicant of data; let x = index">
+          <td>{{ x + 1 }}</td>
           <td>
             <div class="d-flex align-items-center">
               <div class="ms-3">
                 <p class="fw-bold mb-1">
                   {{ applicant.firstName + " " + applicant.lastName }}
                 </p>
-                <p class="text-muted mb-0">{{ applicant.Email }}</p>
+                <p class="text-muted mb-0">{{ applicant.email }}</p>
               </div>
             </div>
           </td>
           <td>
-            <p class="fw-normal mb-1">{{ applicant.EducationLevel }}</p>
+            <p class="fw-normal mb-1">{{ applicant.educationLevel }}</p>
             <p class="text-muted mb-0">IT department</p>
           </td>
           <td>
             <span class="badge rounded-pill bg-warning text-dark">
-              {{ applicant.Status }}
+              {{ applicant.status }}
             </span>
           </td>
           <!-- <td>Senior</td> -->
@@ -42,6 +42,7 @@
               class="btn btn-link btn-rounded btn-sm fw-bold"
               mdbRipple
               rippleColor="dark"
+              [routerLink]="['/applications', 'edit', applicant.id]"
             >
               Edit
             </button>
@@ -76,7 +77,8 @@
                     class="page-link"
                     href="#"
                     routerLink="/applications"
-                    [queryParams]="{ page: x + 1 }"
+                    [queryParams]="{ page: x + 1, pageSize: 1 }"
+                    (click)="loadPage(x + 1)"
                     >{{ x + 1 }}</a
                   >
                 </li>

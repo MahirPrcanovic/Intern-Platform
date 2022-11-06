@@ -17,6 +17,9 @@ import { ApplicationsPageComponent } from './pages/applications-page/application
 import { ApplicationHeroComponent } from './components/applications-page/hero-section/application-hero/application-hero.component';
 import { ApplicationFormPageComponent } from './pages/application-form-page/application-form-page.component';
 import { FormsModule } from '@angular/forms';
+import { SelectionEditPageComponent } from './pages/selection-edit-page/selection-edit-page.component';
+import { SelectionsPageComponent } from './components/selections-page/selections-page.component';
+import { SelectionsAddPageComponent } from './selections-add-page/selections-add-page.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +35,9 @@ import { FormsModule } from '@angular/forms';
     DashboardHeaderComponent,
     ApplicationsPageComponent,
     ApplicationHeroComponent,
+    SelectionEditPageComponent,
+    SelectionsPageComponent,
+    SelectionsAddPageComponent,
   ],
 
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],

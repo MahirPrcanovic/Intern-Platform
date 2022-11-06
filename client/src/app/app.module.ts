@@ -18,6 +18,9 @@ import { ApplicationHeroComponent } from './components/applications-page/hero-se
 import { ApplicationFormPageComponent } from './pages/application-form-page/application-form-page.component';
 import { FormsModule } from '@angular/forms';
 import { ApplicationEditComponent } from './components/application-edit/application-edit/application-edit.component';
+import { SelectionEditPageComponent } from './pages/selection-edit-page/selection-edit-page.component';
+import { SelectionsPageComponent } from './components/selections-page/selections-page.component';
+import { SelectionsAddPageComponent } from './pages/selections-add-page/selections-add-page.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,12 @@ import { ApplicationEditComponent } from './components/application-edit/applicat
     DashboardHeaderComponent,
     ApplicationsPageComponent,
     ApplicationHeroComponent,
+
     ApplicationEditComponent,
+
+    SelectionEditPageComponent,
+    SelectionsPageComponent,
+    SelectionsAddPageComponent,
   ],
 
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],

@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ApplicationsPageComponent } from './pages/applications-page/applications-page/applications-page.component';
 import { ApplicationFormPageComponent } from './pages/application-form-page/application-form-page.component';
 import { ApplicationEditComponent } from './components/application-edit/application-edit/application-edit.component';
+import { SelectionsPageComponent } from './components/selections-page/selections-page.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent, pathMatch: 'full' },
@@ -23,6 +24,8 @@ const routes: Routes = [
     path: 'applications/edit/:id',
     component: ApplicationEditComponent,
   },
+
+  { path: 'selections', component: SelectionsPageComponent },
 ];
 
 @NgModule({

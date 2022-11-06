@@ -1,14 +1,30 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Application } from '../interfaces/Application';
 import { environment } from 'src/environments/environment';
-import { catchError, throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
 export class ApplicationsService {
   constructor(private http: HttpClient) {}
   postData(postData: Application) {
-    return this.http.post(environment.apiUrl + '/ApplicationForm', postData);
+    return this.http.post(
+      environment.apiUrl + '/api/ApplicationForm',
+      postData
+    );
+  }
+  getAllApplications(queryParams: any) {
+    let params = new HttpParams();
+    params = params.append('page', queryParams.page);
+    params = params.append('pageSize', queryParams.pageSize);
+    if (queryParams.sortBy != '' && queryParams.sortBy) {
+      params = params.append('sortBy', queryParams);
+    }
+    if (queryParams.filter != '' && queryParams.filter) {
+      params = params.append('filter', queryParams.filter);
+    }
+    return this.http.get(environment.apiUrl + '/api/ApplicationForm', {
+      params: params,
+    });
   }
 }

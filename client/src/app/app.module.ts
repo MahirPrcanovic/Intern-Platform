@@ -17,6 +17,7 @@ import { ApplicationsPageComponent } from './pages/applications-page/application
 import { ApplicationHeroComponent } from './components/applications-page/hero-section/application-hero/application-hero.component';
 import { ApplicationFormPageComponent } from './pages/application-form-page/application-form-page.component';
 import { FormsModule } from '@angular/forms';
+import { ApplicationEditComponent } from './components/application-edit/application-edit/application-edit.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { FormsModule } from '@angular/forms';
     DashboardHeaderComponent,
     ApplicationsPageComponent,
     ApplicationHeroComponent,
+    ApplicationEditComponent,
   ],
 
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],

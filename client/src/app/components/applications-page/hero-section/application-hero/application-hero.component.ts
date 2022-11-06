@@ -2,6 +2,15 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Application } from 'src/app/models/Application';
+import { ApplicationsService } from 'src/app/services/applications.service';
+interface Applicant {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  educationLevel: string;
+  status: string;
+}
 
 @Component({
   selector: 'app-application-hero',
@@ -9,9 +18,20 @@ import { Application } from 'src/app/models/Application';
   styleUrls: ['./application-hero.component.css'],
 })
 export class ApplicationHeroComponent implements OnInit, OnDestroy {
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  queryParams = {
+    page: 1,
+    pageSize: 1,
+    sortBy: null,
+    filter: null,
+  };
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private applicationService: ApplicationsService
+  ) {}
 
   DUMMYDATA: Application[] = [];
+  data: Applicant[] = [];
   pagesNumber!: number;
   currentPage = 1;
   qParamsSubscribition!: Subscription;
@@ -21,129 +41,42 @@ export class ApplicationHeroComponent implements OnInit, OnDestroy {
     this.qParamsSubscribition = this.route.queryParams.subscribe(
       (qParams: Params) => {
         this.currentPage = qParams['page'];
+        this.queryParams.page = qParams['page'];
+        this.queryParams.pageSize = qParams['pageSize'];
+        this.queryParams.sortBy = qParams['sortBy'];
+        this.queryParams.filter = qParams['filter'];
+        this.fetchApplications();
       }
     );
-    this.DUMMYDATA = [
-      new Application(
-        1,
-        'Mahir',
-        'Prcanovic',
-        'mahir.prcanovic.20@size.ba',
-        'Bachelor',
-        'Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum',
-        'Lorem ipsum Lorem ipsum Lorem ipsum',
-        'Applied'
-      ),
-      new Application(
-        2,
-        'Adna',
-        'Salcin',
-        'adnasalcin@etf.ba',
-        'Bachelor',
-        'Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum',
-        'Lorem ipsum Lorem ipsum Lorem ipsum',
-        'Applied'
-      ),
-      new Application(
-        3,
-        'Mahir',
-        'Prcanovic',
-        'mahir.prcanovic.20@size.ba',
-        'Bachelor',
-        'Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum',
-        'Lorem ipsum Lorem ipsum Lorem ipsum',
-        'Applied'
-      ),
-      new Application(
-        4,
-        'Adna',
-        'Salcin',
-        'adnasalcin@etf.ba',
-        'Bachelor',
-        'Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum',
-        'Lorem ipsum Lorem ipsum Lorem ipsum',
-        'Applied'
-      ),
-      new Application(
-        5,
-        'Mahir',
-        'Prcanovic',
-        'mahir.prcanovic.20@size.ba',
-        'Bachelor',
-        'Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum',
-        'Lorem ipsum Lorem ipsum Lorem ipsum',
-        'Applied'
-      ),
-      new Application(
-        6,
-        'Adna',
-        'Salcin',
-        'adnasalcin@etf.ba',
-        'Bachelor',
-        'Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum',
-        'Lorem ipsum Lorem ipsum Lorem ipsum',
-        'Applied'
-      ),
-      new Application(
-        7,
-        'Mahir',
-        'Prcanovic',
-        'mahir.prcanovic.20@size.ba',
-        'Bachelor',
-        'Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum',
-        'Lorem ipsum Lorem ipsum Lorem ipsum',
-        'Applied'
-      ),
-      new Application(
-        8,
-        'Adna',
-        'Salcin',
-        'adnasalcin@etf.ba',
-        'Bachelor',
-        'Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum',
-        'Lorem ipsum Lorem ipsum Lorem ipsum',
-        'Applied'
-      ),
-      new Application(
-        9,
-        'Mahir',
-        'Prcanovic',
-        'mahir.prcanovic.20@size.ba',
-        'Bachelor',
-        'Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum',
-        'Lorem ipsum Lorem ipsum Lorem ipsum',
-        'Applied'
-      ),
-      new Application(
-        10,
-        'Adna',
-        'Salcin',
-        'adnasalcin@etf.ba',
-        'Bachelor',
-        'Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum',
-        'Lorem ipsum Lorem ipsum Lorem ipsum',
-        'Applied'
-      ),
-    ];
-    console.log(this.DUMMYDATA.length / 5);
-    this.pagesNumber = this.DUMMYDATA.length / 5;
+  }
+  fetchApplications() {
+    console.log(this.queryParams);
+    this.applicationService
+      .getAllApplications(this.queryParams)
+      .subscribe((response: any) => {
+        this.data = response.data;
+        this.currentPage = 1;
+        console.log(response);
+        this.pagesNumber = response.pagesCount;
+      });
+  }
+  loadPage(num: number) {
+    // this
   }
   goPreviousPage() {
-    if (+this.currentPage === 1) {
+    if (this.queryParams.page === 1) {
       return;
     } else {
-      this.router.navigate(['/applications'], {
-        queryParams: { page: this.currentPage - 1 },
-      });
+      this.queryParams.page -= 1;
+      this.fetchApplications();
     }
   }
   goNextPage() {
-    if (+this.currentPage === this.pagesNumber) {
+    if (this.queryParams.page === this.pagesNumber) {
       return;
     } else {
-      this.router.navigate(['/applications'], {
-        queryParams: { page: +this.currentPage + 1 },
-      });
+      this.queryParams.page = +this.queryParams.page + 1;
+      this.fetchApplications();
     }
   }
   ngOnDestroy(): void {

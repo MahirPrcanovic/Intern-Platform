@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 interface loginData {
   userName: string;
@@ -12,6 +13,6 @@ interface loginData {
 export class LoginService {
   constructor(private http: HttpClient) {}
   login(loginData: loginData) {
-    return this.http.post(environment.apiUrl + '/login', loginData);
+    return this.http.post(environment.apiUrl + '/auth/login', loginData);
   }
 }

@@ -9,6 +9,8 @@ namespace InternshipPlatformAPI.Profiles
         public AutoMapperProfile()
         {
             CreateMap<ApplicationFormDto, Application>();
+            CreateMap<ApplicationDto, Application>();
+            CreateMap<Application, ApplicationDto>();
         }
     }
 }

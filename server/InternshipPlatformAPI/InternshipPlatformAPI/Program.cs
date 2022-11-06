@@ -1,4 +1,5 @@
 using InternshipPlatformAPI.Data;
+using InternshipPlatformAPI.Services;
 using InternshipPlatformAPI.Services.SelectionService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

@@ -7,12 +7,8 @@ import * as AOS from 'aos';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  title = 'client';
-  constructor(private http: HttpClient) {}
+  constructor() {}
   ngOnInit() {
     AOS.init();
-    this.http
-      .get('https://localhost:7213/WeatherForecast')
-      .subscribe((data) => console.log(data));
   }
 }

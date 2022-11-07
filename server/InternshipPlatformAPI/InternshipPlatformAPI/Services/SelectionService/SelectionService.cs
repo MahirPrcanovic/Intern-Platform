@@ -54,10 +54,23 @@ namespace InternshipPlatformAPI.Services.SelectionService
 
         }
 
-        public async Task<ServiceResponse<List<GetSelectionDto>>> GetAllSelections()
+        public async Task<ServiceResponse<List<GetSelectionDto>>> GetAllSelections(string sort)
         {
+            IQueryable<Selection> selections;
+            switch (sort)
+            {
+                case "desc":
+                    selections = _dataContext.Selections.OrderByDescending(s => s.Name);
+                    break;
+                case "asc":
+                    selections = _dataContext.Selections.OrderBy(s => s.Name);
+                    break;
+                default:
+                    selections = _dataContext.Selections;
+                    break;
+            }
             var response = new ServiceResponse<List<GetSelectionDto>>();
-            var  allSelections = await _dataContext.Selections.ToListAsync();
+            var  allSelections = await selections.ToListAsync();
 
             response.Data = allSelections.Select(c => _mapper.Map<GetSelectionDto>(c)).ToList();
             return response;

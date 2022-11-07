@@ -23,10 +23,10 @@ namespace InternshipPlatformAPI.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<ServiceResponse<List<GetSelectionDto>>>> GetAllSelections(int? pageNumber = 1, int? pageSize = 5, string? sort="")
+        public async Task<ActionResult<ServiceResponse<List<GetSelectionDto>>>> GetAllSelections(int? pageNumber = 1, int? pageSize = 5, string? sort="", string? filterBy="")
         {
           
-            return Ok(await _selectionService.GetAllSelections((int)pageNumber, (int)pageSize, sort));
+            return Ok(await _selectionService.GetAllSelections((int)pageNumber, (int)pageSize, sort, filterBy));
         }
 
         [HttpGet("GetSelectionsById/{id}")]

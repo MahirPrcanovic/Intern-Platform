@@ -22,9 +22,9 @@ export class ApplicationHeroComponent implements OnInit, OnDestroy {
   queryParams = {
     page: 1,
     pageSize: 10,
-    sortBy: '',
-    filter: '',
-    filterType: '',
+    sortBy: null,
+    filter: null,
+    filterType: null,
   };
   constructor(
     private route: ActivatedRoute,
@@ -49,6 +49,7 @@ export class ApplicationHeroComponent implements OnInit, OnDestroy {
         this.queryParams.sortBy = qParams['sortBy'];
         this.queryParams.filter = qParams['filter'];
         this.queryParams.filterType = qParams['filterType'];
+        console.log(this.queryParams);
         this.fetchApplications();
       }
     );
@@ -81,26 +82,28 @@ export class ApplicationHeroComponent implements OnInit, OnDestroy {
   }
   formSubmit(f: NgForm) {
     console.log(f.form.value);
-
+    this.queryParams.filterType = f.form.value.filterType;
+    const reqParams: { [key: string]: string | number } = {};
     console.log(f.form.value.filterType);
-    if (
-      f.form.value.sortBy == 'sortBy' &&
-      f.form.value.filter == 'filterBy' &&
-      f.form.value.filterType == ''
-    ) {
-      console.log('Prazni');
-      this.router.navigate(['/applications'], {
-        queryParams: { page: 1, pageSize: 10 },
-      });
-    }
-    this.queryParams.sortBy =
-      f.form.value.sortBy != '' ? f.form.value.sortBy : 'name';
+    this.queryParams.sortBy = f.form.value.sortBy;
     if (f.form.value.filter != '') {
       this.queryParams.filter = f.form.value.filter;
+      reqParams['filter'] = f.form.value.filter;
     }
-    this.queryParams.filterType = f.form.value.filterType;
-    this.router.navigate(['/applications'], { queryParams: this.queryParams });
+    if (f.form.value.sortBy != '') {
+      this.queryParams.sortBy = f.form.value.sortBy;
+      reqParams['sortBy'] = f.form.value.sortBy;
+    }
+    if (f.form.value.filterType != '') {
+      this.queryParams.filterType = f.form.value.filterType;
+      reqParams['filterType'] = f.form.value.filterType;
+    }
+    reqParams['page'] = this.queryParams.page;
+    this.router.navigate(['/applications'], {
+      queryParams: reqParams,
+    });
   }
+
   ngOnDestroy(): void {
     this.qParamsSubscribition.unsubscribe();
   }

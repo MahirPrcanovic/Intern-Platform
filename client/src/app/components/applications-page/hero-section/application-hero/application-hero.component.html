@@ -4,9 +4,10 @@
   <form #form="ngForm" (ngSubmit)="formSubmit(form)">
     <div class="row mb-3">
       <div class="col">
+        <label for="">Sort By</label>
         <!-- <label class="mb-2">Sort by</label> -->
         <select class="form-control" name="sortBy" ngModel>
-          <option value="sortBy" selected>Sort By</option>
+          <!-- <option value="sortBy">Sort By</option> -->
           <option value="name">Name</option>
           <option value="EducationLevel">Education level</option>
           <option value="Status">Status</option>
@@ -15,14 +16,16 @@
     </div>
     <div class="row">
       <div class="col">
+        <label for="">Filter By</label>
         <select class="form-control" name="filterType" ngModel>
-          <option value="filterBy" selected>Filter By</option>
+          <!-- <option value="filterBy" selected>Filter By</option> -->
           <option value="name">Name</option>
           <option value="EducationLevel">Education level</option>
           <option value="Status">Status</option>
         </select>
       </div>
       <div class="col mb-2">
+        <label for=""></label>
         <input
           type="text"
           class="form-control"

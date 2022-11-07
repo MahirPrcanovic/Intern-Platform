@@ -17,6 +17,7 @@ export class ApplicationsService {
     let params = new HttpParams();
     params = params.append('page', queryParams.page);
     params = params.append('pageSize', queryParams.pageSize);
+    // console.log(queryParams);
     if (queryParams.sortBy != '' && queryParams.sortBy) {
       params = params.append('sortBy', queryParams.sortBy);
     }

@@ -54,19 +54,19 @@ namespace InternshipPlatformAPI.Services.SelectionService
 
         }
 
-        public async Task<ServiceResponse<List<GetSelectionDto>>> GetAllSelections(string sort)
+        public async Task<ServiceResponse<List<GetSelectionDto>>> GetAllSelections(int pageNumber, int pageSize, string sort)
         {
             IQueryable<Selection> selections;
             switch (sort)
             {
                 case "desc":
-                    selections = _dataContext.Selections.OrderByDescending(s => s.Name);
+                    selections = _dataContext.Selections.OrderByDescending(s => s.Name).Skip((pageNumber-1)*pageSize).Take(pageSize);
                     break;
                 case "asc":
-                    selections = _dataContext.Selections.OrderBy(s => s.Name);
+                    selections = _dataContext.Selections.OrderBy(s => s.Name).Skip((pageNumber - 1) * pageSize).Take(pageSize);
                     break;
                 default:
-                    selections = _dataContext.Selections;
+                    selections = _dataContext.Selections.Skip((pageNumber - 1) * pageSize).Take(pageSize);
                     break;
             }
             var response = new ServiceResponse<List<GetSelectionDto>>();

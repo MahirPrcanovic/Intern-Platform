@@ -54,10 +54,23 @@ namespace InternshipPlatformAPI.Services.SelectionService
 
         }
 
-        public async Task<ServiceResponse<List<GetSelectionDto>>> GetAllSelections()
+        public async Task<ServiceResponse<List<GetSelectionDto>>> GetAllSelections(int pageNumber, int pageSize, string sort, string filterBy)
         {
+            IQueryable<Selection> selections;
+            switch (sort)
+            {
+                case "desc":
+                    selections = _dataContext.Selections.OrderByDescending(s => s.Name).Skip((pageNumber-1)*pageSize).Take(pageSize).Where(s=>s.Name.Contains(filterBy));
+                    break;
+                case "asc":
+                    selections = _dataContext.Selections.OrderBy(s => s.Name).Skip((pageNumber - 1) * pageSize).Take(pageSize).Where(s => s.Name.Contains(filterBy));
+                    break;
+                default:
+                    selections = _dataContext.Selections.Skip((pageNumber - 1) * pageSize).Take(pageSize).Where(s => s.Name.Contains(filterBy));
+                    break;
+            }
             var response = new ServiceResponse<List<GetSelectionDto>>();
-            var  allSelections = await _dataContext.Selections.ToListAsync();
+            var  allSelections = await selections.ToListAsync();
 
             response.Data = allSelections.Select(c => _mapper.Map<GetSelectionDto>(c)).ToList();
             return response;
@@ -65,11 +78,12 @@ namespace InternshipPlatformAPI.Services.SelectionService
                   
                 
         }
-
+        //selecionDetails
         public async Task<ServiceResponse<GetSelectionDto>> GetSelectionById(Guid selectionId)
         {
             var response = new ServiceResponse<GetSelectionDto>();
-            var singleSelection = await _dataContext.Selections.FirstOrDefaultAsync(i => i.Id.Equals(selectionId));
+            var singleSelection = await _dataContext.Selections.Include(y => y.Applications)
+                .FirstOrDefaultAsync(i => i.Id.Equals(selectionId));
             if(singleSelection == null) //ako ne pronadje odgovarajucu selekciju pod tim id-em
             {
                 response.Success= false;

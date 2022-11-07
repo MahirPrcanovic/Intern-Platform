@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FullApplication } from 'src/app/interfaces/FullApplication';
 import { ApplicationsService } from 'src/app/services/applications.service';
@@ -13,8 +13,14 @@ import { ApplicationsService } from 'src/app/services/applications.service';
 export class ApplicationEditComponent implements OnInit, OnDestroy {
   constructor(
     private applicationService: ApplicationsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
+  formValid = true;
+  loading = false;
+  submitted = false;
+  successfull = false;
+  message = '';
   applicationId: string = '';
   applicationData: FullApplication = {
     firstName: 'string',
@@ -44,12 +50,30 @@ export class ApplicationEditComponent implements OnInit, OnDestroy {
       });
   }
   onSubmit(form: NgForm) {
+    this.loading = true;
+    this.submitted = true;
     console.log(form.form.value);
     this.applicationService
       .updateApplication(this.applicationId, form.form.value.status)
-      .subscribe((res) => {
-        console.log(res);
-      });
+      .subscribe(
+        (res: any) => {
+          this.loading = false;
+          this.successfull = res.success;
+        },
+        (error) => {
+          this.loading = false;
+          this.successfull = false;
+          this.message = error.message;
+        }
+      );
+  }
+  goBack() {
+    this.router.navigate(['applications']);
+  }
+  tryAgain() {
+    this.submitted = false;
+    this.loading = false;
+    this.successfull = false;
   }
   ngOnDestroy(): void {
     this.paramsSubscribition.unsubscribe();

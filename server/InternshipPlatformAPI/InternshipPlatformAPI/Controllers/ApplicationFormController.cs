@@ -20,10 +20,10 @@ namespace InternshipPlatformAPI.Controllers
             this._applicationService = applicationService;
         }
         [HttpGet]
-        public async Task<ActionResult<ServiceResponse<List<ApplicationDto>>>> GetApplications(int? page=1, int? pageSize=10, string? sortBy="name",string? filter="")
+        public async Task<ActionResult<ServiceResponse<List<ApplicationDto>>>> GetApplications(int? page=1, int? pageSize=10, string? sortBy="name",string? filter="", string? filterType="name")
         {
             
-            return Ok(await this._applicationService.GetApplications((int)page, (int)pageSize, sortBy, filter));
+            return Ok(await this._applicationService.GetApplications((int)page, (int)pageSize, sortBy, filter, filterType));
         }
 
         [HttpPost]

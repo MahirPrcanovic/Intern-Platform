@@ -97,3 +97,13 @@ C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\Int
 C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\InternshipPlatformAPI\InternshipPlatformAPI\bin\Debug\net6.0\Newtonsoft.Json.dll
 C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\InternshipPlatformAPI\InternshipPlatformAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\InternshipPlatformAPI\InternshipPlatformAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\AdnaSalcin\InternApp\server\InternshipPlatformAPI\InternshipPlatformAPI\obj\Debug\net6.0\InternshipPlatformAPI.csproj.AssemblyReference.cache
+C:\Users\AdnaSalcin\InternApp\server\InternshipPlatformAPI\InternshipPlatformAPI\obj\Debug\net6.0\InternshipPlatformAPI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\AdnaSalcin\InternApp\server\InternshipPlatformAPI\InternshipPlatformAPI\obj\Debug\net6.0\InternshipPlatformAPI.AssemblyInfoInputs.cache
+C:\Users\AdnaSalcin\InternApp\server\InternshipPlatformAPI\InternshipPlatformAPI\obj\Debug\net6.0\InternshipPlatformAPI.AssemblyInfo.cs
+C:\Users\AdnaSalcin\InternApp\server\InternshipPlatformAPI\InternshipPlatformAPI\obj\Debug\net6.0\InternshipPlatformAPI.csproj.CoreCompileInputs.cache
+C:\Users\AdnaSalcin\InternApp\server\InternshipPlatformAPI\InternshipPlatformAPI\obj\Debug\net6.0\InternshipPlatformAPI.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\AdnaSalcin\InternApp\server\InternshipPlatformAPI\InternshipPlatformAPI\obj\Debug\net6.0\InternshipPlatformAPI.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\AdnaSalcin\InternApp\server\InternshipPlatformAPI\InternshipPlatformAPI\obj\Debug\net6.0\InternshipPlatformAPI.dll
+C:\Users\AdnaSalcin\InternApp\server\InternshipPlatformAPI\InternshipPlatformAPI\obj\Debug\net6.0\refint\InternshipPlatformAPI.dll
+C:\Users\AdnaSalcin\InternApp\server\InternshipPlatformAPI\InternshipPlatformAPI\obj\Debug\net6.0\InternshipPlatformAPI.pdb

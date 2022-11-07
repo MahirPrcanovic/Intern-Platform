@@ -97,6 +97,8 @@ export class SelectionsPageComponent implements OnInit, OnDestroy {
       });
 
     }
+  
+
     getParams(num: number){
       return {...this.params, pageNumber : num};
     }

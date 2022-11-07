@@ -1,11 +1,14 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { catchError, Observable } from "rxjs";
 import { environment } from "src/environments/environment";
+import { UpdateSelection } from "../interfaces/UpdateSelection";
 @Injectable({
     providedIn: 'root',
   })
 export class SelectionsService {
     constructor(private http: HttpClient) {}
+
     postData(postData: Selection){
       return this.http.post(
         environment.apiUrl+'api/Selections/AddNewSelection',
@@ -30,5 +33,13 @@ export class SelectionsService {
 
     }
 
+    getSingleSelection(id: string){
+      // return this.http.get(environment.apiUrl + 'api/Selections/EditSelection' + id);
+    }
+
+    updateSelection(selection : UpdateSelection) {
+      return this.http.put(environment.apiUrl + 'api/Selections/EditSelection' + selection.Id, selection);
+      
+    }
 
 }

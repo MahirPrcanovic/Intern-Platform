@@ -40,4 +40,16 @@ export class ApplicationsService {
       Status: status,
     });
   }
+  addApplicationComment(id: string, comment: string) {
+    const postData = {
+      id: id,
+      userId: 'c9aaa4e7-666a-45ab-a642-da834492ca8a',
+      commentText: comment,
+    };
+    console.log(postData);
+    return this.http.post(
+      environment.apiUrl + '/api/ApplicationForm/' + id,
+      postData
+    );
+  }
 }

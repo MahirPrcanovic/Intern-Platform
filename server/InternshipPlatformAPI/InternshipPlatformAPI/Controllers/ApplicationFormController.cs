@@ -2,7 +2,10 @@
 using InternshipPlatformAPI.Models;
 using InternshipPlatformAPI.Services;
 using Microsoft.AspNetCore.Authorization;
+<<<<<<< HEAD
 using Microsoft.AspNetCore.JsonPatch;
+=======
+>>>>>>> e7519704f7340dfcda000f239e641eda8d6bafaf
 using Microsoft.AspNetCore.Mvc;
 
 namespace InternshipPlatformAPI.Controllers
@@ -38,6 +41,7 @@ namespace InternshipPlatformAPI.Controllers
             }
             return BadRequest(serviceR);
         }
+<<<<<<< HEAD
         [HttpGet("{id}")]
         public async Task<ActionResult<ServiceResponse<Application>>> GetApplicationById(Guid id)
         {
@@ -61,6 +65,8 @@ namespace InternshipPlatformAPI.Controllers
         {
             return Ok(await this._applicationService.AddApplicationComment(userData));
         }
+=======
+>>>>>>> e7519704f7340dfcda000f239e641eda8d6bafaf
 
     }
 }

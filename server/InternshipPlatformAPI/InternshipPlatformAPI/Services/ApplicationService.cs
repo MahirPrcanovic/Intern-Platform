@@ -2,9 +2,20 @@
 using InternshipPlatformAPI.Data;
 using InternshipPlatformAPI.Dtos;
 using InternshipPlatformAPI.Models;
+<<<<<<< HEAD
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+=======
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient.Server;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Nodes;
+
+>>>>>>> e7519704f7340dfcda000f239e641eda8d6bafaf
 namespace InternshipPlatformAPI.Services
 {
     public class ApplicationService : IApplicationService
@@ -57,7 +68,10 @@ namespace InternshipPlatformAPI.Services
                     applications = this._dataContext.Applications;
                     break;
             }
+<<<<<<< HEAD
             serviceResponse.PagesCount = (await applications.CountAsync() / pageSize) + 1;
+=======
+>>>>>>> e7519704f7340dfcda000f239e641eda8d6bafaf
             switch (sortBy)
             {
                 case "name":
@@ -75,6 +89,7 @@ namespace InternshipPlatformAPI.Services
             }
       
             var results = await applications.ToListAsync();
+<<<<<<< HEAD
            
             serviceResponse.Data = results.Select(c=>this._mapper.Map<ApplicationDto>(c)).ToList();
             return serviceResponse;
@@ -154,5 +169,11 @@ namespace InternshipPlatformAPI.Services
             return serviceResponse;
             
         }
+=======
+            serviceResponse.PagesCount = (results.Count() /pageSize)+1;
+            serviceResponse.Data = results.Select(c=>this._mapper.Map<ApplicationDto>(c)).ToList();
+            return serviceResponse;
+        }
+>>>>>>> e7519704f7340dfcda000f239e641eda8d6bafaf
     }
 }

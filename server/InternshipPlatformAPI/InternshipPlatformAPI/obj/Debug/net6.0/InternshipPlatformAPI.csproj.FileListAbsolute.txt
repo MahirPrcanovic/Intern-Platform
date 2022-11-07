@@ -97,11 +97,14 @@ C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\Int
 C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\InternshipPlatformAPI\InternshipPlatformAPI\bin\Debug\net6.0\Newtonsoft.Json.dll
 C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\InternshipPlatformAPI\InternshipPlatformAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\InternshipPlatformAPI\InternshipPlatformAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+<<<<<<< HEAD
 <<<<<<< .merge_file_RjeeDU
 C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\InternshipPlatformAPI\InternshipPlatformAPI\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\InternshipPlatformAPI\InternshipPlatformAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\InternshipPlatformAPI\InternshipPlatformAPI\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
 =======
+=======
+>>>>>>> e7519704f7340dfcda000f239e641eda8d6bafaf
 C:\Users\AdnaSalcin\InternApp\server\InternshipPlatformAPI\InternshipPlatformAPI\obj\Debug\net6.0\InternshipPlatformAPI.csproj.AssemblyReference.cache
 C:\Users\AdnaSalcin\InternApp\server\InternshipPlatformAPI\InternshipPlatformAPI\obj\Debug\net6.0\InternshipPlatformAPI.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\AdnaSalcin\InternApp\server\InternshipPlatformAPI\InternshipPlatformAPI\obj\Debug\net6.0\InternshipPlatformAPI.AssemblyInfoInputs.cache
@@ -174,4 +177,7 @@ C:\Users\AdnaSalcin\InternApp\server\InternshipPlatformAPI\InternshipPlatformAPI
 C:\Users\AdnaSalcin\InternApp\server\InternshipPlatformAPI\InternshipPlatformAPI\obj\Debug\net6.0\InternshipPlatformAPI.csproj.CopyComplete
 C:\Users\AdnaSalcin\InternApp\server\InternshipPlatformAPI\InternshipPlatformAPI\obj\Debug\net6.0\InternshipPlatformAPI.genruntimeconfig.cache
 C:\Users\AdnaSalcin\InternApp\server\InternshipPlatformAPI\InternshipPlatformAPI\obj\Debug\net6.0\ref\InternshipPlatformAPI.dll
+<<<<<<< HEAD
 >>>>>>> .merge_file_vW7cRj
+=======
+>>>>>>> e7519704f7340dfcda000f239e641eda8d6bafaf

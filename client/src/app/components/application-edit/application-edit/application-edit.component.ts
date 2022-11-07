@@ -4,7 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FullApplication } from 'src/app/interfaces/FullApplication';
 import { ApplicationsService } from 'src/app/services/applications.service';
+<<<<<<< HEAD
 import { ApplicantComment } from 'src/app/interfaces/ApplicantComment';
+=======
+
+>>>>>>> e7519704f7340dfcda000f239e641eda8d6bafaf
 @Component({
   selector: 'app-application-edit',
   templateUrl: './application-edit.component.html',
@@ -21,7 +25,10 @@ export class ApplicationEditComponent implements OnInit, OnDestroy {
   submitted = false;
   successfull = false;
   message = '';
+<<<<<<< HEAD
   acomments: ApplicantComment[] = [];
+=======
+>>>>>>> e7519704f7340dfcda000f239e641eda8d6bafaf
   applicationId: string = '';
   applicationData: FullApplication = {
     firstName: 'string',
@@ -39,17 +46,26 @@ export class ApplicationEditComponent implements OnInit, OnDestroy {
   paramsSubscribition!: Subscription;
   ngOnInit(): void {
     this.paramsSubscribition = this.route.params.subscribe((params) => {
+<<<<<<< HEAD
       this.applicationId = params['id'];
     });
     this.fetchData(this.applicationId);
   }
   fetchData(applicationId: string) {
+=======
+      // console.log(params['id']);
+      this.applicationId = params['id'];
+    });
+>>>>>>> e7519704f7340dfcda000f239e641eda8d6bafaf
     this.applicationService
       .getSingleApplication(this.applicationId)
       .subscribe((res: any) => {
         console.log(res);
         this.applicationData = res.data;
+<<<<<<< HEAD
         this.acomments = this.applicationData.comments;
+=======
+>>>>>>> e7519704f7340dfcda000f239e641eda8d6bafaf
         this.ngSelect = this.applicationData.status || '';
       });
   }
@@ -85,7 +101,10 @@ export class ApplicationEditComponent implements OnInit, OnDestroy {
       .addApplicationComment(this.applicationId, f.form.value.comment)
       .subscribe((response) => {
         console.log(response);
+<<<<<<< HEAD
         this.fetchData(this.applicationId);
+=======
+>>>>>>> e7519704f7340dfcda000f239e641eda8d6bafaf
       });
   }
   ngOnDestroy(): void {

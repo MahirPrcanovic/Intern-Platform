@@ -12,7 +12,7 @@ namespace InternshipPlatformAPI.Models
         [EmailAddress]
         public string Email { get; set; } = string.Empty;
         [Required]
-        public string EducationLevel { get; set; } = string.Empty;
+        public string EducationLevel { get; set; } = String.Empty;
         [Required]
         [MaxLength(300)]
         public string CoverLetter { get; set; } = string.Empty;

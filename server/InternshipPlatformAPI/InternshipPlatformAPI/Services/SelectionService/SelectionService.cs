@@ -65,11 +65,12 @@ namespace InternshipPlatformAPI.Services.SelectionService
                   
                 
         }
-
+        //selecionDetails
         public async Task<ServiceResponse<GetSelectionDto>> GetSelectionById(Guid selectionId)
         {
             var response = new ServiceResponse<GetSelectionDto>();
-            var singleSelection = await _dataContext.Selections.FirstOrDefaultAsync(i => i.Id.Equals(selectionId));
+            var singleSelection = await _dataContext.Selections.Include(y => y.Applications)
+                .FirstOrDefaultAsync(i => i.Id.Equals(selectionId));
             if(singleSelection == null) //ako ne pronadje odgovarajucu selekciju pod tim id-em
             {
                 response.Success= false;

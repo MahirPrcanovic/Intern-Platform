@@ -1,6 +1,47 @@
 <div class="container">
   <h1 class="f4 text-center mt-5">Welcome to Dashboard!</h1>
   <h1 class="f4 text-center">Applications</h1>
+  <form #form="ngForm" (ngSubmit)="formSubmit(form)">
+    <div class="row mb-3">
+      <div class="col">
+        <label for="">Sort By</label>
+        <!-- <label class="mb-2">Sort by</label> -->
+        <select class="form-control" name="sortBy" ngModel>
+          <!-- <option value="sortBy">Sort By</option> -->
+          <option value="name">Name</option>
+          <option value="EducationLevel">Education level</option>
+          <option value="Status">Status</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label for="">Filter By</label>
+        <select class="form-control" name="filterType" ngModel>
+          <!-- <option value="filterBy" selected>Filter By</option> -->
+          <option value="name">Name</option>
+          <option value="EducationLevel">Education level</option>
+          <option value="Status">Status</option>
+        </select>
+      </div>
+      <div class="col mb-2">
+        <label for=""></label>
+        <input
+          type="text"
+          class="form-control"
+          name="filter"
+          ngModel
+          placeholder="filter...."
+        />
+      </div>
+    </div>
+    <button
+      class="btn btn-primary col-2 align-items-center justify-content-center"
+      type="submit"
+    >
+      Find
+    </button>
+  </form>
   <div class="table-responsive">
     <table class="table align-middle mb-0 bg-white mt-5 table-bordered">
       <thead class="bg-light">
@@ -76,9 +117,8 @@
                   <a
                     class="page-link"
                     href="#"
+                    [queryParams]="getParams(x + 1)"
                     routerLink="/applications"
-                    [queryParams]="{ page: x + 1, pageSize: 1 }"
-                    (click)="loadPage(x + 1)"
                     >{{ x + 1 }}</a
                   >
                 </li>

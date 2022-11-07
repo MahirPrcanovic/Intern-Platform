@@ -17,12 +17,17 @@ export class ApplicationsService {
     let params = new HttpParams();
     params = params.append('page', queryParams.page);
     params = params.append('pageSize', queryParams.pageSize);
+    // console.log(queryParams);
     if (queryParams.sortBy != '' && queryParams.sortBy) {
-      params = params.append('sortBy', queryParams);
+      params = params.append('sortBy', queryParams.sortBy);
     }
     if (queryParams.filter != '' && queryParams.filter) {
       params = params.append('filter', queryParams.filter);
     }
+    if (queryParams.filterType != '' && queryParams.filterType) {
+      params = params.append('filterType', queryParams.filterType);
+    }
+    console.log(params);
     return this.http.get(environment.apiUrl + '/api/ApplicationForm', {
       params: params,
     });

@@ -1,6 +1,7 @@
 ﻿using InternshipPlatformAPI.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace InternshipPlatformAPI.Data
 {

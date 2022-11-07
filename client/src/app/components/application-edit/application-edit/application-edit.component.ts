@@ -45,6 +45,11 @@ export class ApplicationEditComponent implements OnInit, OnDestroy {
   }
   onSubmit(form: NgForm) {
     console.log(form.form.value);
+    this.applicationService
+      .updateApplication(this.applicationId, form.form.value.status)
+      .subscribe((res) => {
+        console.log(res);
+      });
   }
   ngOnDestroy(): void {
     this.paramsSubscribition.unsubscribe();

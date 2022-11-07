@@ -35,4 +35,9 @@ export class ApplicationsService {
   getSingleApplication(id: string) {
     return this.http.get(environment.apiUrl + '/api/ApplicationForm/' + id);
   }
+  updateApplication(id: string, status: string) {
+    return this.http.put(environment.apiUrl + '/api/ApplicationForm/' + id, {
+      Status: status,
+    });
+  }
 }

@@ -32,7 +32,4 @@ export class ApplicationsService {
       params: params,
     });
   }
-  getSingleApplication(id: string) {
-    return this.http.get(environment.apiUrl + '/api/ApplicationForm/' + id);
-  }
 }

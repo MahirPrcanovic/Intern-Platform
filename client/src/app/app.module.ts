@@ -20,7 +20,9 @@ import { FormsModule } from '@angular/forms';
 import { ApplicationEditComponent } from './components/application-edit/application-edit/application-edit.component';
 import { SelectionEditPageComponent } from './pages/selection-edit-page/selection-edit-page.component';
 import { SelectionsPageComponent } from './components/selections-page/selections-page.component';
-import { SelectionsAddPageComponent } from './pages/selections-add-page/selections-add-page.component';
+import { SelectionsAddPageComponent } from 'src/app/pages/selections-add-page/selections-add-page.component';
+
+
 
 @NgModule({
   declarations: [

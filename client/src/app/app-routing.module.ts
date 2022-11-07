@@ -7,6 +7,7 @@ import { ApplicationsPageComponent } from './pages/applications-page/application
 import { ApplicationFormPageComponent } from './pages/application-form-page/application-form-page.component';
 import { ApplicationEditComponent } from './components/application-edit/application-edit/application-edit.component';
 import { SelectionsPageComponent } from './components/selections-page/selections-page.component';
+import { SelectionsAddPageComponent } from './pages/selections-add-page/selections-add-page.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent, pathMatch: 'full' },
@@ -26,6 +27,10 @@ const routes: Routes = [
   },
 
   { path: 'selections', component: SelectionsPageComponent },
+
+  { path:'addNewSelection',
+    component: SelectionsAddPageComponent
+  }
 ];
 
 @NgModule({

@@ -1,10 +1,16 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Selection } from 'src/app/models/Selection';
-
+import { SelectionsService } from 'src/app/services/selections.service';
+import { NgForm } from '@angular/forms';
+interface Selekcija {
+  id: string;
+  name: string;
+  startDate: Date;
+  endDate: Date;
+  description: string;
+}
 
 @Component({
   selector: 'app-selections-page',
@@ -12,127 +18,91 @@ import { Selection } from 'src/app/models/Selection';
   styleUrls: ['./selections-page.component.css']
 })
 export class SelectionsPageComponent implements OnInit, OnDestroy {
-  constructor(private route: ActivatedRoute, private router: Router) {}
-  Datum : Date = new Date();
+  queryParams = {
+    pageNumber : 1,
+    pageSize : 5,
+    sort: null,
+    filterBy: null,
+  };
+
+  constructor(
+    private route: ActivatedRoute, 
+    private router: Router, 
+    private selectionService: SelectionsService
+    ) {}
+  params: { [key: string]: string | number} = {};
   DUMMYDATA: Selection[] = [];
+  data : Selekcija[] = [];
   pagesNumber!: number;
   currentPage = 1;
   qParamsSubscribition!: Subscription;
-  numberOfPostsToFetch = 10;
+  numberOfPostsToFetch = 5;
   ngOnInit(): void {
-    this.currentPage = this.route.snapshot.queryParams['page'];
+    //this.currentPage = this.route.snapshot.queryParams['page'];
     this.qParamsSubscribition = this.route.queryParams.subscribe(
       (qParams: Params) => {
-        this.currentPage = qParams['page'];
+        this.queryParams.pageNumber = qParams['pageNumber'] || 1;
+        this.queryParams.pageSize = qParams['pageSize'] || 5;
+        this.queryParams.sort = qParams['sort'];
+        this.queryParams.filterBy = qParams['filterBy'];
+        this.fetchSelections();
+
       }
     );
-    this.DUMMYDATA = [
-      new Selection(
-        1,
-        'Interns2022',
-        this.Datum,
-        this.Datum,
-        'Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum',
-        
-      ),
-      new Selection(
-        2,
-        'Interns2022',
-        this.Datum,
-        this.Datum,
-        'Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum',
-        
-      ),
-      new Selection(
-        3,
-        'Interns2022',
-        this.Datum,
-        this.Datum,
-        'Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum',
-        
-      ),
-      new Selection(
-        4,
-        'Interns2022',
-        this.Datum,
-        this.Datum,
-        'Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum',
-        
-      ),
-      new Selection(
-        5,
-        'Interns2022',
-        this.Datum,
-        this.Datum,
-        'Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum',
-        
-      ),
-      new Selection(
-        6,
-        'Interns2022',
-        this.Datum,
-        this.Datum,
-        'Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum',
-        
-      ),
-      new Selection(
-        7,
-        'Interns2022',
-        this.Datum,
-        this.Datum,
-        'Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum',
-        
-      ),
-      new Selection(
-        8,
-        'Interns2022',
-        this.Datum,
-        this.Datum,
-        'Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum',
-        
-      ),
-      new Selection(
-        9,
-        'Interns2022',
-        this.Datum,
-        this.Datum,
-        'Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum',
-        
-      ),
-      new Selection(
-        10,
-        'Interns2022',
-        this.Datum,
-        this.Datum,
-        'Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum',
-        
-      ),
-     
-   
-    ];
-    console.log(this.DUMMYDATA.length / 5);
-    this.pagesNumber = this.DUMMYDATA.length / 5;
   }
-  goPreviousPage() {
-    if (+this.currentPage === 1) {
-      return;
-    } else {
-      this.router.navigate(['/selections'], {
-        queryParams: { page: this.currentPage - 1 },
+    fetchSelections(){
+      this.selectionService.getAllSelections(this.queryParams)
+      .subscribe((response: any) =>{
+        this.data = response.data;
+        this.currentPage = 1;
+        console.log(response);
+        this.pagesNumber = response.pagesCount;        
       });
     }
-  }
-  goNextPage() {
-    if (+this.currentPage === this.pagesNumber) {
-      return;
-    } else {
-      this.router.navigate(['/selections'], {
-        queryParams: { page: +this.currentPage + 1 },
-      });
+    goToPreviousPage(){
+        if(this.queryParams.pageNumber === 1){
+          return;
+        } else {
+          this.queryParams.pageNumber -= 1;
+          this.fetchSelections();
+        }
     }
-  }
-  ngOnDestroy(): void {
-    this.qParamsSubscribition.unsubscribe();
-  }
+
+    goNextPage(){
+      if(this.queryParams.pageNumber === this.pagesNumber){
+        return;
+      }
+      else{
+        this.queryParams.pageNumber =+this.queryParams.pageNumber + 1;
+        this.fetchSelections();
+      }
+    }
+
+    formSubmit(f:NgForm){
+      console.log(f.form.value);
+      const reqParams: {[key: string]: string | number} = {};
+      if(f.form.value.filterBy != ''){
+        this.queryParams.filterBy = f.form.value.filterBy;
+        reqParams['filterBy'] = f.form.value.filterBy;
+      }
+      if(f.form.value.sort !=''){
+        this.queryParams.sort = f.form.value.sort;
+        reqParams['sort'] = f.form.value.sort;
+
+      }
+      reqParams['pageNumber'] = 1;
+      this.params = reqParams;
+      this.router.navigate(['/selections'],{
+        queryParams: reqParams,
+      });
+
+    }
+    getParams(num: number){
+      return {...this.params, pageNumber : num};
+    }
+
+    ngOnDestroy(): void {
+      this.qParamsSubscribition.unsubscribe();
+    }
 }
 

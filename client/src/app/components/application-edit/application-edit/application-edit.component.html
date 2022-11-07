@@ -7,13 +7,8 @@
   </div>
 </div>
 <div class="container">
-<<<<<<< HEAD
   <div class="col mt-5 justify-content-center d-flex gap-5">
     <form (ngSubmit)="onSubmit(f)" #f="ngForm" *ngIf="!submitted" class="col-4">
-=======
-  <div class="col-md-4 mt-5 col justify-content-center">
-    <form (ngSubmit)="onSubmit(f)" #f="ngForm" *ngIf="!submitted">
->>>>>>> e7519704f7340dfcda000f239e641eda8d6bafaf
       <div class="form-group">
         <label for="exampleFormControlInput1">First name</label>
         <input
@@ -96,7 +91,6 @@
         </div>
       </div>
     </form>
-<<<<<<< HEAD
     <div class="mt-5">
       <div class="d-flex-col">
         <div class="card mb-4" *ngFor="let comment of acomments">
@@ -134,25 +128,6 @@
         </div>
       </form>
     </div>
-=======
-    <form #commForm="ngForm" (ngSubmit)="addComment(commForm)">
-      <div class="form-group d-flex gap-3 mt-3">
-        <!-- <label for="">Comment Text</label> -->
-        <input
-          required
-          type="text"
-          class="form-control w-100"
-          id="exampleFormControlInput1"
-          placeholder="Enter your comment here."
-          ngModel
-          name="comment"
-        />
-        <div class="text-center text-lg-start">
-          <button type="submit" class="btn btn-primary">Add</button>
-        </div>
-      </div>
-    </form>
->>>>>>> e7519704f7340dfcda000f239e641eda8d6bafaf
   </div>
 
   <div class="col mt-5" *ngIf="successfull && submitted && !loading">

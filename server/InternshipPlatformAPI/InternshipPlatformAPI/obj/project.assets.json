@@ -109,7 +109,6 @@
           }
         }
       },
-<<<<<<< HEAD
       "Microsoft.AspNetCore.JsonPatch/6.0.10": {
         "type": "package",
         "dependencies": {
@@ -148,8 +147,6 @@
           "Microsoft.AspNetCore.App"
         ]
       },
-=======
->>>>>>> e7519704f7340dfcda000f239e641eda8d6bafaf
       "Microsoft.CSharp/4.7.0": {
         "type": "package",
         "compile": {
@@ -853,7 +850,6 @@
           }
         }
       },
-<<<<<<< HEAD
       "Newtonsoft.Json.Bson/1.0.2": {
         "type": "package",
         "dependencies": {
@@ -870,8 +866,6 @@
           }
         }
       },
-=======
->>>>>>> e7519704f7340dfcda000f239e641eda8d6bafaf
       "Swashbuckle.AspNetCore/6.2.3": {
         "type": "package",
         "dependencies": {
@@ -1399,7 +1393,6 @@
         "microsoft.aspnetcore.identity.entityframeworkcore.nuspec"
       ]
     },
-<<<<<<< HEAD
     "Microsoft.AspNetCore.JsonPatch/6.0.10": {
       "sha512": "d/TRLC4nrlkMZChda9swuv1zKn33yXVxy5xz6CEaSPelpiLQXV5oCjN5zot6MF4TGDuf5N2px75j2rUghkkW6Q==",
       "type": "package",
@@ -1437,11 +1430,6 @@
     "Microsoft.CSharp/4.7.0": {
       "sha512": "pTj+D3uJWyN3My70i2Hqo+OXixq3Os2D1nJ2x92FFo6sk8fYS1m1WLNTs0Dc1uPaViH0YvEEwvzddQ7y4rhXmA==",
       "type": "package",
-=======
-    "Microsoft.CSharp/4.7.0": {
-      "sha512": "pTj+D3uJWyN3My70i2Hqo+OXixq3Os2D1nJ2x92FFo6sk8fYS1m1WLNTs0Dc1uPaViH0YvEEwvzddQ7y4rhXmA==",
-      "type": "package",
->>>>>>> e7519704f7340dfcda000f239e641eda8d6bafaf
       "path": "microsoft.csharp/4.7.0",
       "files": [
         ".nupkg.metadata",
@@ -2447,7 +2435,6 @@
         "packageIcon.png"
       ]
     },
-<<<<<<< HEAD
     "Newtonsoft.Json.Bson/1.0.2": {
       "sha512": "QYFyxhaABwmq3p/21VrZNYvCg3DaEoN/wUuw5nmfAf0X3HLjgupwhkEWdgfb9nvGAUIv3osmZoD3kKl4jxEmYQ==",
       "type": "package",
@@ -2469,8 +2456,6 @@
         "newtonsoft.json.bson.nuspec"
       ]
     },
-=======
->>>>>>> e7519704f7340dfcda000f239e641eda8d6bafaf
     "Swashbuckle.AspNetCore/6.2.3": {
       "sha512": "cnzQDn0Le+hInsw2SYwlOhOCPXpYi/szcvnyqZJ12v+QyrLBwAmWXBg6RIyHB18s/mLeywC+Rg2O9ndz0IUNYQ==",
       "type": "package",
@@ -3299,24 +3284,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\AdnaSalcin\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\MahirPrcanovic\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\AdnaSalcin\\InternApp\\server\\InternshipPlatformAPI\\InternshipPlatformAPI\\InternshipPlatformAPI.csproj",
+      "projectUniqueName": "C:\\Users\\MahirPrcanovic\\OneDrive - Maestral Solutions\\Desktop\\Project\\server\\InternshipPlatformAPI\\InternshipPlatformAPI\\InternshipPlatformAPI.csproj",
       "projectName": "InternshipPlatformAPI",
-      "projectPath": "C:\\Users\\AdnaSalcin\\InternApp\\server\\InternshipPlatformAPI\\InternshipPlatformAPI\\InternshipPlatformAPI.csproj",
-      "packagesPath": "C:\\Users\\AdnaSalcin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\AdnaSalcin\\InternApp\\server\\InternshipPlatformAPI\\InternshipPlatformAPI\\obj\\",
+      "projectPath": "C:\\Users\\MahirPrcanovic\\OneDrive - Maestral Solutions\\Desktop\\Project\\server\\InternshipPlatformAPI\\InternshipPlatformAPI\\InternshipPlatformAPI.csproj",
+      "packagesPath": "C:\\Users\\MahirPrcanovic\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\MahirPrcanovic\\OneDrive - Maestral Solutions\\Desktop\\Project\\server\\InternshipPlatformAPI\\InternshipPlatformAPI\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\AdnaSalcin\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\MahirPrcanovic\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3324,7 +3304,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

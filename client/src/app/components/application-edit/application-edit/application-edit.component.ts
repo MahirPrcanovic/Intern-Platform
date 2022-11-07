@@ -75,6 +75,14 @@ export class ApplicationEditComponent implements OnInit, OnDestroy {
     this.loading = false;
     this.successfull = false;
   }
+  addComment(f: NgForm) {
+    console.log(f.form.value.comment);
+    this.applicationService
+      .addApplicationComment(this.applicationId, f.form.value.comment)
+      .subscribe((response) => {
+        console.log(response);
+      });
+  }
   ngOnDestroy(): void {
     this.paramsSubscribition.unsubscribe();
   }

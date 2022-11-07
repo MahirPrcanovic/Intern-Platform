@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { FullApplication } from 'src/app/interfaces/FullApplication';
 import { ApplicationsService } from 'src/app/services/applications.service';
 import { ApplicantComment } from 'src/app/interfaces/ApplicantComment';
+
 @Component({
   selector: 'app-application-edit',
   templateUrl: './application-edit.component.html',

@@ -17,8 +17,10 @@ namespace InternshipPlatformAPI.Profiles
             CreateMap<AddSelectionDto, Selection>();
             CreateMap<Selection, GetSelectionDto>();
             CreateMap<Application,AddApplicantDto>();
+
             CreateMap<ApplicationCommentDto,Comment>();
          
+
         }
     }
 }

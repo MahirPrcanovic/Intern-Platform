@@ -3,7 +3,6 @@ using InternshipPlatformAPI.Services;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-
 using InternshipPlatformAPI.Services.SelectionService;
 
 using Microsoft.AspNetCore.Identity;

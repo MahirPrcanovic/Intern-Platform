@@ -31,7 +31,7 @@ export class ApplicationHeroComponent implements OnInit, OnDestroy {
     private router: Router,
     private applicationService: ApplicationsService
   ) {}
-
+  params: { [key: string]: string | number } = {};
   DUMMYDATA: Application[] = [];
   data: Applicant[] = [];
   pagesNumber!: number;
@@ -88,6 +88,7 @@ export class ApplicationHeroComponent implements OnInit, OnDestroy {
     this.queryParams.sortBy = f.form.value.sortBy;
     if (f.form.value.filter != '') {
       this.queryParams.filter = f.form.value.filter;
+      // reqParams['page'] = 1;
       reqParams['filter'] = f.form.value.filter;
     }
     if (f.form.value.sortBy != '') {
@@ -98,12 +99,15 @@ export class ApplicationHeroComponent implements OnInit, OnDestroy {
       this.queryParams.filterType = f.form.value.filterType;
       reqParams['filterType'] = f.form.value.filterType;
     }
-    reqParams['page'] = this.queryParams.page;
+    reqParams['page'] = 1;
+    this.params = reqParams;
     this.router.navigate(['/applications'], {
       queryParams: reqParams,
     });
   }
-
+  getParams(num: number) {
+    return { ...this.params, page: num };
+  }
   ngOnDestroy(): void {
     this.qParamsSubscribition.unsubscribe();
   }

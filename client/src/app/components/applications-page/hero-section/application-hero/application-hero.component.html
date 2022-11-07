@@ -117,8 +117,8 @@
                   <a
                     class="page-link"
                     href="#"
+                    [queryParams]="getParams(x + 1)"
                     routerLink="/applications"
-                    [queryParams]="{ page: x + 1 }"
                     >{{ x + 1 }}</a
                   >
                 </li>

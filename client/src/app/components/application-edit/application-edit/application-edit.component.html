@@ -7,8 +7,8 @@
   </div>
 </div>
 <div class="container">
-  <div class="col-md-4 mt-5 col justify-content-center">
-    <form (ngSubmit)="onSubmit(f)" #f="ngForm" *ngIf="!submitted">
+  <div class="col mt-5 justify-content-center d-flex gap-5">
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm" *ngIf="!submitted" class="col-4">
       <div class="form-group">
         <label for="exampleFormControlInput1">First name</label>
         <input
@@ -91,23 +91,43 @@
         </div>
       </div>
     </form>
-    <form #commForm="ngForm" (ngSubmit)="addComment(commForm)">
-      <div class="form-group d-flex gap-3 mt-3">
-        <!-- <label for="">Comment Text</label> -->
-        <input
-          required
-          type="text"
-          class="form-control w-100"
-          id="exampleFormControlInput1"
-          placeholder="Enter your comment here."
-          ngModel
-          name="comment"
-        />
-        <div class="text-center text-lg-start">
-          <button type="submit" class="btn btn-primary">Add</button>
+    <div class="mt-5">
+      <div class="d-flex-col">
+        <div class="card mb-4" *ngFor="let comment of acomments">
+          <div class="card-body">
+            <p>{{ comment.comment.commentText }}</p>
+            <div class="d-flex justify-content-between">
+              <div class="d-flex flex-row align-items-center">
+                <!-- <img
+                  src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(4).webp"
+                  alt="avatar"
+                  width="25"
+                  height="25"
+                /> -->
+                <p class="small mb-0 ms-2">Written by:</p>
+                <p class="small mb-0 ms-2">{{ comment.user.userName }}</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </form>
+      <form #commForm="ngForm" (ngSubmit)="addComment(commForm)">
+        <div class="form-group d-flex gap-3 mt-3">
+          <input
+            required
+            type="text"
+            class="form-control w-100"
+            id="exampleFormControlInput1"
+            placeholder="Enter your comment here."
+            ngModel
+            name="comment"
+          />
+          <div class="text-center text-lg-start">
+            <button type="submit" class="btn btn-primary">Add</button>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 
   <div class="col mt-5" *ngIf="successfull && submitted && !loading">

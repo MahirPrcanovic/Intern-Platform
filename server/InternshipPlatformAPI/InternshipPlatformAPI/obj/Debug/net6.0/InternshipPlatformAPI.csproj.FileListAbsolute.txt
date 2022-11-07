@@ -97,3 +97,6 @@ C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\Int
 C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\InternshipPlatformAPI\InternshipPlatformAPI\bin\Debug\net6.0\Newtonsoft.Json.dll
 C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\InternshipPlatformAPI\InternshipPlatformAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\InternshipPlatformAPI\InternshipPlatformAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\InternshipPlatformAPI\InternshipPlatformAPI\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\InternshipPlatformAPI\InternshipPlatformAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\InternshipPlatformAPI\InternshipPlatformAPI\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll

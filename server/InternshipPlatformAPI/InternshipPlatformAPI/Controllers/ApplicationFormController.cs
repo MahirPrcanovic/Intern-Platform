@@ -2,6 +2,7 @@
 using InternshipPlatformAPI.Models;
 using InternshipPlatformAPI.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InternshipPlatformAPI.Controllers
@@ -36,6 +37,29 @@ namespace InternshipPlatformAPI.Controllers
                 return Ok(serviceR);
             }
             return BadRequest(serviceR);
+        }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ServiceResponse<Application>>> GetApplicationById(Guid id)
+        {
+            var result = await this._applicationService.GetSingleApplication(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return NotFound(result);
+            }
+        }
+        [HttpPut("{id}")]
+        public async Task<ActionResult<ServiceResponse<Application>>> UpdateApplication(Guid id, ApplicationUpdateDto statusUpdate)
+        {
+            return Ok(await this._applicationService.UpdateApplication(id, statusUpdate));
+        }
+        [HttpPost("{id}")]
+        public async Task<ActionResult<ServiceResponse<Comment>>> AddApplicationComment(ApplicationCommentDto userData)
+        {
+            return Ok(await this._applicationService.AddApplicationComment(userData));
         }
 
     }

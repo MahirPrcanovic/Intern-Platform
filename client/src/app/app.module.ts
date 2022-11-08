@@ -22,6 +22,7 @@ import { SelectionEditPageComponent } from './pages/selection-edit-page/selectio
 import { SelectionsPageComponent } from './components/selections-page/selections-page.component';
 import { SelectionsAddPageComponent } from 'src/app/pages/selections-add-page/selections-add-page.component';
 import { DatePipe } from '@angular/common';
+import { SelectionsDetailsPageComponent } from 'src/app/pages/selections-details-page/selections-details-page.component';
 
 
 
@@ -45,6 +46,7 @@ import { DatePipe } from '@angular/common';
     SelectionEditPageComponent,
     SelectionsPageComponent,
     SelectionsAddPageComponent,
+    SelectionsDetailsPageComponent,
   ],
 
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule,ReactiveFormsModule],

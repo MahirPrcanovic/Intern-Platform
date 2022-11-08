@@ -1,0 +1,68 @@
+<app-dashboard-header></app-dashboard-header>
+<div class="conainer">
+    <h1 class="f4 text-center mt-5">Welcome to Dashboard!</h1>
+    <h1 class="f4 text-center"> Applicants in  {{data.name}} selection </h1>
+    <div class="table-responsive">
+        <table class="table align-middle mb-0 bg-whie mt-6 table-bordered"  style="width: 70%; margin-left: 7%; margin-top: 2%;">
+            <thead class="bg-light">
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>EducationLevel</th>
+                    <th>CoverLetter</th>
+                    <th>Cv</th>
+                    <th>Status</th>
+                    <th>Actions</th>                                       
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let applicant of data.applications; let x = index">
+                    <td>{{ x + 1}}</td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div class="ms-3">
+                                <p class="fw-bold-mb-1">
+                                    {{ applicant.firstName + " " + applicant.lastName }}
+                                </p>
+                             
+                            </div>
+                        </div>
+                    </td>
+                        <td>       <p class="text-muted mb-0">{{applicant.email}}</p></td>
+                    <td>
+                      <p class="fw-normal mb-1">{{ applicant.educationLevel }}</p>
+                     
+                    </td>
+                    <td>
+                        <p class="fw-normal mb-1">{{ applicant.coverLetter }}</p>
+                       
+                      </td>
+                      <td>
+                        <p class="fw-normal mb-1">{{ applicant.cv }}</p>
+                       
+                      </td>
+                   
+                    <td>
+                        <span class="badge rounded-pill bg-warning text-dark">
+                          {{ applicant.status }}
+                        </span>
+                      </td>
+                      <td>
+                        <button
+                          type="button"
+                          class="btn btn-link btn-rounded btn-sm fw-bold"
+                          mdbRipple
+                          rippleColor="dark"
+                          routerLink="/selections"                
+                        >
+                          Delete
+                        </button>
+                        </td>
+
+                </tr>
+               
+            </tbody>
+        </table>
+    </div>
+</div>

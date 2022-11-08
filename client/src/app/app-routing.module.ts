@@ -9,6 +9,7 @@ import { ApplicationEditComponent } from './components/application-edit/applicat
 import { SelectionsPageComponent } from './components/selections-page/selections-page.component';
 import { SelectionsAddPageComponent } from './pages/selections-add-page/selections-add-page.component';
 import { SelectionEditPageComponent } from './pages/selection-edit-page/selection-edit-page.component';
+import { SelectionsDetailsPageComponent } from './pages/selections-details-page/selections-details-page.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent, pathMatch: 'full' },
@@ -36,7 +37,12 @@ const routes: Routes = [
   {
     path:'selections/edit/:id',
     component: SelectionEditPageComponent
-  }
+  },
+
+  {
+    path:'selections/details/:id',
+    component: SelectionsDetailsPageComponent
+  },
 
 ];
 

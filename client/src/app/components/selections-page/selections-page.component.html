@@ -90,8 +90,7 @@
               class="btn btn-link btn-rounded btn-sm fw-bold"
               mdbRipple
               rippleColor="dark"
-              click="onEditClicked(selekcija.id)"
-             
+              routerLink="/selections/edit/{{selekcija.id}}"                
             >
               Edit
             </button>
@@ -102,10 +101,7 @@
             rippleColor="dark"
             [routerLink]="['/selections', 'edit', selekcija.id]"   
           >
-          <!-- //api/Selections/GetSelectionsById gadja tu rutu plus parametar  u routerlink link za page for details
-            u kome ce bit opsirni podaci selekcije kao i lista aplikanata i tu ce biti button delete aplikant from selection
-            sa rutom koju gadja api/Selections/DeleteApplicant/selectionId kao paramtar /applicantId isto kao parametar
-             nisam napravila jos-->
+         
             Details
             </button>
 

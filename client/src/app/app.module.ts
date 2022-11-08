@@ -16,11 +16,12 @@ import { DashboardHeaderComponent } from './components/applications-page/header/
 import { ApplicationsPageComponent } from './pages/applications-page/applications-page/applications-page.component';
 import { ApplicationHeroComponent } from './components/applications-page/hero-section/application-hero/application-hero.component';
 import { ApplicationFormPageComponent } from './pages/application-form-page/application-form-page.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule} from '@angular/forms';
 import { ApplicationEditComponent } from './components/application-edit/application-edit/application-edit.component';
 import { SelectionEditPageComponent } from './pages/selection-edit-page/selection-edit-page.component';
 import { SelectionsPageComponent } from './components/selections-page/selections-page.component';
 import { SelectionsAddPageComponent } from 'src/app/pages/selections-add-page/selections-add-page.component';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -46,8 +47,8 @@ import { SelectionsAddPageComponent } from 'src/app/pages/selections-add-page/se
     SelectionsAddPageComponent,
   ],
 
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
-  providers: [],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule,ReactiveFormsModule],
+  providers: [DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

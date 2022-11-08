@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { catchError, Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { UpdateSelection } from "../interfaces/UpdateSelection";
+import { Selection } from "../models/Selection";
 @Injectable({
     providedIn: 'root',
   })
@@ -34,14 +35,13 @@ export class SelectionsService {
     }
 
     getSingleSelection(id: string){
-      // return this.http.get(environment.apiUrl + '/api/Selections/EditSelection' + id);
+       return this.http.get(environment.apiUrl + '/api/Selections/GetSelectionsById/'+id );
     }
 
-    updateSelection( updateSelection : UpdateSelection) {
-      return this.http.put(environment.apiUrl + '/api/Selections/EditSelection' + updateSelection.Id,
-        updateSelection        
-      );
-      
+    updateSelection( id: string, updateSelection : Selection) {
+      return this.http.put(environment.apiUrl + '/api/Selections/EditSelection/' + id, updateSelection);
     }
+
+    
 
 }

@@ -1,77 +1,65 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SelectionsService } from 'src/app/services/selections.service';
-import { Subscription } from 'rxjs';
-import { NgForm } from '@angular/forms';
-interface Selekcija {
-  id:string;
-  name: string;
-  startDate: Date;
-  endDate: Date;
-  description: string;
-}
+import { FormControl, FormGroup } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+import {Selection} from 'src/app/models/Selection'
+
+
 @Component({
   selector: 'app-selection-edit-page',
   templateUrl: './selection-edit-page.component.html',
   styleUrls: ['./selection-edit-page.component.css']
 })
-
-
-export class SelectionEditPageComponent implements OnInit,OnDestroy {
+export class SelectionEditPageComponent implements OnInit {
 
   constructor(
     private selectionService: SelectionsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
+    private datePipe: DatePipe
   ) {}
 
+  editSelection = new FormGroup({
+    name: new FormControl('name'),
+    startDate :  new FormControl('startDate'),
+    endDate :  new FormControl('endDate'),
+    description :  new FormControl('description'),
+  });
 
-  selectionId:string = '';
-  /*selectionData: Selection = {
-    Name: 'string',
-    StartDate: new Date,
-    EndDate: new Date,
-    Description: 'string'
-  };*/
-
-  @ViewChild('selectionsForm') form!: NgForm; 
-  data : Selekcija[] = [];
- 
-  
-  ngSelect!: string;
-  paramsSubscribition!: Subscription;
 
   ngOnInit(): void {
-  this.paramsSubscribition = this.route.params.subscribe((params)=>{
-    this.selectionId = params['id'];
-  });
-  /*this.selectionService
-  .updateSelection(this.selectionData, this.selectionId)
-  .subscribe((res: any) =>{
-    console.log(res);
-    this.selectionData = res.data;
-    
-  });*/
-}
-onEditClicked(id : string){
-  const [routerLink]="['/selections', 'edit', selekcija.id]";
-  let currentSelection = this.data.find((sel) => { return sel.id === id} );
-
-  this.form.setValue({
-    selectionName:currentSelection?.name,
-    selectionStartDate:currentSelection?.startDate,
-    selectionEndDate:currentSelection?.endDate,
-    selectionDescription:currentSelection?.description
-  });
+    this.selectionService.getSingleSelection(this.route.snapshot.params['id']).subscribe((result : any) =>{
+      
+      this.editSelection = new FormGroup({
+         name: new FormControl(result.data.name),
+         startDate :  new FormControl(this.datePipe.transform(result.data.startDate,'yyyy-MM-dd')),
+         endDate :  new FormControl(this.datePipe.transform(result.data.endDate,'yyyy-MM-dd')),
+         description :  new FormControl(result.data.description),
+       });
   
+    
+    });
 }
-  onSubmit(form: NgForm){
-    console.log(form.form.value);
-  }
-
-  ngOnDestroy(): void {
-    this.paramsSubscribition.unsubscribe();
-  }
- 
-  }
 
 
+
+
+EditData(){   
+  this.selectionService.updateSelection(this.route.snapshot.params['id'],
+  new Selection(this.route.snapshot.params['id'], 
+    this.editSelection.get('name')!.value!, 
+    new Date(this.editSelection.get('startDate')!.value!),
+    new Date(this.editSelection.get('endDate')!.value!),
+    this.editSelection.get('description')!.value!)).subscribe((result : any) =>{
+    })
+}
+
+
+
+    goBack() {
+      this.router.navigate(['selections']);
+    }
+
+    
+  }

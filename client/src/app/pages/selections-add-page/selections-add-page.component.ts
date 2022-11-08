@@ -30,7 +30,6 @@ export class SelectionsAddPageComponent implements OnInit {
 
   onSubmit(f : NgForm) {
     this.loading = true;
-    console.log("Adna on submit:");
     console.log(f);
     if(!f.valid){
       this.submitted = true;

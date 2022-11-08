@@ -1,15 +1,15 @@
 <app-dashboard-header></app-dashboard-header>
 <div class="container">
     <div class="col mt-5 justify-content-center d-flex gap-5">
-        <form #selectionsForm="ngForm" (ngSubmit)="onEditClicked(selectionsForm.value)" class="col-4">
+        <form [formGroup]="editSelection" (ngSubmit)="EditData()"  class="col-4">
             <div class="form-group">
                 <label for="exampleFormControlInput1">Name</label>
                 <input
                     type="text"
                     class="form-control w-100"
                     id="exampleformControlInput1"
-                    name="selectionName"
-                    ngModel
+                    formControlName="name"
+                    
                     
                     />
                     
@@ -20,8 +20,8 @@
                     type="date"
                     class="form-control w-100"
                     id="exampleformControlInput1"
-                    name="selectionStartDate"
-                    ngModel
+                    formControlName="startDate"
+                    
                     
                     />
                     
@@ -32,8 +32,8 @@
                     type="date"
                     class="form-control w-100"
                     id="exampleformControlInput1"
-                    name="selectionEndDate"
-                    ngModel
+                    formControlName="endDate"
+                  
                     
                     />
                     
@@ -45,8 +45,8 @@
                     type="text"
                     class="form-control w-100"
                     id="exampleformControlInput1"
-                    name="selectionDescription"
-                    ngModel
+                    formControlName ="description"
+                   
                     
                     />
                     

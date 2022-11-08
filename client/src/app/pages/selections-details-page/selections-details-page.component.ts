@@ -37,9 +37,6 @@ data:FullSelection  = {
 }
 
 deleteApplicant(selectionId: string, applicationsid: string){
-  console.log(selectionId);
-  console.log("adnaaaaaa");
-  console.log(applicationsid);
   this.selectionService.deleteApplicantFromSelection(selectionId,applicationsid).subscribe((result : any) =>{
     console.log('Deleted user');
   })

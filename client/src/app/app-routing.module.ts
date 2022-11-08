@@ -10,6 +10,7 @@ import { SelectionsPageComponent } from './components/selections-page/selections
 import { SelectionsAddPageComponent } from './pages/selections-add-page/selections-add-page.component';
 import { SelectionEditPageComponent } from './pages/selection-edit-page/selection-edit-page.component';
 import { SelectionsDetailsPageComponent } from './pages/selections-details-page/selections-details-page.component';
+import { AddApplicantToSelectionPageComponent } from './pages/add-applicant-to-selection-page/add-applicant-to-selection-page.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent, pathMatch: 'full' },
@@ -42,6 +43,11 @@ const routes: Routes = [
   {
     path:'selections/details/:id',
     component: SelectionsDetailsPageComponent
+  },
+
+  {
+    path:'selections/addToSelection/:selectionId',
+    component: AddApplicantToSelectionPageComponent
   },
 
 ];

@@ -23,6 +23,7 @@ import { SelectionsPageComponent } from './components/selections-page/selections
 import { SelectionsAddPageComponent } from 'src/app/pages/selections-add-page/selections-add-page.component';
 import { DatePipe } from '@angular/common';
 import { SelectionsDetailsPageComponent } from 'src/app/pages/selections-details-page/selections-details-page.component';
+import { AddApplicantToSelectionPageComponent } from './pages/add-applicant-to-selection-page/add-applicant-to-selection-page.component';
 
 
 
@@ -47,6 +48,7 @@ import { SelectionsDetailsPageComponent } from 'src/app/pages/selections-details
     SelectionsPageComponent,
     SelectionsAddPageComponent,
     SelectionsDetailsPageComponent,
+    AddApplicantToSelectionPageComponent,
   ],
 
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule,ReactiveFormsModule],

@@ -91,7 +91,7 @@
         </div>
       </div>
     </form>
-    <div class="mt-5">
+    <div class="mt-5" *ngIf="!submitted">
       <div class="d-flex-col">
         <div class="card mb-4" *ngFor="let comment of acomments">
           <div class="card-body">

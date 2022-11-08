@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { LoginComponent } from './pages/login-page/login.component';
@@ -21,6 +21,7 @@ import { ApplicationEditComponent } from './components/application-edit/applicat
 import { SelectionEditPageComponent } from './pages/selection-edit-page/selection-edit-page.component';
 import { SelectionsPageComponent } from './components/selections-page/selections-page.component';
 import { SelectionsAddPageComponent } from './pages/selections-add-page/selections-add-page.component';
+import { TokenInterceptor } from './interceptors/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -36,16 +37,20 @@ import { SelectionsAddPageComponent } from './pages/selections-add-page/selectio
     DashboardHeaderComponent,
     ApplicationsPageComponent,
     ApplicationHeroComponent,
-
     ApplicationEditComponent,
-
     SelectionEditPageComponent,
     SelectionsPageComponent,
     SelectionsAddPageComponent,
   ],
 
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

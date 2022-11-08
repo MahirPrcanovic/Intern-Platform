@@ -38,7 +38,6 @@ export class SelectionsPageComponent implements OnInit, OnDestroy {
   qParamsSubscribition!: Subscription;
   numberOfPostsToFetch = 5;
   ngOnInit(): void {
-    //this.currentPage = this.route.snapshot.queryParams['page'];
     this.qParamsSubscribition = this.route.queryParams.subscribe(
       (qParams: Params) => {
         this.queryParams.pageNumber = qParams['pageNumber'] || 1;
@@ -73,7 +72,7 @@ export class SelectionsPageComponent implements OnInit, OnDestroy {
         return;
       }
       else{
-        this.queryParams.pageNumber =+this.queryParams.pageNumber + 1;
+        this.queryParams.pageNumber = +this.queryParams.pageNumber + 1;
         this.fetchSelections();
       }
     }

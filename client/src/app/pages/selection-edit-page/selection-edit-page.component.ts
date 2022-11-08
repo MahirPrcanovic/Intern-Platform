@@ -27,6 +27,7 @@ export class SelectionEditPageComponent implements OnInit {
     description :  new FormControl('description'),
   });
 
+  updated : boolean = false;
 
   ngOnInit(): void {
     this.selectionService.getSingleSelection(this.route.snapshot.params['id']).subscribe((result : any) =>{
@@ -52,14 +53,8 @@ EditData(){
     new Date(this.editSelection.get('startDate')!.value!),
     new Date(this.editSelection.get('endDate')!.value!),
     this.editSelection.get('description')!.value!)).subscribe((result : any) =>{
+      this.updated = true;
     })
 }
-
-
-
-    goBack() {
-      this.router.navigate(['selections']);
-    }
-
-    
+   
   }

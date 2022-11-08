@@ -27,6 +27,8 @@ data:FullSelection  = {
   applications: []
 };
 
+deleted : boolean = false;
+
   ngOnInit(): void {
     this.selectionService.getSingleSelection(this.route.snapshot.params['id']).subscribe((result : any) =>{
       this.data = result.data;
@@ -39,6 +41,7 @@ data:FullSelection  = {
 deleteApplicant(selectionId: string, applicationsid: string){
   this.selectionService.deleteApplicantFromSelection(selectionId,applicationsid).subscribe((result : any) =>{
     console.log('Deleted user');
+    this.deleted = true;
   })
 }
 }

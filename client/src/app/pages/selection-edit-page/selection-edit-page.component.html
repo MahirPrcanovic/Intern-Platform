@@ -1,5 +1,7 @@
 <app-dashboard-header></app-dashboard-header>
 <div class="container">
+    <h1 class="f4 text-center mt-5">Welcome to Dashboard!</h1>
+    <h1 class="f4 text-center">Edit Selection</h1>
     <div class="col mt-5 justify-content-center d-flex gap-5">
         <form [formGroup]="editSelection" (ngSubmit)="EditData()"  class="col-4">
             <div class="form-group">
@@ -52,7 +54,17 @@
                     
             </div>
             <div class="text-center text-lg-start">
-                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="submit" class="btn btn-primary" style="margin-top:5%; margin-left: 35%;" >Update</button>
+                <button type="button" class="btn btn-primary" style="margin-top:5%; margin-left: 3%; padding-right: 5%;"
+                [routerLink]="['/selections']"  
+                >Back</button>
+              </div>
+              <div *ngIf="updated" class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Well done!</h4>
+                <p>You successfully edited your selection.</p>
+                <button type="button" class="btn btn-success"
+                [routerLink]="['/selections']"  
+                >Back</button>
               </div>
         </form>
     </div>

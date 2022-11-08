@@ -54,6 +54,10 @@
         </tbody>
       </table>
 
+      <button *ngIf="!added" type="button" class="btn btn-primary" style="margin-top:2%"
+      [routerLink]="['/selections']"  
+      >Back</button>
+
       <div *ngIf="added" class="alert alert-success" role="alert">
         <h4 class="alert-heading">Well done!</h4>
         <p>You successfully added new applicant to your selection.</p>

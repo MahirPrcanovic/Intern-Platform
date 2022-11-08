@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FullSelection } from 'src/app/interfaces/FullSelection';
+import { Application } from 'src/app/models/Application';
 import { ApplicationsService } from 'src/app/services/applications.service';
 import { SelectionsService } from 'src/app/services/selections.service';
 interface Applicant {
@@ -40,17 +41,41 @@ export class AddApplicantToSelectionPageComponent implements OnInit {
     comments: [],
     applications: []
   };
+
+  applicantForSelection: Application = {
+    Id: '',
+    firstName: '',
+    lastName: '',
+    Email: '',
+    EducationLevel: '',
+    CoverLetter: '',
+    CV: '',
+    Status: ''
+  }
   applicantsInSelection: Applicant[] = [];
+
+  added : boolean = false;
+
   ngOnInit(): void {
+    this.selectionService.getSingleSelection(this.route.snapshot.params['selectionId']).subscribe((result : any) =>{
+      this.data = result.data;
+    });
+
     this.applicationService
-    .getAllApplications(this.queryParams)
-    .subscribe((response: any) => {
+    .getAllApplications(this.queryParams).subscribe((response: any) => {
       this.applicantsInSelection = response.data;
       console.log(response);
     });
 
   }
-  addApplicantToSelection(){
 
+  addApplicantToSelection(id : string){
+    this.applicationService.getSingleApplication(id).subscribe((result : any) =>{
+      this.applicantForSelection = result.data;
+
+    })
+    this.selectionService.addApplicantToSelection(this.route.snapshot.params['selectionId'], id, this.applicantForSelection).subscribe((result : any) =>{
+      this.added = true;
+    })
   }
 }

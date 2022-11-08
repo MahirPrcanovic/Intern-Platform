@@ -1,3 +1,4 @@
+<app-dashboard-header></app-dashboard-header>
 <div class="container">
     <h1 class="f4 text-center mt-5">Welcome to Dashboard!</h1>
     <h1 class="f4 text-center">Add Applicant to {{data.name}}</h1>
@@ -43,7 +44,7 @@
                 class="btn btn-link btn-rounded btn-sm fw-bold"
                 mdbRipple
                 rippleColor="dark"
-                (click)="addApplicantToSelection()"
+                (click)="addApplicantToSelection(applicant.id)"
               >
                 Add to Selection
               </button>
@@ -52,6 +53,14 @@
           </tr>
         </tbody>
       </table>
+
+      <div *ngIf="added" class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Well done!</h4>
+        <p>You successfully added new applicant to your selection.</p>
+        <button type="button" class="btn btn-success"
+        [routerLink]="['/selections/details/'+ data.id]"  
+        >Back</button>
+      </div>
     </div>
   </div>
   

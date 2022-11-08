@@ -2,7 +2,9 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { catchError, Observable } from "rxjs";
 import { environment } from "src/environments/environment";
+import { FullApplication } from "../interfaces/FullApplication";
 import { UpdateSelection } from "../interfaces/UpdateSelection";
+import { Application } from "../models/Application";
 import { Selection } from "../models/Selection";
 @Injectable({
     providedIn: 'root',
@@ -43,9 +45,11 @@ export class SelectionsService {
     }
 
     deleteApplicantFromSelection(selectionId: string, applicationId:string){
-      console.log('deleteApplicantFromSelection servis frontend');
       return this.http.delete(environment.apiUrl + '/api/Selections/DeleteApplicants/' + selectionId +'/' + applicationId);
     }
     
+    addApplicantToSelection(selectionId:string, applicantId:string, postData : Application){
+      return this.http.post(environment.apiUrl + '/api/Selections/AddNewApplicantToSelection/' + selectionId + '/' + applicantId, postData);
+    }
 
 }

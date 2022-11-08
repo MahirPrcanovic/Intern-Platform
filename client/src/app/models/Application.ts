@@ -10,7 +10,7 @@
 // }
 export class Application {
   constructor(
-    public Id: number,
+    public Id: string,
     public firstName: string,
     public lastName: string,
     public Email: string,

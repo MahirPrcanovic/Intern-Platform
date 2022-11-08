@@ -73,3 +73,6 @@ C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\Int
 C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\InternshipPlatformAPI\InternshipPlatformAPI\obj\Debug\net6.0\InternshipPlatformAPI.pdb
 C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\InternshipPlatformAPI\InternshipPlatformAPI\obj\Debug\net6.0\InternshipPlatformAPI.genruntimeconfig.cache
 C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\InternshipPlatformAPI\InternshipPlatformAPI\obj\Debug\net6.0\ref\InternshipPlatformAPI.dll
+C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\InternshipPlatformAPI\InternshipPlatformAPI\bin\Debug\net6.0\MailKit.dll
+C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\InternshipPlatformAPI\InternshipPlatformAPI\bin\Debug\net6.0\MimeKit.dll
+C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\InternshipPlatformAPI\InternshipPlatformAPI\bin\Debug\net6.0\BouncyCastle.Crypto.dll

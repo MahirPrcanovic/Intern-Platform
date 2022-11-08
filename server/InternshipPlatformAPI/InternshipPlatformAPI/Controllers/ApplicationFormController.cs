@@ -2,18 +2,14 @@
 using InternshipPlatformAPI.Models;
 using InternshipPlatformAPI.Services;
 using Microsoft.AspNetCore.Authorization;
-
-using Microsoft.AspNetCore.JsonPatch;
-
-using Microsoft.AspNetCore.JsonPatch;
-
 using Microsoft.AspNetCore.Mvc;
 
 namespace InternshipPlatformAPI.Controllers
 {
     //[Authorize(Roles = "Administrator")]
     //Samo ako je role administrator dopusti pristup
-    //[Authorize]
+    //[Authorize(Roles ="admin")]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class ApplicationFormController : ControllerBase

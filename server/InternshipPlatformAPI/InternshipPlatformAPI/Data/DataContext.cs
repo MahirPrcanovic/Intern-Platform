@@ -1,4 +1,5 @@
 ﻿using InternshipPlatformAPI.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
@@ -13,6 +14,30 @@ namespace InternshipPlatformAPI.Data
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            string ADMIN_ID = "02174cf0–9412–4cfe - afbf - 59f706d72cf6";
+            string ROLE_ID = "341743f0-asd2–42de-afbf-59kmkkmk72cf6";
+            builder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Name = "Administrator",
+                NormalizedName = "Administrator",
+                Id = ROLE_ID,
+                ConcurrencyStamp = ROLE_ID,
+            });
+            var adminUser = new IdentityUser
+            {
+                Id = ADMIN_ID,
+                UserName = "Admin",
+                EmailConfirmed = true,
+            };
+            PasswordHasher<IdentityUser> ph = new PasswordHasher<IdentityUser>();
+            adminUser.PasswordHash = ph.HashPassword(adminUser, "admin123");
+            builder.Entity<IdentityUser>().HasData(adminUser);
+
+            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = ROLE_ID,
+                UserId = ADMIN_ID
+            });
             builder.Entity<Application>().Navigation(c => c.Comments).AutoInclude();
             builder.Entity<Application>().Navigation(c => c.Selections).AutoInclude();
             builder.Entity<ApplicationComment>().Navigation(c => c.Comment).AutoInclude();

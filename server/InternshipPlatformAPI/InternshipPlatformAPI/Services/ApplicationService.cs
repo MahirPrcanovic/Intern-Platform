@@ -2,9 +2,12 @@
 using InternshipPlatformAPI.Data;
 using InternshipPlatformAPI.Dtos;
 using InternshipPlatformAPI.Models;
+using MailKit.Net.Smtp;
+using MailKit.Security;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MimeKit;
 using Newtonsoft.Json;
 using System.Linq;
 using System.Text.Json;
@@ -117,6 +120,10 @@ namespace InternshipPlatformAPI.Services
             }
             else
             {
+                if(updateDto.Status.ToLower() == "in-selection")
+                {
+                    SendEmail("mahirprcanovic@gmail.com", "Welcome to internship!");
+                }
                 application.Status = updateDto.Status;
                 await this._dataContext.SaveChangesAsync();
                 serviceResponse.Data = application;
@@ -158,9 +165,20 @@ namespace InternshipPlatformAPI.Services
             await this._dataContext.SaveChangesAsync();
             //serviceResponse.Data = results.Select(c=>this._mapper.Map<ApplicationDto>(c)).ToList();
             return serviceResponse;
-            
-           
-      
+
+        }
+        private void SendEmail(string sendTo,string textToSend)
+        {
+            var email = new MimeMessage();
+            email.From.Add(MailboxAddress.Parse("moses.rosenbaum@ethereal.email"));
+            email.To.Add(MailboxAddress.Parse(sendTo));
+            email.Subject = "Test Email Subject";
+            email.Body = new TextPart(MimeKit.Text.TextFormat.Text) { Text = textToSend };
+            using var smtp = new SmtpClient();
+            smtp.Connect("smtp.ethereal.email",587,SecureSocketOptions.StartTls);
+            smtp.Authenticate("moses.rosenbaum@ethereal.email", "k6G8zkkujSpnVjkZBY");
+            smtp.Send(email);
+            smtp.Disconnect(true);
         }
 
         //public async Task<ServiceResponse<Application>> GetSingleApplication(Guid id)

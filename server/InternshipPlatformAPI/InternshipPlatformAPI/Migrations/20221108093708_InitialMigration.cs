@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace InternshipPlatformAPI.Migrations
 {
-    public partial class newMigration : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -281,6 +281,21 @@ namespace InternshipPlatformAPI.Migrations
                         principalTable: "Selections",
                         principalColumn: "Id");
                 });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "341743f0-asd2–42de-afbf-59kmkkmk72cf6", "341743f0-asd2–42de-afbf-59kmkkmk72cf6", "Administrator", "Administrator" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "02174cf0–9412–4cfe - afbf - 59f706d72cf6", 0, "603d3efd-13c4-4765-8bf8-7f3d1beeb89d", null, true, false, null, null, null, "AQAAAAEAACcQAAAAEDRYP5S2pSXPUFYRsby6/Uz6YOWxm4BF14yKyyxy7UPIPC7NOpjSMjyUzvm10WTkZA==", null, false, "2f1ab09f-c099-4549-8688-d8b3b9c50a53", false, "Admin" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "341743f0-asd2–42de-afbf-59kmkkmk72cf6", "02174cf0–9412–4cfe - afbf - 59f706d72cf6" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ApplicationComments_ApplicationId",

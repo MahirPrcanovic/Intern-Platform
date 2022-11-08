@@ -2,6 +2,7 @@
 using InternshipPlatformAPI.Data;
 using InternshipPlatformAPI.Dtos.SelectionDto;
 using InternshipPlatformAPI.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace InternshipPlatformAPI.Services.SelectionService
@@ -31,7 +32,7 @@ namespace InternshipPlatformAPI.Services.SelectionService
             return response;
         }
 
-        public async Task<ServiceResponse<GetSelectionDto>> EditSelection(EditSelectionDto newSelection, Guid id)
+        public async Task<ServiceResponse<GetSelectionDto>> EditSelection(Guid id,EditSelectionDto newSelection)
         {
             ServiceResponse<GetSelectionDto> response = new ServiceResponse<GetSelectionDto>();
              
@@ -99,14 +100,23 @@ namespace InternshipPlatformAPI.Services.SelectionService
         {
             ServiceResponse<List<GetSelectionDto>> response = new ServiceResponse<List<GetSelectionDto>>();
 
-            var selection = await _dataContext.Selections
-                .FirstOrDefaultAsync(s => s.Id.Equals(selectionId));
+            var selection = await _dataContext.Selections.Include(a => a.Applications)
+                .FirstOrDefaultAsync();
+           
+            if(selection == null)
+            {
+                response.Success = false;
+                response.Message = "Selection not found";
+            }
 
-          var removeApplicant = selection.Applications.Where(a => a.Id.Equals(applicantId)).FirstOrDefault();
+           
+
+          var removeApplicant = selection?.Applications?.Where(a => a.Id.Equals(applicantId)).FirstOrDefault();
+            Console.WriteLine(selection);
 
             if (selection != null && removeApplicant!=null)
             {
-                _dataContext.Applications.Remove(removeApplicant);
+                selection?.Applications?.Remove(removeApplicant);
                 await _dataContext.SaveChangesAsync();
                 response.Data = _dataContext.Selections
                         .Select(c => _mapper.Map<GetSelectionDto>(c)).ToList();

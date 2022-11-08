@@ -11,8 +11,8 @@ export class SelectionsService {
 
     postData(postData: Selection){
       return this.http.post(
-        environment.apiUrl+'api/Selections/AddNewSelection',
-        postData
+        environment.apiUrl+'/api/Selections/AddNewSelection',      //https://localhost:7213/api/Selections/AddNewSelection
+        postData  
       );
     }
 
@@ -37,8 +37,10 @@ export class SelectionsService {
       // return this.http.get(environment.apiUrl + 'api/Selections/EditSelection' + id);
     }
 
-    updateSelection(selection : UpdateSelection) {
-      return this.http.put(environment.apiUrl + 'api/Selections/EditSelection' + selection.Id, selection);
+    updateSelection( updateSelection : UpdateSelection) {
+      return this.http.put(environment.apiUrl + 'api/Selections/EditSelection' + updateSelection.Id,
+        updateSelection        
+      );
       
     }
 

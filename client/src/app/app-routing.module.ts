@@ -29,7 +29,7 @@ const routes: Routes = [
 
   { path: 'selections', component: SelectionsPageComponent },
 
-  { path:'addNewSelection',
+  { path:'selections/addNewSelection',
     component: SelectionsAddPageComponent
   },
 

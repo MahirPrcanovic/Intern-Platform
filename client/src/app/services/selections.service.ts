@@ -42,6 +42,10 @@ export class SelectionsService {
       return this.http.put(environment.apiUrl + '/api/Selections/EditSelection/' + id, updateSelection);
     }
 
+    deleteApplicantFromSelection(selectionId: string, applicationId:string){
+      console.log('deleteApplicantFromSelection servis frontend');
+      return this.http.delete(environment.apiUrl + '/api/Selections/DeleteApplicants/' + selectionId +'/' + applicationId);
+    }
     
 
 }

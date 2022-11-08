@@ -47,22 +47,6 @@ namespace InternshipPlatformAPI.Services
             //serviceResponse.Data = result.ToString();
             return result;
         }
-
-        public async Task<ServiceResponse<string>> Register(string username, string password, bool rememberMe)
-        {
-            var user = new IdentityUser { UserName = username };
-            var result = await this._userManager.CreateAsync(user, password);
-            var serviceResponse = new ServiceResponse<string>();
-            if (result.Succeeded)
-            {
-                serviceResponse.Message = "successfull register";
-            }
-            else
-            {
-                serviceResponse.Message = "Not successfull";
-            }
-            return serviceResponse;
-        }
         public async Task<string> CreateToken()
         {
             var signingCredentials = GetSigningCredentials();

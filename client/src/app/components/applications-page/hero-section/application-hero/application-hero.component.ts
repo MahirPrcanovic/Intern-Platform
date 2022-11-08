@@ -4,14 +4,7 @@ import { Subscription } from 'rxjs';
 import { Application } from 'src/app/models/Application';
 import { ApplicationsService } from 'src/app/services/applications.service';
 import { NgForm } from '@angular/forms';
-interface Applicant {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  educationLevel: string;
-  status: string;
-}
+import { Applicant } from 'src/app/interfaces/Applicant';
 
 @Component({
   selector: 'app-application-hero',

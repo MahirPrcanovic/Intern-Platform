@@ -206,7 +206,7 @@ namespace InternshipPlatformAPI.Migrations
                             Id = "341743f0-asd2–42de-afbf-59kmkkmk72cf6",
                             ConcurrencyStamp = "341743f0-asd2–42de-afbf-59kmkkmk72cf6",
                             Name = "Administrator",
-                            NormalizedName = "Administrator"
+                            NormalizedName = "ADMINISTRATOR"
                         });
                 });
 
@@ -304,12 +304,13 @@ namespace InternshipPlatformAPI.Migrations
                         {
                             Id = "02174cf0–9412–4cfe - afbf - 59f706d72cf6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "603d3efd-13c4-4765-8bf8-7f3d1beeb89d",
+                            ConcurrencyStamp = "9c7c4509-2b14-48e9-b506-9fc05bd94f25",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEDRYP5S2pSXPUFYRsby6/Uz6YOWxm4BF14yKyyxy7UPIPC7NOpjSMjyUzvm10WTkZA==",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKlHxEtWK5A8Idn1gQaFcgG6yrO0rSOBTdCW6l0y5U+nOcpvrUgFLGnS+Sgrvs04FQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2f1ab09f-c099-4549-8688-d8b3b9c50a53",
+                            SecurityStamp = "21d5ecf8-d90b-4a9c-9b80-333339445ab4",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });

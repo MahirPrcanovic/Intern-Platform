@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using MimeKit;
 using Newtonsoft.Json;
 using System.Linq;
+using System.Security.Claims;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
@@ -19,11 +20,13 @@ namespace InternshipPlatformAPI.Services
     {
         private readonly DataContext _dataContext;
         private readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ApplicationService(DataContext dataContext, IMapper mapper)
+        public ApplicationService(DataContext dataContext, IMapper mapper,IHttpContextAccessor httpContextAccessor)
         {
             this._dataContext = dataContext;
             this._mapper = mapper;
+            this._httpContextAccessor = httpContextAccessor;
         }
 
         
@@ -31,7 +34,7 @@ namespace InternshipPlatformAPI.Services
         public async Task<ServiceResponse<ApplicationFormDto>> PostApplication(ApplicationFormDto applicationFormDto)
         {
             var serviceResponse = new ServiceResponse<ApplicationFormDto>();
-            
+           
             try
             {
             var insertData = this._mapper.Map<Application>(applicationFormDto);
@@ -132,13 +135,15 @@ namespace InternshipPlatformAPI.Services
             //throw new NotImplementedException();
         }
 
-        public async Task<ServiceResponse<Comment>> AddApplicationComment(ApplicationCommentDto commentData)
+        public async Task<ServiceResponse<Comment>> AddApplicationComment(ApplicationCommentDto commentData,Guid id)
         {
             var serviceResponse = new ServiceResponse<Comment>();
-            var application = await this._dataContext.Applications.FirstOrDefaultAsync(x => x.Id == commentData.Id);
-            var user = await this._dataContext.Users.FirstOrDefaultAsync(x => x.Id == commentData.userId);
+            var application = await this._dataContext.Applications.FirstOrDefaultAsync(x => x.Id == id);
+            var loggedUserId = this._httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var user = await this._dataContext.Users.FirstOrDefaultAsync(x => x.Id == loggedUserId);
+
             //var user2 = await this._dataContext.AspNetUsers.
-            if(application == null)
+            if (application == null)
             {
                 serviceResponse.Success = false;
                 serviceResponse.Message = "Application not found.";

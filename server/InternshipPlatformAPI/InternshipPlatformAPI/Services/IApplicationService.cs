@@ -16,7 +16,7 @@ namespace InternshipPlatformAPI.Services
 
         Task<ServiceResponse<Application>> GetSingleApplication(Guid id);
         Task<ServiceResponse<Application>> UpdateApplication(Guid id, ApplicationUpdateDto updateDto);
-        Task<ServiceResponse<Comment>> AddApplicationComment(ApplicationCommentDto commentData);
+        Task<ServiceResponse<Comment>> AddApplicationComment(ApplicationCommentDto commentData, Guid id);
 
 
     }

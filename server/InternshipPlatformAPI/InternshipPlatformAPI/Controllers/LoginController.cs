@@ -21,8 +21,7 @@ namespace InternshipPlatformAPI.Controllers
         [Route("login")]
         public async Task<IActionResult> login(LoginDto loginData)
         {
-            return !await this._loginService.Login(loginData.UserName, loginData.Password, loginData.rememberMe) ? NotFound() : Ok(new { Token = await this._loginService.CreateToken() });
-            //return Ok(await this._loginService.Login(loginData.UserName, loginData.Password,loginData.rememberMe));
+            return !await this._loginService.Login(loginData.UserName, loginData.Password, loginData.rememberMe) ? NotFound(new ServiceResponse<string>() { Success=false,Message="Incorrect login info."}) : Ok(new { Token = await this._loginService.CreateToken() , userName = loginData.UserName});
         }
         [HttpPost("register")]
         public async Task<ActionResult<ServiceResponse<string>>> register(LoginDto registerData)

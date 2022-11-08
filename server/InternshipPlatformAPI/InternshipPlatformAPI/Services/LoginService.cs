@@ -16,17 +16,17 @@ namespace InternshipPlatformAPI.Services
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IConfiguration _configuration;
         private IdentityUser? _user;
-        public LoginService(SignInManager<IdentityUser> signInManager,UserManager<IdentityUser> userManager,IConfiguration configuration)
+        public LoginService(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, IConfiguration configuration)
         {
             this._signInManager = signInManager;
             this._userManager = userManager;
             this._configuration = configuration;
         }
-        public async Task<bool> Login(string username, string password,bool rememberMe)
+        public async Task<bool> Login(string username, string password,bool rememberMe=true)
         {
             //ServiceResponse<string>
             _user = await _userManager.FindByNameAsync(username);
-            var serviceResponse = new ServiceResponse<string>();
+            var serviceResponse = new ServiceResponse<LoginResponseDto>();
             //var result = await this._signInManager.PasswordSignInAsync(username, password, rememberMe, false);
             var result = _user != null && await _userManager.CheckPasswordAsync(_user, password);
             //if (result.Succeeded)
@@ -99,7 +99,8 @@ namespace InternshipPlatformAPI.Services
         {
             var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.Name, _user.UserName)
+            new Claim(ClaimTypes.Name, _user.UserName),
+            new Claim(ClaimTypes.NameIdentifier,_user.Id)
         };
             var roles = await _userManager.GetRolesAsync(_user);
             foreach (var role in roles)

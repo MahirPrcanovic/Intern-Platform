@@ -57,9 +57,9 @@ namespace InternshipPlatformAPI.Controllers
             return Ok(await this._applicationService.UpdateApplication(id, statusUpdate));
         }
         [HttpPost("{id}")]
-        public async Task<ActionResult<ServiceResponse<Comment>>> AddApplicationComment(ApplicationCommentDto userData)
+        public async Task<ActionResult<ServiceResponse<Comment>>> AddApplicationComment([FromBody] ApplicationCommentDto userData, [FromRoute] Guid id)
         {
-            return Ok(await this._applicationService.AddApplicationComment(userData));
+            return Ok(await this._applicationService.AddApplicationComment(userData,id));
         }
 
     }

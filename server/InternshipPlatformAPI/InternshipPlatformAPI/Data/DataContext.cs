@@ -19,7 +19,7 @@ namespace InternshipPlatformAPI.Data
             builder.Entity<IdentityRole>().HasData(new IdentityRole
             {
                 Name = "Administrator",
-                NormalizedName = "Administrator",
+                NormalizedName = "ADMINISTRATOR",
                 Id = ROLE_ID,
                 ConcurrencyStamp = ROLE_ID,
             });
@@ -28,6 +28,7 @@ namespace InternshipPlatformAPI.Data
                 Id = ADMIN_ID,
                 UserName = "Admin",
                 EmailConfirmed = true,
+                NormalizedUserName="ADMIN",
             };
             PasswordHasher<IdentityUser> ph = new PasswordHasher<IdentityUser>();
             adminUser.PasswordHash = ph.HashPassword(adminUser, "admin123");

@@ -285,12 +285,12 @@ namespace InternshipPlatformAPI.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "341743f0-asd2–42de-afbf-59kmkkmk72cf6", "341743f0-asd2–42de-afbf-59kmkkmk72cf6", "Administrator", "Administrator" });
+                values: new object[] { "341743f0-asd2–42de-afbf-59kmkkmk72cf6", "341743f0-asd2–42de-afbf-59kmkkmk72cf6", "Administrator", "ADMINISTRATOR" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "02174cf0–9412–4cfe - afbf - 59f706d72cf6", 0, "603d3efd-13c4-4765-8bf8-7f3d1beeb89d", null, true, false, null, null, null, "AQAAAAEAACcQAAAAEDRYP5S2pSXPUFYRsby6/Uz6YOWxm4BF14yKyyxy7UPIPC7NOpjSMjyUzvm10WTkZA==", null, false, "2f1ab09f-c099-4549-8688-d8b3b9c50a53", false, "Admin" });
+                values: new object[] { "02174cf0–9412–4cfe - afbf - 59f706d72cf6", 0, "9c7c4509-2b14-48e9-b506-9fc05bd94f25", null, true, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEKlHxEtWK5A8Idn1gQaFcgG6yrO0rSOBTdCW6l0y5U+nOcpvrUgFLGnS+Sgrvs04FQ==", null, false, "21d5ecf8-d90b-4a9c-9b80-333339445ab4", false, "Admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

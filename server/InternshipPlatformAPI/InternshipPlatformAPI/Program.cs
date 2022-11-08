@@ -95,6 +95,7 @@ builder.Services.AddAuthentication(opt =>
 
     };
 });
+builder.Services.AddHttpContextAccessor();
 var app = builder.Build();
 
 app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());

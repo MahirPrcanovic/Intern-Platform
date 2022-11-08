@@ -13,7 +13,12 @@ export class LoginComponent implements OnInit {
   User: Subject<{ token: string; userName: string }> = new Subject();
   constructor(private loginService: LoginService, private router: Router) {}
   error = '';
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.router.navigate(['/applications']);
+    }
+  }
   onSubmit(f: NgForm) {
     console.log(f.form.value);
     let user = {
@@ -26,6 +31,7 @@ export class LoginComponent implements OnInit {
         console.log(response);
         this.error = '';
         this.User.next({ token: response.token, userName: response.userName });
+        localStorage.setItem('token', response.token);
         this.router.navigate(['/applications']);
       },
       (error) => {

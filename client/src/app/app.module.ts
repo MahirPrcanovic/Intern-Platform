@@ -22,6 +22,8 @@ import { SelectionEditPageComponent } from './pages/selection-edit-page/selectio
 import { SelectionsPageComponent } from './components/selections-page/selections-page.component';
 import { SelectionsAddPageComponent } from './pages/selections-add-page/selections-add-page.component';
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { UsersPageComponent } from './pages/users-page/users-page/users-page.component';
+import { UsersHeroComponent } from './components/users-page/users-hero/users-hero.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     SelectionEditPageComponent,
     SelectionsPageComponent,
     SelectionsAddPageComponent,
+    UsersPageComponent,
+    UsersHeroComponent,
   ],
 
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MimeKit;
 using Newtonsoft.Json;
+using SendGrid;
 using System.Linq;
 using System.Security.Claims;
 using System.Text.Json;
@@ -23,13 +24,15 @@ namespace InternshipPlatformAPI.Services
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IEmailService _emailService;
+        private readonly ISendGridClient sendGridClient;
 
-        public ApplicationService(DataContext dataContext, IMapper mapper,IHttpContextAccessor httpContextAccessor,IEmailService emailService)
+        public ApplicationService(DataContext dataContext, IMapper mapper,IHttpContextAccessor httpContextAccessor,IEmailService emailService,ISendGridClient sendGridClient)
         {
             this._dataContext = dataContext;
             this._mapper = mapper;
             this._httpContextAccessor = httpContextAccessor;
             this._emailService = emailService;
+            this.sendGridClient = sendGridClient;
         }
 
         
@@ -129,6 +132,7 @@ namespace InternshipPlatformAPI.Services
                 if(updateDto.Status.ToLower() == "in-selection")
                 {
                     await this._emailService.SendEmailAsync(application.Email, "Internship update", "Welcome to Internship!");
+                    
                 }
                 application.Status = updateDto.Status;
                 await this._dataContext.SaveChangesAsync();

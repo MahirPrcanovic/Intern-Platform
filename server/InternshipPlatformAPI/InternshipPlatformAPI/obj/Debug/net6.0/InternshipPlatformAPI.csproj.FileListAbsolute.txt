@@ -78,3 +78,4 @@ C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\Int
 C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\InternshipPlatformAPI\InternshipPlatformAPI\bin\Debug\net6.0\BouncyCastle.Crypto.dll
 C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\InternshipPlatformAPI\InternshipPlatformAPI\bin\Debug\net6.0\SendGrid.dll
 C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\InternshipPlatformAPI\InternshipPlatformAPI\bin\Debug\net6.0\StarkbankEcdsa.dll
+C:\Users\MahirPrcanovic\OneDrive - Maestral Solutions\Desktop\Project\server\InternshipPlatformAPI\InternshipPlatformAPI\bin\Debug\net6.0\SendGrid.Extensions.DependencyInjection.dll

@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>7c885541-4544-49ac-a3af-1e6770a53f8a</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,6 +25,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.25.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="SendGrid" Version="9.28.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.0" />
   </ItemGroup>

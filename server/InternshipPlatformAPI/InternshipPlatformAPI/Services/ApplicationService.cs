@@ -2,6 +2,7 @@
 using InternshipPlatformAPI.Data;
 using InternshipPlatformAPI.Dtos;
 using InternshipPlatformAPI.Models;
+using InternshipPlatformAPI.Services.EmailService;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.AspNetCore.JsonPatch;
@@ -21,12 +22,14 @@ namespace InternshipPlatformAPI.Services
         private readonly DataContext _dataContext;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IEmailService _emailService;
 
-        public ApplicationService(DataContext dataContext, IMapper mapper,IHttpContextAccessor httpContextAccessor)
+        public ApplicationService(DataContext dataContext, IMapper mapper,IHttpContextAccessor httpContextAccessor,IEmailService emailService)
         {
             this._dataContext = dataContext;
             this._mapper = mapper;
             this._httpContextAccessor = httpContextAccessor;
+            this._emailService = emailService;
         }
 
         
@@ -125,7 +128,7 @@ namespace InternshipPlatformAPI.Services
             {
                 if(updateDto.Status.ToLower() == "in-selection")
                 {
-                    SendEmail("mahirprcanovic@gmail.com", "Welcome to internship!");
+                    await this._emailService.SendEmailAsync(application.Email, "Internship update", "Welcome to Internship!");
                 }
                 application.Status = updateDto.Status;
                 await this._dataContext.SaveChangesAsync();

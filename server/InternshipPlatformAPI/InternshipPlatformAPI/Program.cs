@@ -15,6 +15,7 @@ using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
 using System.Text;
 using InternshipPlatformAPI.Services.UsersService;
+using InternshipPlatformAPI.Services.EmailService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -78,6 +79,7 @@ builder.Services.AddScoped<ISelectionService, SelectionService>();
 builder.Services.AddScoped<IApplicationService, ApplicationService>();
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddTransient<IEmailService, EmailService>();
 //builder.Services.AddCors(options => options.AddPolicy("AllowAccess_To_API", policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 var jwtConfig = builder.Configuration.GetSection("jwtConfig");
 var secretKey = jwtConfig["secret"];

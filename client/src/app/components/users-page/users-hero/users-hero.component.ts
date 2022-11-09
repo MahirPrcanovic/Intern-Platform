@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/users.service';
 interface User {
   id: string;
@@ -11,7 +12,7 @@ interface User {
   styleUrls: ['./users-hero.component.css'],
 })
 export class UsersHeroComponent implements OnInit {
-  constructor(private usersService: UserService) {}
+  constructor(private usersService: UserService, private router: Router) {}
   data: User[] = [];
   error: boolean = false;
   submitted: boolean = false;
@@ -21,9 +22,18 @@ export class UsersHeroComponent implements OnInit {
     this.fetchData();
   }
   fetchData() {
-    this.usersService.getAllUsers().subscribe((response: any) => {
-      this.data = response.data;
-    });
+    this.usersService.getAllUsers().subscribe(
+      (response: any) => {
+        this.data = response.data;
+      },
+      (error) => {
+        console.log(error);
+        if (error == 'Error: 403') {
+          this.router.navigate(['/applications']);
+        }
+        console.log(error);
+      }
+    );
   }
   deleteUser(id: string) {
     console.log(id);
@@ -33,6 +43,7 @@ export class UsersHeroComponent implements OnInit {
         console.log(response);
         if (response.success) {
           this.deletionSuccess = true;
+          this.data = this.data.filter((obj) => obj.id !== id);
         } else {
           this.deletionSuccess = false;
         }
@@ -61,6 +72,11 @@ export class UsersHeroComponent implements OnInit {
           this.error = true;
         } else {
           this.error = false;
+          const user = {
+            id: response.data,
+            userName: form.form.value.userName,
+          };
+          this.data.push(user);
         }
       },
       (error) => {

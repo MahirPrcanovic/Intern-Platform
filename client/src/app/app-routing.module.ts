@@ -32,7 +32,11 @@ const routes: Routes = [
   },
 
   { path: 'selections', component: SelectionsPageComponent },
-  { path: 'users', component: UsersPageComponent },
+  {
+    path: 'users',
+    component: UsersPageComponent,
+    canActivate: [AuthGuardService],
+  },
 ];
 
 @NgModule({

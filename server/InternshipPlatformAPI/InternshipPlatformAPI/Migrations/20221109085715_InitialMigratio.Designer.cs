@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternshipPlatformAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221108094715_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20221109085715_InitialMigratio")]
+    partial class InitialMigratio
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -306,13 +306,13 @@ namespace InternshipPlatformAPI.Migrations
                         {
                             Id = "02174cf0–9412–4cfe - afbf - 59f706d72cf6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9c7c4509-2b14-48e9-b506-9fc05bd94f25",
+                            ConcurrencyStamp = "30ef5f6d-1193-45e2-8d10-ff676684abc7",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKlHxEtWK5A8Idn1gQaFcgG6yrO0rSOBTdCW6l0y5U+nOcpvrUgFLGnS+Sgrvs04FQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJyYAq4CkSX1TzfJmkrnXhqUhBKXjJVhAKpd0fYns1BMpECE+PuSfB20lNappUmvCA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "21d5ecf8-d90b-4a9c-9b80-333339445ab4",
+                            SecurityStamp = "e0f6e6c2-2f9d-4695-be77-26f11ea75d38",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });

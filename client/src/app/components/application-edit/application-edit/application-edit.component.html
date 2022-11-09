@@ -7,8 +7,13 @@
   </div>
 </div>
 <div class="container">
-  <div class="col mt-5 justify-content-center d-flex gap-5">
-    <form (ngSubmit)="onSubmit(f)" #f="ngForm" *ngIf="!submitted" class="col-4">
+  <div class="col mt-5 justify-content-center d-flex-col d-md-flex gap-5">
+    <form
+      (ngSubmit)="onSubmit(f)"
+      #f="ngForm"
+      *ngIf="!submitted"
+      class="col col-md-4"
+    >
       <div class="form-group">
         <label for="exampleFormControlInput1">First name</label>
         <input

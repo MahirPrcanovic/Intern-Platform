@@ -29,7 +29,7 @@ namespace InternshipPlatformAPI.Controllers
         {
             return Ok(await this._userService.DeleteUser(id));
         }
-        [HttpPost]
+        [HttpPost("addNewUser")]
         public async Task<ActionResult<ServiceResponse<string>>> AddNewUser(RegisterDto registerData)
         {
             return Ok(await this._userService.AddNewUser(registerData));

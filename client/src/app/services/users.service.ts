@@ -11,7 +11,13 @@ export class UserService {
     return this.http.get(environment.apiUrl + '/api/Users');
   }
   deleteUser(id: string) {
-    console.log(id);
-    return this.http.delete(environment.apiUrl + '/api/Users' + id);
+    // console.log(id);
+    return this.http.delete(environment.apiUrl + '/api/Users/' + id);
+  }
+  addUser(userData: { userName: string; password: string; email: string }) {
+    return this.http.post(
+      environment.apiUrl + '/api/Users/addNewUser',
+      userData
+    );
   }
 }

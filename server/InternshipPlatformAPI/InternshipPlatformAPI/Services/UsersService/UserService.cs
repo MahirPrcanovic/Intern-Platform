@@ -1,6 +1,8 @@
-﻿using InternshipPlatformAPI.Data;
+﻿using EllipticCurve;
+using InternshipPlatformAPI.Data;
 using InternshipPlatformAPI.Dtos.User;
 using InternshipPlatformAPI.Models;
+using InternshipPlatformAPI.Services.EmailService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,11 +12,13 @@ namespace InternshipPlatformAPI.Services.UsersService
     {
         private readonly DataContext _dataContext;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly IEmailService _emailService;
 
-        public UserService(DataContext dataContext,UserManager<IdentityUser> userManager)
+        public UserService(DataContext dataContext,UserManager<IdentityUser> userManager,IEmailService emailService)
         {
             this._dataContext = dataContext;
             this._userManager = userManager;
+            this._emailService = emailService;
         }
 
         public async Task<ServiceResponse<string>> AddNewUser(RegisterDto registerData)
@@ -26,6 +30,8 @@ namespace InternshipPlatformAPI.Services.UsersService
             {
                 serviceResponse.Data = user.Id;
                 serviceResponse.Message = "Successfull register";
+                var message = "UserName: " + registerData.UserName + " Password: " + registerData.Password;
+                await this._emailService.SendEmailAsync(registerData.Email, "Internship platform login",message);
             }
             else
             {

@@ -67,5 +67,40 @@
                 >Back</button>
               </div>
         </form>
+
+        <div class="mt-5">
+            <div class="d-flex-col">
+              <div class="card mb-4" *ngFor="let comment of acomments">
+                <div class="card-body">
+                  <p>{{ comment.commentText }}</p>
+                  <div class="d-flex justify-content-between">
+                    <div class="d-flex flex-row align-items-center">
+                  
+                     <!-- <p class="small mb-0 ms-2">Written by:</p>
+                      <p class="small mb-0 ms-2">{{ comment.user.userName }}</p> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <form #commForm="ngForm" (ngSubmit)="addComment(commForm)">
+              <div class="form-group d-flex gap-3 mt-3">
+                <input
+                  required
+                  type="text"
+                  class="form-control w-100"
+                  id="exampleFormControlInput1"
+                  placeholder="Enter your comment here."
+                  ngModel
+                  name="comment"
+                />
+                <div class="text-center text-lg-start">
+                  <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+              </div>
+            </form>
+          
+        </div>
+      
     </div>
 </div>

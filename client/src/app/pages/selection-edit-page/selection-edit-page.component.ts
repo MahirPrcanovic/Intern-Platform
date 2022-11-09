@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SelectionsService } from 'src/app/services/selections.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, NgForm } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import {Selection} from 'src/app/models/Selection'
+import {SelectionComment} from 'src/app/interfaces/SelectionComment';
 
 
 @Component({
@@ -25,9 +26,14 @@ export class SelectionEditPageComponent implements OnInit {
     startDate :  new FormControl('startDate'),
     endDate :  new FormControl('endDate'),
     description :  new FormControl('description'),
+     
+  
   });
 
   updated : boolean = false;
+  acomments: any[] = [];
+
+ 
 
   ngOnInit(): void {
     this.selectionService.getSingleSelection(this.route.snapshot.params['id']).subscribe((result : any) =>{
@@ -38,6 +44,7 @@ export class SelectionEditPageComponent implements OnInit {
          endDate :  new FormControl(this.datePipe.transform(result.data.endDate,'yyyy-MM-dd')),
          description :  new FormControl(result.data.description),
        });
+        this.acomments = result.data.comments;
   
     
     });
@@ -57,4 +64,16 @@ EditData(){
     })
 }
    
+addComment(f: NgForm) {
+
+  this.selectionService
+    .addSelectionComment(this.route.snapshot.params['id'], f.form.value.comment)
+    .subscribe((response : any ) => {
+      console.log("ovo")
+      console.log(response.value.data);
+     this.acomments.push(response.value.data);
+    
+      
+    });
+}
   }

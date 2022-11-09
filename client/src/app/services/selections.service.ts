@@ -52,4 +52,15 @@ export class SelectionsService {
       return this.http.post(environment.apiUrl + '/api/Selections/AddNewApplicantToSelection/' + selectionId + '/' + applicantId, postData);
     }
 
+    addSelectionComment(selectionId: string, comment: string) {
+      const postData = {
+        commentText: comment,
+      };
+      console.log(postData);
+      return this.http.post(
+        environment.apiUrl + '/api/Selections/AddNewCommentToSelection/' + selectionId,
+        postData
+      );
+    }
+
 }

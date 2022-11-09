@@ -24,6 +24,7 @@ namespace InternshipPlatformAPI.Services.UsersService
             var serviceResponse = new ServiceResponse<string>();
             if (result.Succeeded)
             {
+                serviceResponse.Data = user.Id;
                 serviceResponse.Message = "Successfull register";
             }
             else

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace InternshipPlatformAPI.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class InitialMigratio : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -290,7 +290,7 @@ namespace InternshipPlatformAPI.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "02174cf0–9412–4cfe - afbf - 59f706d72cf6", 0, "9c7c4509-2b14-48e9-b506-9fc05bd94f25", null, true, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEKlHxEtWK5A8Idn1gQaFcgG6yrO0rSOBTdCW6l0y5U+nOcpvrUgFLGnS+Sgrvs04FQ==", null, false, "21d5ecf8-d90b-4a9c-9b80-333339445ab4", false, "Admin" });
+                values: new object[] { "02174cf0–9412–4cfe - afbf - 59f706d72cf6", 0, "30ef5f6d-1193-45e2-8d10-ff676684abc7", null, true, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEJyYAq4CkSX1TzfJmkrnXhqUhBKXjJVhAKpd0fYns1BMpECE+PuSfB20lNappUmvCA==", null, false, "e0f6e6c2-2f9d-4695-be77-26f11ea75d38", false, "Admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

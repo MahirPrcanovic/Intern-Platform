@@ -59,5 +59,11 @@ namespace InternshipPlatformAPI.Controllers
         {
             return Ok(await _selectionService.AddApplicantToSelection(selectionId,applicantId));
         }
+
+        [HttpPost("AddNewCommentToSelection/{selectionId}")]
+        public async Task<ActionResult<ServiceResponse<Comment>>>AddComment(Guid selectionId, SelectionCommentDto comment)
+        {
+            return Ok(await _selectionService.AddComment(selectionId,comment));
+        }
     }
 }

@@ -4,6 +4,8 @@ using InternshipPlatformAPI.Dtos.SelectionDto;
 using InternshipPlatformAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Runtime.CompilerServices;
 
 namespace InternshipPlatformAPI.Services.SelectionService
 {
@@ -135,6 +137,8 @@ namespace InternshipPlatformAPI.Services.SelectionService
         {
             var response = new ServiceResponse<List<Application>>();
             var newApp= await _dataContext.Applications.Where(a => a.Id == applicantId).FirstOrDefaultAsync();
+
+
             if(newApp == null)
             {
                 response.Success = false;
@@ -145,6 +149,8 @@ namespace InternshipPlatformAPI.Services.SelectionService
             var selekcija = await _dataContext.Selections
                 .Include(y => y.Applications)
                 .Where(x => x.Id == selectionId).FirstOrDefaultAsync();
+          
+
             selekcija.Applications.Add(newApp);
             await _dataContext.SaveChangesAsync();
 
@@ -155,5 +161,43 @@ namespace InternshipPlatformAPI.Services.SelectionService
 
         }
 
+        public async Task<ActionResult<ServiceResponse<Comment>>> AddComment(Guid selectionId, SelectionCommentDto comment)
+        {
+            var response = new ServiceResponse<Comment>();
+            var existis = await _dataContext.Selections.FirstOrDefaultAsync(s => s.Id == selectionId);
+            if (existis == null)
+            {
+                response.Success = false;
+                response.Message = "Selection doesn't exists.";
+                return response;
+            }
+
+            //dodati i za slucaj usera 
+
+            var newComment = new Comment()
+            {
+                CommentText = comment.CommentText
+            };
+
+            var addComment = _mapper.Map<Comment>(newComment);
+            addComment.DateCreated = DateTime.Now;
+            this._dataContext.Comments.Add(addComment);
+
+            var selectionComment = new SelectionComment()
+            {
+                Comment = addComment,
+                Selection = existis,
+            };
+
+            this._dataContext.SelectionComments.Add(selectionComment);
+
+            
+            response.Data = addComment;
+            await this._dataContext.SaveChangesAsync();
+
+
+            return response;
+
+        }
     }
 }

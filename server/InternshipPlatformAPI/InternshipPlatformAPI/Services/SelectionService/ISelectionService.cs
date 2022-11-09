@@ -1,5 +1,6 @@
 ﻿using InternshipPlatformAPI.Dtos.SelectionDto;
 using InternshipPlatformAPI.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace InternshipPlatformAPI.Services.SelectionService
 {
@@ -11,5 +12,6 @@ namespace InternshipPlatformAPI.Services.SelectionService
         public Task<ServiceResponse<List<GetSelectionDto>>> RemoveSelectionApplicant(Guid selectionId, Guid applicationId);
         public Task<ServiceResponse<GetSelectionDto>> EditSelection(Guid id, EditSelectionDto newSelection);
         public Task<ServiceResponse<List<Application>>> AddApplicantToSelection(Guid selectionId,Guid applicantId);
+        public Task<ActionResult<ServiceResponse<Comment>>> AddComment(Guid selectionId, SelectionCommentDto comment);
     }
 }

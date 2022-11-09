@@ -16,6 +16,7 @@ using System.Text.Json.Serialization;
 using System.Text;
 using InternshipPlatformAPI.Services.UsersService;
 using InternshipPlatformAPI.Services.EmailService;
+using SendGrid.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -79,6 +80,12 @@ builder.Services.AddScoped<ISelectionService, SelectionService>();
 builder.Services.AddScoped<IApplicationService, ApplicationService>();
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IUserService, UserService>();
+
+
+builder.Services.AddSendGrid(options =>
+    options.ApiKey = builder.Configuration.GetValue<string>("SendGridApiKey")
+                     ?? throw new Exception("The 'SendGridApiKey' is not configured")
+);
 builder.Services.AddTransient<IEmailService, EmailService>();
 //builder.Services.AddCors(options => options.AddPolicy("AllowAccess_To_API", policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 var jwtConfig = builder.Configuration.GetSection("jwtConfig");

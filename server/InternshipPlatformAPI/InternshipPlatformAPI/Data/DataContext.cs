@@ -1,4 +1,5 @@
-﻿using InternshipPlatformAPI.Models;
+﻿using InternshipPlatformAPI.Dtos;
+using InternshipPlatformAPI.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -14,14 +15,39 @@ namespace InternshipPlatformAPI.Data
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Application>().HasData(new Application
+            {
+                FirstName="Mahir",
+                LastName="Prcanovic",
+                EducationLevel="College-Undergraduate",
+                Email="mahirprcanovic@gmail.com",
+                CoverLetter="cover letter",
+                CV= "https://github.com/MahirPrcanovic"
+            },
+            new Application
+            {
+                FirstName = "Adna",
+                LastName = "Salcin",
+                EducationLevel = "Master-Undergraduate",
+                Email = "adnasalcin@gmail.com",
+                CoverLetter = "cover letter",
+                CV = "https://github.com/asalcin3"
+            });
             string ADMIN_ID = "02174cf0–9412–4cfe - afbf - 59f706d72cf6";
             string ROLE_ID = "341743f0-asd2–42de-afbf-59kmkkmk72cf6";
+            string EDITOR_ROLE_ID = "413743e0-asd2–42fe-afbf-59kmccmk72cd6";
             builder.Entity<IdentityRole>().HasData(new IdentityRole
             {
                 Name = "Administrator",
                 NormalizedName = "ADMINISTRATOR",
                 Id = ROLE_ID,
                 ConcurrencyStamp = ROLE_ID,
+            },new IdentityRole
+            {
+                Name="Editor",
+                NormalizedName="EDITOR",
+                Id = EDITOR_ROLE_ID,
+                ConcurrencyStamp = EDITOR_ROLE_ID
             });
             var adminUser = new IdentityUser
             {

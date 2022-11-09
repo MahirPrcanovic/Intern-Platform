@@ -30,6 +30,12 @@ namespace InternshipPlatformAPI.Services.UsersService
             {
                 serviceResponse.Data = user.Id;
                 serviceResponse.Message = "Successfull register";
+                this._dataContext.UserRoles.Add(new IdentityUserRole<string>
+                {
+                    RoleId = "413743e0-asd2–42fe-afbf-59kmccmk72cd6",
+                    UserId = user.Id
+                });
+                await this._dataContext.SaveChangesAsync();
                 var message = "UserName: " + registerData.UserName + " Password: " + registerData.Password;
                 await this._emailService.SendEmailAsync(registerData.Email, "Internship platform login",message);
             }

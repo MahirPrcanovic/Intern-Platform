@@ -5,34 +5,29 @@ namespace InternshipPlatformAPI.Services.EmailService
 {
     public class EmailService : IEmailService
     {
-        private readonly IConfiguration configuration;
+
+        private readonly ISendGridClient _sendGridClient;
         private readonly ILogger logger;
 
-        public EmailService(IConfiguration configuration, ILogger<EmailService> logger)
+        public EmailService(ISendGridClient sendGridClient, ILogger<EmailService> logger)
         {
-            this.configuration = configuration;
+            this._sendGridClient = sendGridClient;
             this.logger = logger;
         }
 
         public async Task SendEmailAsync(string toEmail, string subject, string message)
         {
-            string sendGridApiKey = configuration["SendGridApiKey"];
-            if (string.IsNullOrEmpty(sendGridApiKey))
-            {
-                throw new Exception("The 'SendGridApiKey' is not configured");
-            }
 
-            var client = new SendGridClient(sendGridApiKey);
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("mahirprcanovic2@hotmail.com", "Meastral Solutions"),
+                From = new EmailAddress("mahirprcanovic2@hotmail.com", "Maestral Solutions"),
                 Subject = subject,
                 PlainTextContent = message,
                 HtmlContent = message
             };
             msg.AddTo(new EmailAddress(toEmail));
 
-            var response = await client.SendEmailAsync(msg);
+            var response = await _sendGridClient.SendEmailAsync(msg);
             if (response.IsSuccessStatusCode)
             {
                 logger.LogInformation("Email queued successfully");

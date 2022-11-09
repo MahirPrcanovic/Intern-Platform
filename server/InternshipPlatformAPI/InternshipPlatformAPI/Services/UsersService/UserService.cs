@@ -28,8 +28,10 @@ namespace InternshipPlatformAPI.Services.UsersService
             }
             else
             {
+                serviceResponse.Success = false;
                 serviceResponse.Message = "Not successfull";
             }
+            //SEND EMAIL TO registerData.email
             return serviceResponse;
         }
 
@@ -44,6 +46,7 @@ namespace InternshipPlatformAPI.Services.UsersService
                 return serviceResponse;
             }
             var result = await this._userManager.DeleteAsync(user);
+            //await this.
             if (result.Succeeded)
             {
                 serviceResponse.Message = "Deletion successfull.";

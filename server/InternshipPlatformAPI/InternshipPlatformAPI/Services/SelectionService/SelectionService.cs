@@ -88,8 +88,7 @@ namespace InternshipPlatformAPI.Services.SelectionService
         public async Task<ServiceResponse<GetSelectionDto>> GetSelectionById(Guid selectionId)
         {
             var response = new ServiceResponse<GetSelectionDto>();
-            var singleSelection = await _dataContext.Selections// Include(y => y.Applications).Include(y => y.Comments)
-                .FirstOrDefaultAsync(i => i.Id.Equals(selectionId));
+            var singleSelection = await _dataContext.Selections.FirstOrDefaultAsync(i => i.Id.Equals(selectionId));
 
             singleSelection.Applications = await _dataContext.Applications.Where(x => x.Selections.Contains(singleSelection)).ToListAsync();
             var selectionComments = await Task.Run(() => _dataContext.SelectionComments.ToList());
@@ -205,6 +204,7 @@ namespace InternshipPlatformAPI.Services.SelectionService
             {
                 Comment = addComment,
                 Selection = existis,
+                User = user,
             };
 
             _dataContext.SelectionComments.Add(selectionComment);

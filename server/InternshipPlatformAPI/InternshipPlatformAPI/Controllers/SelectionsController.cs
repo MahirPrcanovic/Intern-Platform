@@ -9,49 +9,49 @@ using System.Formats.Asn1;
 
 namespace InternshipPlatformAPI.Controllers
 {
-   // [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SelectionsController : ControllerBase
     {
-      
-        private  readonly ISelectionService _selectionService;
 
-        public SelectionsController( ISelectionService selection)
+        private readonly ISelectionService _selectionService;
+
+        public SelectionsController(ISelectionService selection)
         {
             _selectionService = selection;
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<ServiceResponse<List<GetSelectionDto>>>> GetAllSelections(int? pageNumber = 1, int? pageSize = 5, string? sort="", string? filterBy="")
+        public async Task<ActionResult<ServiceResponse<List<GetSelectionDto>>>> GetAllSelections(int? pageNumber = 1, int? pageSize = 5, string? sort = "", string? filterBy = "")
         {
-          
+
             return Ok(await _selectionService.GetAllSelections((int)pageNumber, (int)pageSize, sort, filterBy));
         }
 
         [HttpGet("GetSelectionsById/{id}")]
-        public async Task<ActionResult<ServiceResponse<GetSelectionDto>>>GetSelectionById(Guid id)
+        public async Task<ActionResult<ServiceResponse<GetSelectionDto>>> GetSelectionById(Guid id)
         {
             return Ok(await _selectionService.GetSelectionById(id));
         }
 
         [HttpPost("AddNewSelection")]
-        public async Task<ActionResult<ServiceResponse<List<GetSelectionDto>>>>AddSelection([FromBody] AddSelectionDto newSelection)
+        public async Task<ActionResult<ServiceResponse<List<GetSelectionDto>>>> AddSelection([FromBody] AddSelectionDto newSelection)
         {
             return Ok(await _selectionService.AddSelection(newSelection));
         }
 
-        [HttpPut("EditSelection/{id}" )]
-        public async Task<ActionResult<ServiceResponse<GetSelectionDto>>>EditSelection([FromBody] EditSelectionDto editSelection, Guid id)
+        [HttpPut("EditSelection/{id}")]
+        public async Task<ActionResult<ServiceResponse<GetSelectionDto>>> EditSelection(Guid id, [FromBody]  EditSelectionDto editSelection)
         {
-            return Ok(await _selectionService.EditSelection(editSelection, id));
+            return Ok(await _selectionService.EditSelection(id,editSelection));
         }
         
 
         [HttpDelete("DeleteApplicants/{selectionId}/{applicationId}")]
-        public async Task<ActionResult<ServiceResponse<List<GetSelectionDto>>>> RemoveSelectionApplicant(Guid selecionId,Guid applicationId)
+        public async Task<ActionResult<ServiceResponse<List<GetSelectionDto>>>> RemoveSelectionApplicant(Guid selectionId,Guid applicationId)
         {
-            return Ok(await _selectionService.RemoveSelectionApplicant(selecionId, applicationId));
+            return Ok(await _selectionService.RemoveSelectionApplicant(selectionId, applicationId));
         }
 
         [HttpPost("AddNewApplicantToSelection/{selectionId}/{applicantId}")]
@@ -59,5 +59,13 @@ namespace InternshipPlatformAPI.Controllers
         {
             return Ok(await _selectionService.AddApplicantToSelection(selectionId,applicantId));
         }
+
+        [HttpPost("AddNewCommentToSelection/{selectionId}")]
+        public async Task<ActionResult<ServiceResponse<Comment>>>AddComment(Guid selectionId, SelectionCommentDto comment)
+        {
+            return Ok(await _selectionService.AddComment(selectionId,comment));
+        }
+
+   
     }
 }

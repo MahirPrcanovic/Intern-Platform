@@ -21,6 +21,7 @@ namespace InternshipPlatformAPI.Profiles
             CreateMap<ApplicationCommentDto,Comment>();
          
 
+            CreateMap<SelectionCommentDto,Comment>();
         }
     }
 }

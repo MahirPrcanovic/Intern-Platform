@@ -11,12 +11,12 @@ import { HeroSectionComponent } from './components/landing-page/hero-section/her
 import { SelectionSectionComponent } from './components/landing-page/selection-section/selection-section.component';
 import { SubscribeSectionComponent } from './components/landing-page/subscribe-section/subscribe-section.component';
 import { FooterComponent } from './components/footer/footer/footer.component';
-// import { DashboardHeaderComponent } from './components/applications-page/header/dashboard-header/dashboard-header.component';
+
 import { DashboardHeaderComponent } from './components/applications-page/header/dashboard-header/dashboard-header.component';
 import { ApplicationsPageComponent } from './pages/applications-page/applications-page/applications-page.component';
 import { ApplicationHeroComponent } from './components/applications-page/hero-section/application-hero/application-hero.component';
 import { ApplicationFormPageComponent } from './pages/application-form-page/application-form-page.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule} from '@angular/forms';
 import { ApplicationEditComponent } from './components/application-edit/application-edit/application-edit.component';
 import { SelectionEditPageComponent } from './pages/selection-edit-page/selection-edit-page.component';
 import { SelectionsPageComponent } from './components/selections-page/selections-page.component';
@@ -24,6 +24,11 @@ import { SelectionsAddPageComponent } from './pages/selections-add-page/selectio
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { UsersPageComponent } from './pages/users-page/users-page/users-page.component';
 import { UsersHeroComponent } from './components/users-page/users-hero/users-hero.component';
+import { DatePipe } from '@angular/common';
+import { SelectionsDetailsPageComponent } from 'src/app/pages/selections-details-page/selections-details-page.component';
+import { AddApplicantToSelectionPageComponent } from './pages/add-applicant-to-selection-page/add-applicant-to-selection-page.component';
+
+
 
 @NgModule({
   declarations: [
@@ -45,16 +50,18 @@ import { UsersHeroComponent } from './components/users-page/users-hero/users-her
     SelectionsAddPageComponent,
     UsersPageComponent,
     UsersHeroComponent,
+    SelectionsDetailsPageComponent,
+    AddApplicantToSelectionPageComponent,
   ],
 
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
-  providers: [
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule,ReactiveFormsModule],
+  providers: [ DatePipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true,
     },
   ],
-  bootstrap: [AppComponent],
+   bootstrap: [AppComponent],
 })
 export class AppModule {}

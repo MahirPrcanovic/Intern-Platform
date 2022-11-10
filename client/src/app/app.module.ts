@@ -11,7 +11,7 @@ import { HeroSectionComponent } from './components/landing-page/hero-section/her
 import { SelectionSectionComponent } from './components/landing-page/selection-section/selection-section.component';
 import { SubscribeSectionComponent } from './components/landing-page/subscribe-section/subscribe-section.component';
 import { FooterComponent } from './components/footer/footer/footer.component';
-// import { DashboardHeaderComponent } from './components/applications-page/header/dashboard-header/dashboard-header.component';
+
 import { DashboardHeaderComponent } from './components/applications-page/header/dashboard-header/dashboard-header.component';
 import { ApplicationsPageComponent } from './pages/applications-page/applications-page/applications-page.component';
 import { ApplicationHeroComponent } from './components/applications-page/hero-section/application-hero/application-hero.component';
@@ -24,7 +24,6 @@ import { SelectionsAddPageComponent } from './pages/selections-add-page/selectio
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { UsersPageComponent } from './pages/users-page/users-page/users-page.component';
 import { UsersHeroComponent } from './components/users-page/users-hero/users-hero.component';
-import { SelectionsAddPageComponent } from 'src/app/pages/selections-add-page/selections-add-page.component';
 import { DatePipe } from '@angular/common';
 import { SelectionsDetailsPageComponent } from 'src/app/pages/selections-details-page/selections-details-page.component';
 import { AddApplicantToSelectionPageComponent } from './pages/add-applicant-to-selection-page/add-applicant-to-selection-page.component';
@@ -55,16 +54,14 @@ import { AddApplicantToSelectionPageComponent } from './pages/add-applicant-to-s
     AddApplicantToSelectionPageComponent,
   ],
 
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
-  providers: [
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule,ReactiveFormsModule],
+  providers: [ DatePipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true,
     },
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule,ReactiveFormsModule],
-  providers: [DatePipe],
-  bootstrap: [AppComponent],
+   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -61,7 +61,8 @@ const routes: Routes = [
 
   {
     path:'selections/addToSelection/:selectionId',
-    component: AddApplicantToSelectionPageComponent
+    component: AddApplicantToSelectionPageComponent,
+    canActivate: [AuthGuardService],
   },
 
   {

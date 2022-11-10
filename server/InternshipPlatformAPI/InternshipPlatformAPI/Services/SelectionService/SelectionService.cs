@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Runtime.CompilerServices;
+using System.Security.Claims;
 
 namespace InternshipPlatformAPI.Services.SelectionService
 {
@@ -13,11 +14,13 @@ namespace InternshipPlatformAPI.Services.SelectionService
     {
         private readonly DataContext _dataContext;
         private readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public SelectionService(DataContext dataContext, IMapper mapper)
+        public SelectionService(DataContext dataContext, IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
             _dataContext = dataContext;
             _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<ServiceResponse<List<GetSelectionDto>>> AddSelection(AddSelectionDto newSelection)
@@ -173,6 +176,8 @@ namespace InternshipPlatformAPI.Services.SelectionService
         {
             var response = new ServiceResponse<Comment>();
             var existis = await _dataContext.Selections.FirstOrDefaultAsync(s => s.Id == selectionId);
+            var loggedUserId = this._httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var user = await this._dataContext.Users.FirstOrDefaultAsync(x => x.Id == loggedUserId);
             if (existis == null)
             {
                 response.Success = false;
@@ -180,7 +185,12 @@ namespace InternshipPlatformAPI.Services.SelectionService
                 return response;
             }
 
-            //dodati i za slucaj usera 
+            if (user == null)
+            {
+                response.Success = false;
+                response.Message = "User not found.";
+                return response;
+            }
 
             var newComment = new Comment()
             {

@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 interface loginData {
   userName: string;
@@ -14,5 +13,18 @@ export class LoginService {
   constructor(private http: HttpClient) {}
   login(loginData: loginData) {
     return this.http.post(environment.apiUrl + '/auth/login', loginData);
+  }
+  getToken() {
+    return localStorage.getItem('token');
+  }
+  public isAuthenticated(): boolean {
+    const token = localStorage.getItem('token');
+    if (token) {
+      return true;
+    }
+    return false;
+    // Check whether the token is expired and return
+    // true or false
+    // return token == null;
   }
 }

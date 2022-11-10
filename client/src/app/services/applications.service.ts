@@ -32,4 +32,22 @@ export class ApplicationsService {
       params: params,
     });
   }
+  getSingleApplication(id: string) {
+    return this.http.get(environment.apiUrl + '/api/ApplicationForm/' + id);
+  }
+  updateApplication(id: string, status: string) {
+    return this.http.put(environment.apiUrl + '/api/ApplicationForm/' + id, {
+      Status: status,
+    });
+  }
+  addApplicationComment(id: string, comment: string) {
+    const postData = {
+      commentText: comment,
+    };
+    console.log(postData);
+    return this.http.post(
+      environment.apiUrl + '/api/ApplicationForm/' + id,
+      postData
+    );
+  }
 }

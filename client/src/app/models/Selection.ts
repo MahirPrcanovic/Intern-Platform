@@ -1,6 +1,6 @@
 export class Selection {
     constructor(
-      public Id: number,
+      public Id: string,
       public Name: string,
       public StartDate: Date,
       public EndDate: Date,

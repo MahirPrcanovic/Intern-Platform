@@ -2,7 +2,10 @@
 using InternshipPlatformAPI.Data;
 using InternshipPlatformAPI.Dtos.SelectionDto;
 using InternshipPlatformAPI.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Runtime.CompilerServices;
 
 namespace InternshipPlatformAPI.Services.SelectionService
 {
@@ -31,7 +34,7 @@ namespace InternshipPlatformAPI.Services.SelectionService
             return response;
         }
 
-        public async Task<ServiceResponse<GetSelectionDto>> EditSelection(EditSelectionDto newSelection, Guid id)
+        public async Task<ServiceResponse<GetSelectionDto>> EditSelection(Guid id,EditSelectionDto newSelection)
         {
             ServiceResponse<GetSelectionDto> response = new ServiceResponse<GetSelectionDto>();
              
@@ -82,11 +85,19 @@ namespace InternshipPlatformAPI.Services.SelectionService
         public async Task<ServiceResponse<GetSelectionDto>> GetSelectionById(Guid selectionId)
         {
             var response = new ServiceResponse<GetSelectionDto>();
-            var singleSelection = await _dataContext.Selections.Include(y => y.Applications)
+            var singleSelection = await _dataContext.Selections// Include(y => y.Applications).Include(y => y.Comments)
                 .FirstOrDefaultAsync(i => i.Id.Equals(selectionId));
+
+            singleSelection.Applications = await _dataContext.Applications.Where(x => x.Selections.Contains(singleSelection)).ToListAsync();
+            var selectionComments = await Task.Run(() => _dataContext.SelectionComments.ToList());
+            
+            var comms = _dataContext.Comments.ToList();
+            
+            singleSelection.Comments = _dataContext.Comments.Where(x => selectionComments.Select(y => y.Comment).ToList().Contains(x)).ToList();
+            
             if(singleSelection == null) //ako ne pronadje odgovarajucu selekciju pod tim id-em
             {
-                response.Success= false;
+                response.Success= false;  
                 response.Message = "No available selection.";
             }
 
@@ -99,14 +110,23 @@ namespace InternshipPlatformAPI.Services.SelectionService
         {
             ServiceResponse<List<GetSelectionDto>> response = new ServiceResponse<List<GetSelectionDto>>();
 
-            var selection = await _dataContext.Selections
-                .FirstOrDefaultAsync(s => s.Id.Equals(selectionId));
+            var selection = await _dataContext.Selections.Include(a => a.Applications)
+                .FirstOrDefaultAsync();
+           
+            if(selection == null)
+            {
+                response.Success = false;
+                response.Message = "Selection not found";
+            }
 
-          var removeApplicant = selection.Applications.Where(a => a.Id.Equals(applicantId)).FirstOrDefault();
+           
+
+          var removeApplicant = selection?.Applications?.Where(a => a.Id.Equals(applicantId)).FirstOrDefault();
+            Console.WriteLine(selection);
 
             if (selection != null && removeApplicant!=null)
             {
-                _dataContext.Applications.Remove(removeApplicant);
+                selection?.Applications?.Remove(removeApplicant);
                 await _dataContext.SaveChangesAsync();
                 response.Data = _dataContext.Selections
                         .Select(c => _mapper.Map<GetSelectionDto>(c)).ToList();
@@ -125,6 +145,8 @@ namespace InternshipPlatformAPI.Services.SelectionService
         {
             var response = new ServiceResponse<List<Application>>();
             var newApp= await _dataContext.Applications.Where(a => a.Id == applicantId).FirstOrDefaultAsync();
+
+
             if(newApp == null)
             {
                 response.Success = false;
@@ -135,6 +157,8 @@ namespace InternshipPlatformAPI.Services.SelectionService
             var selekcija = await _dataContext.Selections
                 .Include(y => y.Applications)
                 .Where(x => x.Id == selectionId).FirstOrDefaultAsync();
+          
+
             selekcija.Applications.Add(newApp);
             await _dataContext.SaveChangesAsync();
 
@@ -145,5 +169,44 @@ namespace InternshipPlatformAPI.Services.SelectionService
 
         }
 
+        public async Task<ActionResult<ServiceResponse<Comment>>> AddComment(Guid selectionId, SelectionCommentDto comment)
+        {
+            var response = new ServiceResponse<Comment>();
+            var existis = await _dataContext.Selections.FirstOrDefaultAsync(s => s.Id == selectionId);
+            if (existis == null)
+            {
+                response.Success = false;
+                response.Message = "Selection doesn't exists.";
+                return response;
+            }
+
+            //dodati i za slucaj usera 
+
+            var newComment = new Comment()
+            {
+                CommentText = comment.CommentText
+            };
+
+            var addComment = _mapper.Map<Comment>(newComment);
+            addComment.DateCreated = DateTime.Now;
+            _dataContext.Comments.Add(addComment);
+
+            var selectionComment = new SelectionComment()
+            {
+                Comment = addComment,
+                Selection = existis,
+            };
+
+            _dataContext.SelectionComments.Add(selectionComment);
+          
+            response.Data = addComment;
+            await _dataContext.SaveChangesAsync();
+
+
+            return response;
+
+        }
+
+       
     }
 }

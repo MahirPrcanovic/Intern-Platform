@@ -2,11 +2,17 @@
 using InternshipPlatformAPI.Data;
 using InternshipPlatformAPI.Dtos;
 using InternshipPlatformAPI.Models;
+using InternshipPlatformAPI.Services.EmailService;
+using MailKit.Net.Smtp;
+using MailKit.Security;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient.Server;
 using Microsoft.EntityFrameworkCore;
+using MimeKit;
 using Newtonsoft.Json;
+using SendGrid;
 using System.Linq;
+using System.Security.Claims;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
@@ -16,11 +22,17 @@ namespace InternshipPlatformAPI.Services
     {
         private readonly DataContext _dataContext;
         private readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IEmailService _emailService;
+        private readonly ISendGridClient sendGridClient;
 
-        public ApplicationService(DataContext dataContext, IMapper mapper)
+        public ApplicationService(DataContext dataContext, IMapper mapper,IHttpContextAccessor httpContextAccessor,IEmailService emailService,ISendGridClient sendGridClient)
         {
             this._dataContext = dataContext;
             this._mapper = mapper;
+            this._httpContextAccessor = httpContextAccessor;
+            this._emailService = emailService;
+            this.sendGridClient = sendGridClient;
         }
 
         
@@ -28,7 +40,7 @@ namespace InternshipPlatformAPI.Services
         public async Task<ServiceResponse<ApplicationFormDto>> PostApplication(ApplicationFormDto applicationFormDto)
         {
             var serviceResponse = new ServiceResponse<ApplicationFormDto>();
-            
+           
             try
             {
             var insertData = this._mapper.Map<Application>(applicationFormDto);
@@ -62,6 +74,7 @@ namespace InternshipPlatformAPI.Services
                     applications = this._dataContext.Applications;
                     break;
             }
+            serviceResponse.PagesCount = (await applications.CountAsync() / pageSize) + 1;
             switch (sortBy)
             {
                 case "name":
@@ -79,9 +92,181 @@ namespace InternshipPlatformAPI.Services
             }
       
             var results = await applications.ToListAsync();
-            serviceResponse.PagesCount = (results.Count() /pageSize)+1;
+           
             serviceResponse.Data = results.Select(c=>this._mapper.Map<ApplicationDto>(c)).ToList();
             return serviceResponse;
         }
+
+        public async Task<ServiceResponse<Application>> GetSingleApplication(Guid id)
+        {
+            var serviceResponse = new ServiceResponse<Application>();
+            var user = await this._dataContext.Applications.FirstOrDefaultAsync(a=>a.Id==id);
+                //FirstOrDefaultAsync(b => b.Id == id);
+                //.FirstOrDefaultAsync(x => x.Id == id);
+            
+            if (user == null)
+            {
+
+                serviceResponse.Success = false;
+                serviceResponse.Message = "Applicant not found!";
+            }
+            else
+            {
+                serviceResponse.Data = user;
+            }
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<Application>> UpdateApplication(Guid id, ApplicationUpdateDto updateDto)
+        {
+            var serviceResponse = new ServiceResponse<Application>();
+            var application = await this._dataContext.Applications.FirstOrDefaultAsync(x => x.Id == id);
+            if (application == null)
+            {
+
+                serviceResponse.Success = false;
+                serviceResponse.Message = "Applicant not found!";
+            }
+            else
+            {
+                if(updateDto.Status.ToLower() == "in-selection")
+                {
+                    await this._emailService.SendEmailAsync(application.Email, "Internship update", "Welcome to Internship!");
+                    
+                }
+                application.Status = updateDto.Status;
+                await this._dataContext.SaveChangesAsync();
+                serviceResponse.Data = application;
+            }
+            return serviceResponse;
+            //throw new NotImplementedException();
+        }
+
+        public async Task<ServiceResponse<Comment>> AddApplicationComment(ApplicationCommentDto commentData,Guid id)
+        {
+            var serviceResponse = new ServiceResponse<Comment>();
+            var application = await this._dataContext.Applications.FirstOrDefaultAsync(x => x.Id == id);
+            var loggedUserId = this._httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var user = await this._dataContext.Users.FirstOrDefaultAsync(x => x.Id == loggedUserId);
+
+            //var user2 = await this._dataContext.AspNetUsers.
+            if (application == null)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = "Application not found.";
+                return serviceResponse;
+            }
+             if(user == null)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = "User not found.";
+                return serviceResponse;
+            }
+            var comment = new Comment() { CommentText = commentData.CommentText };
+            var addComment = _mapper.Map<Comment>(comment);
+            addComment.DateCreated = DateTime.Now;
+             this._dataContext.Comments.Add(addComment);
+            var applicationComment = new ApplicationComment()
+            {
+                Comment = addComment,
+                Application = application,
+                User = user
+            };
+            this._dataContext.ApplicationComments.Add(applicationComment);
+            serviceResponse.Data = addComment;
+            await this._dataContext.SaveChangesAsync();
+            //serviceResponse.Data = results.Select(c=>this._mapper.Map<ApplicationDto>(c)).ToList();
+            return serviceResponse;
+
+        }
+        private void SendEmail(string sendTo,string textToSend)
+        {
+            var email = new MimeMessage();
+            email.From.Add(MailboxAddress.Parse("moses.rosenbaum@ethereal.email"));
+            email.To.Add(MailboxAddress.Parse(sendTo));
+            email.Subject = "Test Email Subject";
+            email.Body = new TextPart(MimeKit.Text.TextFormat.Text) { Text = textToSend };
+            using var smtp = new SmtpClient();
+            smtp.Connect("smtp.ethereal.email",587,SecureSocketOptions.StartTls);
+            smtp.Authenticate("moses.rosenbaum@ethereal.email", "k6G8zkkujSpnVjkZBY");
+            smtp.Send(email);
+            smtp.Disconnect(true);
+        }
+
+        //public async Task<ServiceResponse<Application>> GetSingleApplication(Guid id)
+        //{
+        //    var serviceResponse = new ServiceResponse<Application>();
+        //    var user = await this._dataContext.Applications.FirstOrDefaultAsync(a=>a.Id==id);
+        //        //FirstOrDefaultAsync(b => b.Id == id);
+        //        //.FirstOrDefaultAsync(x => x.Id == id);
+            
+        //    if (user == null)
+        //    {
+
+        //        serviceResponse.Success = false;
+        //        serviceResponse.Message = "Applicant not found!";
+        //    }
+        //    else
+        //    {
+        //        serviceResponse.Data = user;
+        //    }
+        //    return serviceResponse;
+        //}
+
+        //public async Task<ServiceResponse<Application>> UpdateApplication(Guid id, ApplicationUpdateDto updateDto)
+        //{
+        //    var serviceResponse = new ServiceResponse<Application>();
+        //    var application = await this._dataContext.Applications.FirstOrDefaultAsync(x => x.Id == id);
+        //    if (application == null)
+        //    {
+
+        //        serviceResponse.Success = false;
+        //        serviceResponse.Message = "Applicant not found!";
+        //    }
+        //    else
+        //    {
+        //        application.Status = updateDto.Status;
+        //        await this._dataContext.SaveChangesAsync();
+        //        serviceResponse.Data = application;
+        //    }
+        //    return serviceResponse;
+        //    //throw new NotImplementedException();
+        //}
+
+        //public async Task<ServiceResponse<Comment>> AddApplicationComment(ApplicationCommentDto commentData)
+        //{
+        //    var serviceResponse = new ServiceResponse<Comment>();
+        //    var application = await this._dataContext.Applications.FirstOrDefaultAsync(x => x.Id == commentData.Id);
+        //    var user = await this._dataContext.Users.FirstOrDefaultAsync(x => x.Id == commentData.userId);
+        //    //var user2 = await this._dataContext.AspNetUsers.
+        //    if(application == null)
+        //    {
+        //        serviceResponse.Success = false;
+        //        serviceResponse.Message = "Application not found.";
+        //        return serviceResponse;
+        //    }
+        //     if(user == null)
+        //    {
+        //        serviceResponse.Success = false;
+        //        serviceResponse.Message = "User not found.";
+        //        return serviceResponse;
+        //    }
+        //    var comment = new Comment() { CommentText = commentData.CommentText };
+        //    var addComment = _mapper.Map<Comment>(comment);
+        //    addComment.DateCreated = DateTime.Now;
+        //     this._dataContext.Comments.Add(addComment);
+        //    var applicationComment = new ApplicationComment()
+        //    {
+        //        Comment = addComment,
+        //        Application = application,
+        //        User = user
+        //    };
+        //    this._dataContext.ApplicationComments.Add(applicationComment);
+        //    serviceResponse.Data = addComment;
+        //    await this._dataContext.SaveChangesAsync();
+        //    //serviceResponse.PagesCount = (results.Count() /pageSize)+1;
+        //    //serviceResponse.Data = results.Select(c=>this._mapper.Map<ApplicationDto>(c)).ToList();
+        //    return serviceResponse;
+        //}
     }
 }

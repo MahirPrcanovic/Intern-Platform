@@ -1,1 +1,159 @@
-<p>application-edit works!</p>
+<div
+  class="container d-flex justify-content-center align-items-center"
+  *ngIf="loading"
+>
+  <div class="spinner-border">
+    <span class="visually-hidden"></span>
+  </div>
+</div>
+<div class="container">
+  <div class="col mt-5 justify-content-center d-flex-col d-md-flex gap-5">
+    <form
+      (ngSubmit)="onSubmit(f)"
+      #f="ngForm"
+      *ngIf="!submitted"
+      class="col col-md-4"
+    >
+      <div class="form-group">
+        <label for="exampleFormControlInput1">First name</label>
+        <input
+          type="text"
+          class="form-control w-100"
+          id="exampleFormControlInput1"
+          [value]="applicationData.firstName"
+          disabled
+        />
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Last name</label>
+        <input
+          type="text"
+          class="form-control w-100"
+          id="exampleFormControlInput1"
+          [value]="applicationData.lastName"
+          disabled
+        />
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Email address</label>
+        <input
+          type="email"
+          class="form-control w-100"
+          id="exampleFormControlInput1"
+          [value]="applicationData.email"
+          disabled
+        />
+      </div>
+      <div class="form-group">
+        Education level
+        <input
+          type="email"
+          class="form-control w-100"
+          id="exampleFormControlInput1"
+          [value]="applicationData.educationLevel"
+          disabled
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">Cover letter</label>
+        <textarea
+          class="form-control w-100"
+          id="exampleFormControlTextarea1"
+          rows="3"
+          [value]="applicationData.coverLetter"
+          disabled
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>CV url</label>
+        <input
+          required
+          type="text"
+          class="form-control w-100"
+          id="exampleFormControlInput1"
+          [value]="applicationData.cv"
+          disabled
+        />
+      </div>
+      <div class="form-group d-flex mt-3 gap-3">
+        <!-- <label>Status</label> -->
+        <select
+          class="form-control"
+          name="status"
+          ngModel
+          [(ngModel)]="ngSelect"
+        >
+          <option value="applied">Applied</option>
+          <option value="pre-selection">Pre-selection</option>
+          <option value="in-selection">In-selection</option>
+          <option value="completed">Completed</option>
+          <option value="rejected">Rejected</option>
+        </select>
+        <div class="text-center text-lg-start">
+          <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+      </div>
+    </form>
+    <div class="mt-5" *ngIf="!submitted">
+      <div class="d-flex-col">
+        <div class="card mb-4" *ngFor="let comment of acomments">
+          <div class="card-body">
+            <p>{{ comment.comment.commentText }}</p>
+            <div class="d-flex justify-content-between">
+              <div class="d-flex flex-row align-items-center">
+                <!-- <img
+                  src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(4).webp"
+                  alt="avatar"
+                  width="25"
+                  height="25"
+                /> -->
+                <p class="small mb-0 ms-2">Written by:</p>
+                <p class="small mb-0 ms-2">{{ comment.user.userName }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <form #commForm="ngForm" (ngSubmit)="addComment(commForm)">
+        <div class="form-group d-flex gap-3 mt-3">
+          <input
+            required
+            type="text"
+            class="form-control w-100"
+            id="exampleFormControlInput1"
+            placeholder="Enter your comment here."
+            ngModel
+            name="comment"
+          />
+          <div class="text-center text-lg-start">
+            <button type="submit" class="btn btn-primary">Add</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="col mt-5" *ngIf="successfull && submitted && !loading">
+    <div class="alert alert-success" role="alert">
+      <h4 class="alert-heading">Well done!</h4>
+      <p>
+        You have successfully updated {{ applicationData.firstName }}'s status!
+      </p>
+      <hr />
+      <p class="mb-0">Continue doing awesome work!</p>
+    </div>
+    <button class="btn btn-primary" (click)="goBack()">Go back</button>
+  </div>
+  <div class="col mt-5" *ngIf="!successfull && submitted && !loading">
+    <div class="alert alert-danger" role="alert">
+      <h4 class="alert-heading">Form is not valid!</h4>
+      <p>Error has occurred.</p>
+      <hr />
+      <p>{{ message }}</p>
+      <p class="mb-0">Thank you for your time.</p>
+    </div>
+    <button class="btn btn-success" (click)="tryAgain()">Try Again</button>
+  </div>
+</div>

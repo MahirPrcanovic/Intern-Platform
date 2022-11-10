@@ -79,7 +79,7 @@ namespace InternshipPlatformAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("86d59d16-d77a-4dbf-828b-b6edca8fd419"),
+                            Id = new Guid("0e59fcad-8493-49e8-a034-b5997c31d109"),
                             CV = "https://github.com/MahirPrcanovic",
                             CoverLetter = "cover letter",
                             EducationLevel = "College-Undergraduate",
@@ -90,7 +90,7 @@ namespace InternshipPlatformAPI.Migrations
                         },
                         new
                         {
-                            Id = new Guid("86175f1b-635b-4374-bfbe-0be4df5e892a"),
+                            Id = new Guid("7819b860-05cf-4219-876d-cacad24e6879"),
                             CV = "https://github.com/asalcin3",
                             CoverLetter = "cover letter",
                             EducationLevel = "Master-Undergraduate",
@@ -340,13 +340,13 @@ namespace InternshipPlatformAPI.Migrations
                         {
                             Id = "02174cf0–9412–4cfe - afbf - 59f706d72cf6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a9bfd3c9-1014-4997-9032-72ce9c3613b0",
+                            ConcurrencyStamp = "fb95a401-2d93-4499-b43d-541b9c031e9d",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAELNMtujV3oNrmepM36smyl+ubAL7KP9mZJ6eL8Af5+kh+swH5EpV5UxCnmw23M2LXA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDUepIlM0mKLldgHqkHWSiYLrIFitq8QKwEyZFoHWFWcpznBbtkwderI9v4Lfvtx+Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ca472137-6aa3-4293-bc4d-4f27c6667368",
+                            SecurityStamp = "673b8e50-c8c6-4018-993e-0b5b2b3da161",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });

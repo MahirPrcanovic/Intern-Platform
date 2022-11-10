@@ -15,7 +15,7 @@ interface Applicant {
 @Component({
   selector: 'app-add-applicant-to-selection-page',
   templateUrl: './add-applicant-to-selection-page.component.html',
-  styleUrls: ['./add-applicant-to-selection-page.component.css']
+  styleUrls: ['./add-applicant-to-selection-page.component.css'],
 })
 export class AddApplicantToSelectionPageComponent implements OnInit {
   queryParams = {
@@ -29,17 +29,17 @@ export class AddApplicantToSelectionPageComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private selectionService: SelectionsService,
-    private applicationService:ApplicationsService
-  ) { }
+    private applicationService: ApplicationsService
+  ) {}
 
-  data:FullSelection  = {
+  data: FullSelection = {
     id: '',
     name: '',
     startDate: new Date(),
     endDate: new Date(),
     description: '',
     comments: [],
-    applications: []
+    applications: [],
   };
 
   applicantForSelection: Application = {
@@ -50,32 +50,41 @@ export class AddApplicantToSelectionPageComponent implements OnInit {
     EducationLevel: '',
     CoverLetter: '',
     CV: '',
-    Status: ''
-  }
+    Status: '',
+  };
   applicantsInSelection: Applicant[] = [];
 
-  added : boolean = false;
+  added: boolean = false;
 
   ngOnInit(): void {
-    this.selectionService.getSingleSelection(this.route.snapshot.params['selectionId']).subscribe((result : any) =>{
-      this.data = result.data;
-    });
+    this.selectionService
+      .getSingleSelection(this.route.snapshot.params['selectionId'])
+      .subscribe((result: any) => {
+        this.data = result.data;
+      });
 
     this.applicationService
-    .getAllApplications(this.queryParams).subscribe((response: any) => {
-      this.applicantsInSelection = response.data;
-      console.log(response);
-    });
-
+      .getAllApplications(this.queryParams)
+      .subscribe((response: any) => {
+        this.applicantsInSelection = response.data;
+        // console.log(response);
+      });
   }
 
-  addApplicantToSelection(id : string){
-    this.applicationService.getSingleApplication(id).subscribe((result : any) =>{
-      this.applicantForSelection = result.data;
-
-    })
-    this.selectionService.addApplicantToSelection(this.route.snapshot.params['selectionId'], id, this.applicantForSelection).subscribe((result : any) =>{
-      this.added = true;
-    })
+  addApplicantToSelection(id: string) {
+    this.applicationService
+      .getSingleApplication(id)
+      .subscribe((result: any) => {
+        this.applicantForSelection = result.data;
+      });
+    this.selectionService
+      .addApplicantToSelection(
+        this.route.snapshot.params['selectionId'],
+        id,
+        this.applicantForSelection
+      )
+      .subscribe((result: any) => {
+        this.added = true;
+      });
   }
 }

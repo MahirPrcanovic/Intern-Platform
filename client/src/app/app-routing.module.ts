@@ -12,6 +12,7 @@ import { SelectionsAddPageComponent } from './pages/selections-add-page/selectio
 import { SelectionEditPageComponent } from './pages/selection-edit-page/selection-edit-page.component';
 import { SelectionsDetailsPageComponent } from './pages/selections-details-page/selections-details-page.component';
 import { AddApplicantToSelectionPageComponent } from './pages/add-applicant-to-selection-page/add-applicant-to-selection-page.component';
+import { ApplicationHeroComponent } from './components/applications-page/hero-section/application-hero/application-hero.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent, pathMatch: 'full' },
@@ -23,44 +24,47 @@ const routes: Routes = [
     path: 'applications',
     component: ApplicationsPageComponent,
     canActivate: [AuthGuardService],
-  },
-  {
-    path: 'applications/edit/:id',
-    component: ApplicationEditComponent,
-    canActivate: [AuthGuardService],
-  },
 
+    children: [
+      { path: '', component: ApplicationHeroComponent },
+      {
+        path: 'edit/:id',
+        component: ApplicationEditComponent,
+        canActivate: [AuthGuardService],
+      },
+    ],
+  },
   {
     path: 'applicationForm',
     component: ApplicationFormPageComponent,
   },
 
   {
-     path: 'selections', 
-     component: SelectionsPageComponent,
-     canActivate: [AuthGuardService],
- },
+    path: 'selections',
+    component: SelectionsPageComponent,
+    canActivate: [AuthGuardService],
+  },
 
-  { 
-    path:'selections/addNewSelection',
+  {
+    path: 'selections/addNewSelection',
     component: SelectionsAddPageComponent,
     canActivate: [AuthGuardService],
   },
 
   {
-    path:'selections/edit/:id',
+    path: 'selections/edit/:id',
     component: SelectionEditPageComponent,
     canActivate: [AuthGuardService],
   },
 
   {
-    path:'selections/details/:id',
+    path: 'selections/details/:id',
     component: SelectionsDetailsPageComponent,
     canActivate: [AuthGuardService],
   },
 
   {
-    path:'selections/addToSelection/:selectionId',
+    path: 'selections/addToSelection/:selectionId',
     component: AddApplicantToSelectionPageComponent,
     canActivate: [AuthGuardService],
   },

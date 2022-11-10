@@ -22,7 +22,7 @@ export class ApplicationFormPageComponent implements OnInit {
   ngOnInit(): void {}
   onSubmit(f: NgForm) {
     this.loading = true;
-    console.log(f);
+    // console.log(f);
     if (!f.valid) {
       this.submitted = true;
       this.formValid = false;
@@ -34,14 +34,14 @@ export class ApplicationFormPageComponent implements OnInit {
         this.submitted = f.submitted;
         this.formValid = f.form.valid;
         this.loading = false;
-        console.log(response);
+        // console.log(response);
       },
       (error) => {
         this.loading = false;
         this.message = error.statusText;
         this.submitted = f.submitted;
         this.formValid = false;
-        console.log(error);
+        // console.log(error);
       }
     );
   }

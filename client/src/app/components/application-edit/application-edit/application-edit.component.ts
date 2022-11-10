@@ -5,11 +5,12 @@ import { Subscription } from 'rxjs';
 import { FullApplication } from 'src/app/interfaces/FullApplication';
 import { ApplicationsService } from 'src/app/services/applications.service';
 import { ApplicantComment } from 'src/app/interfaces/ApplicantComment';
+import { FullSelection } from 'src/app/interfaces/FullSelection';
 
 @Component({
   selector: 'app-application-edit',
   templateUrl: './application-edit.component.html',
-  styleUrls: ['./application-edit.component.css']
+  styleUrls: ['./application-edit.component.css'],
 })
 export class ApplicationEditComponent implements OnInit, OnDestroy {
   constructor(
@@ -23,6 +24,7 @@ export class ApplicationEditComponent implements OnInit, OnDestroy {
   successfull = false;
   message = '';
   acomments: ApplicantComment[] = [];
+  selections: FullSelection[] = [];
   applicationId: string = '';
   applicationData: FullApplication = {
     firstName: 'string',
@@ -48,16 +50,17 @@ export class ApplicationEditComponent implements OnInit, OnDestroy {
     this.applicationService
       .getSingleApplication(this.applicationId)
       .subscribe((res: any) => {
-        console.log(res);
+        // console.log(res);
         this.applicationData = res.data;
         this.acomments = this.applicationData.comments;
+        this.selections = this.applicationData.selections;
         this.ngSelect = this.applicationData.status || '';
       });
   }
   onSubmit(form: NgForm) {
     this.loading = true;
     this.submitted = true;
-    console.log(form.form.value);
+    // console.log(form.form.value);
     this.applicationService
       .updateApplication(this.applicationId, form.form.value.status)
       .subscribe(
@@ -81,16 +84,15 @@ export class ApplicationEditComponent implements OnInit, OnDestroy {
     this.successfull = false;
   }
   addComment(f: NgForm) {
-    console.log(f.form.value.comment);
+    // console.log(f.form.value.comment);
     this.applicationService
       .addApplicationComment(this.applicationId, f.form.value.comment)
       .subscribe((response) => {
-        console.log(response);
+        // console.log(response);
         this.fetchData(this.applicationId);
       });
   }
   ngOnDestroy(): void {
     this.paramsSubscribition.unsubscribe();
   }
-
 }

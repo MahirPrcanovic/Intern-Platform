@@ -42,7 +42,7 @@ export class ApplicationHeroComponent implements OnInit, OnDestroy {
         this.queryParams.sortBy = qParams['sortBy'];
         this.queryParams.filter = qParams['filter'];
         this.queryParams.filterType = qParams['filterType'];
-        console.log(this.queryParams);
+        // console.log(this.queryParams);
         this.fetchApplications();
       }
     );
@@ -53,7 +53,7 @@ export class ApplicationHeroComponent implements OnInit, OnDestroy {
       .subscribe((response: any) => {
         this.data = response.data;
         this.currentPage = 1;
-        console.log(response);
+        // console.log(response);
         this.pagesNumber = response.pagesCount;
       });
   }
@@ -74,10 +74,10 @@ export class ApplicationHeroComponent implements OnInit, OnDestroy {
     }
   }
   formSubmit(f: NgForm) {
-    console.log(f.form.value);
+    // console.log(f.form.value);
     this.queryParams.filterType = f.form.value.filterType;
     const reqParams: { [key: string]: string | number } = {};
-    console.log(f.form.value.filterType);
+    // console.log(f.form.value.filterType);
     this.queryParams.sortBy = f.form.value.sortBy;
     if (f.form.value.filter != '') {
       this.queryParams.filter = f.form.value.filter;

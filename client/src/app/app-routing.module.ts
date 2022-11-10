@@ -13,6 +13,7 @@ import { SelectionEditPageComponent } from './pages/selection-edit-page/selectio
 import { SelectionsDetailsPageComponent } from './pages/selections-details-page/selections-details-page.component';
 import { AddApplicantToSelectionPageComponent } from './pages/add-applicant-to-selection-page/add-applicant-to-selection-page.component';
 import { ApplicationHeroComponent } from './components/applications-page/hero-section/application-hero/application-hero.component';
+import { ErrorPageComponent } from './pages/error-page/error-page/error-page.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent, pathMatch: 'full' },
@@ -74,6 +75,7 @@ const routes: Routes = [
     component: UsersPageComponent,
     canActivate: [AuthGuardService],
   },
+  { path: '**', component: ErrorPageComponent },
 ];
 
 @NgModule({

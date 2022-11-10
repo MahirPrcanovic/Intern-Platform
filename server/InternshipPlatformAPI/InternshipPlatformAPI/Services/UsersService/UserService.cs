@@ -72,7 +72,6 @@ namespace InternshipPlatformAPI.Services.UsersService
             serviceResponse.Message = "User deletion not successfull.";
             return serviceResponse;
         }
-
         public async Task<ServiceResponse<List<IdentityUser>>> GetAllUsers()
         {
             var serviceResponse = new ServiceResponse<List<IdentityUser>>();

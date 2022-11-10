@@ -27,6 +27,8 @@ import { UsersHeroComponent } from './components/users-page/users-hero/users-her
 import { DatePipe } from '@angular/common';
 import { SelectionsDetailsPageComponent } from 'src/app/pages/selections-details-page/selections-details-page.component';
 import { AddApplicantToSelectionPageComponent } from './pages/add-applicant-to-selection-page/add-applicant-to-selection-page.component';
+import { ErrorPageComponent } from './pages/error-page/error-page/error-page.component';
+import { ErrorHeroComponent } from './components/error-page/error-hero/error-hero/error-hero.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,8 @@ import { AddApplicantToSelectionPageComponent } from './pages/add-applicant-to-s
     UsersHeroComponent,
     SelectionsDetailsPageComponent,
     AddApplicantToSelectionPageComponent,
+    ErrorPageComponent,
+    ErrorHeroComponent,
   ],
 
   imports: [

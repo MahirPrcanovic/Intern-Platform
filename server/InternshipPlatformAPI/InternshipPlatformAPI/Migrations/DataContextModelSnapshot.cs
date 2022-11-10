@@ -75,6 +75,30 @@ namespace InternshipPlatformAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Applications");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("ef634480-972e-47bd-bd9c-d785840ef799"),
+                            CV = "https://github.com/MahirPrcanovic",
+                            CoverLetter = "cover letter",
+                            EducationLevel = "College-Undergraduate",
+                            Email = "mahirprcanovic@gmail.com",
+                            FirstName = "Mahir",
+                            LastName = "Prcanovic",
+                            Status = "applied"
+                        },
+                        new
+                        {
+                            Id = new Guid("fb3c05ce-42cd-42f0-a69e-f72834806efb"),
+                            CV = "https://github.com/asalcin3",
+                            CoverLetter = "cover letter",
+                            EducationLevel = "Master-Undergraduate",
+                            Email = "adnasalcin@gmail.com",
+                            FirstName = "Adna",
+                            LastName = "Salcin",
+                            Status = "applied"
+                        });
                 });
 
             modelBuilder.Entity("InternshipPlatformAPI.Models.ApplicationComment", b =>
@@ -117,12 +141,7 @@ namespace InternshipPlatformAPI.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("SelectionId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("SelectionId");
 
                     b.ToTable("Comments");
                 });
@@ -204,6 +223,22 @@ namespace InternshipPlatformAPI.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "341743f0-asd2–42de-afbf-59kmkkmk72cf6",
+                            ConcurrencyStamp = "341743f0-asd2–42de-afbf-59kmkkmk72cf6",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        },
+                        new
+                        {
+                            Id = "413743e0-asd2–42fe-afbf-59kmccmk72cd6",
+                            ConcurrencyStamp = "413743e0-asd2–42fe-afbf-59kmccmk72cd6",
+                            Name = "Editor",
+                            NormalizedName = "EDITOR"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -294,6 +329,22 @@ namespace InternshipPlatformAPI.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "02174cf0–9412–4cfe - afbf - 59f706d72cf6",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "4e0473af-7d9e-40e9-b4c4-7349294a889b",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEELhAdcygXfHCJKT0HeQYdjS4cdiKCJ8z/HiULrm0/m8XHbN1dhUA9Cc4OgydmPgcg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "ba6b1942-7824-4f8b-9389-12367b95f04e",
+                            TwoFactorEnabled = false,
+                            UserName = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -356,6 +407,13 @@ namespace InternshipPlatformAPI.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "02174cf0–9412–4cfe - afbf - 59f706d72cf6",
+                            RoleId = "341743f0-asd2–42de-afbf-59kmkkmk72cf6"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -413,13 +471,6 @@ namespace InternshipPlatformAPI.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("InternshipPlatformAPI.Models.Comment", b =>
-                {
-                    b.HasOne("InternshipPlatformAPI.Models.Selection", null)
-                        .WithMany("Comments")
-                        .HasForeignKey("SelectionId");
-                });
-
             modelBuilder.Entity("InternshipPlatformAPI.Models.SelectionComment", b =>
                 {
                     b.HasOne("InternshipPlatformAPI.Models.Comment", "Comment")
@@ -427,7 +478,7 @@ namespace InternshipPlatformAPI.Migrations
                         .HasForeignKey("CommentId");
 
                     b.HasOne("InternshipPlatformAPI.Models.Selection", "Selection")
-                        .WithMany()
+                        .WithMany("Comments")
                         .HasForeignKey("SelectionId");
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")

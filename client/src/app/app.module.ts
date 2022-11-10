@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { LoginComponent } from './pages/login-page/login.component';
@@ -20,6 +20,10 @@ import { FormsModule,ReactiveFormsModule} from '@angular/forms';
 import { ApplicationEditComponent } from './components/application-edit/application-edit/application-edit.component';
 import { SelectionEditPageComponent } from './pages/selection-edit-page/selection-edit-page.component';
 import { SelectionsPageComponent } from './components/selections-page/selections-page.component';
+import { SelectionsAddPageComponent } from './pages/selections-add-page/selections-add-page.component';
+import { TokenInterceptor } from './interceptors/token.interceptor';
+import { UsersPageComponent } from './pages/users-page/users-page/users-page.component';
+import { UsersHeroComponent } from './components/users-page/users-hero/users-hero.component';
 import { SelectionsAddPageComponent } from 'src/app/pages/selections-add-page/selections-add-page.component';
 import { DatePipe } from '@angular/common';
 import { SelectionsDetailsPageComponent } from 'src/app/pages/selections-details-page/selections-details-page.component';
@@ -41,16 +45,24 @@ import { AddApplicantToSelectionPageComponent } from './pages/add-applicant-to-s
     DashboardHeaderComponent,
     ApplicationsPageComponent,
     ApplicationHeroComponent,
-
     ApplicationEditComponent,
-
     SelectionEditPageComponent,
     SelectionsPageComponent,
     SelectionsAddPageComponent,
+    UsersPageComponent,
+    UsersHeroComponent,
     SelectionsDetailsPageComponent,
     AddApplicantToSelectionPageComponent,
   ],
 
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+  ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule,ReactiveFormsModule],
   providers: [DatePipe],
   bootstrap: [AppComponent],

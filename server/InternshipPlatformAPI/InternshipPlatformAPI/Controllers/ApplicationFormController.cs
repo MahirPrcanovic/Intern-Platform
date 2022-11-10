@@ -8,7 +8,8 @@ namespace InternshipPlatformAPI.Controllers
 {
     //[Authorize(Roles = "Administrator")]
     //Samo ako je role administrator dopusti pristup
-    //[Authorize]
+    //[Authorize(Roles ="admin")]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class ApplicationFormController : ControllerBase
@@ -27,6 +28,7 @@ namespace InternshipPlatformAPI.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<ActionResult<ServiceResponse<ApplicationFormDto>>> PostApplication(ApplicationFormDto formData)
         {
 
@@ -36,6 +38,29 @@ namespace InternshipPlatformAPI.Controllers
                 return Ok(serviceR);
             }
             return BadRequest(serviceR);
+        }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ServiceResponse<Application>>> GetApplicationById(Guid id)
+        {
+            var result = await this._applicationService.GetSingleApplication(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return NotFound(result);
+            }
+        }
+        [HttpPut("{id}")]
+        public async Task<ActionResult<ServiceResponse<Application>>> UpdateApplication(Guid id, ApplicationUpdateDto statusUpdate)
+        {
+            return Ok(await this._applicationService.UpdateApplication(id, statusUpdate));
+        }
+        [HttpPost("{id}")]
+        public async Task<ActionResult<ServiceResponse<Comment>>> AddApplicationComment([FromBody] ApplicationCommentDto userData, [FromRoute] Guid id)
+        {
+            return Ok(await this._applicationService.AddApplicationComment(userData,id));
         }
 
     }

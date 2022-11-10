@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace InternshipPlatformAPI.Migrations
 {
-    public partial class newMigration : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -281,6 +281,30 @@ namespace InternshipPlatformAPI.Migrations
                         principalTable: "Selections",
                         principalColumn: "Id");
                 });
+
+            migrationBuilder.InsertData(
+                table: "Applications",
+                columns: new[] { "Id", "CV", "CoverLetter", "EducationLevel", "Email", "FirstName", "LastName", "Status" },
+                values: new object[] { new Guid("2c851f2b-d047-4ee0-9585-0a3029484f92"), "", "", "College-Undergraduate", "mahirprcanovic@gmail.com", "Mahir", "Prcanovic", "applied" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "341743f0-asd2–42de-afbf-59kmkkmk72cf6", "341743f0-asd2–42de-afbf-59kmkkmk72cf6", "Administrator", "ADMINISTRATOR" },
+                    { "413743e0-asd2–42fe-afbf-59kmccmk72cd6", "413743e0-asd2–42fe-afbf-59kmccmk72cd6", "Editor", "EDITOR" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "02174cf0–9412–4cfe - afbf - 59f706d72cf6", 0, "7e8a69f0-d960-49d3-a001-7eb084274a25", null, true, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAECHNQaBfAkARis+wa03169VMwzAH05BV5K2mZy/fzDQ2LZ2MkOKfsfVRcP55107R4w==", null, false, "9f30a1a1-1f95-4c06-b2bb-42368f8312ed", false, "Admin" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "341743f0-asd2–42de-afbf-59kmkkmk72cf6", "02174cf0–9412–4cfe - afbf - 59f706d72cf6" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ApplicationComments_ApplicationId",

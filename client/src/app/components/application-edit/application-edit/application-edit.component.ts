@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FullApplication } from 'src/app/interfaces/FullApplication';
 import { ApplicationsService } from 'src/app/services/applications.service';
+import { ApplicantComment } from 'src/app/interfaces/ApplicantComment';
 
 @Component({
   selector: 'app-application-edit',
@@ -13,8 +14,15 @@ import { ApplicationsService } from 'src/app/services/applications.service';
 export class ApplicationEditComponent implements OnInit, OnDestroy {
   constructor(
     private applicationService: ApplicationsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
+  formValid = true;
+  loading = false;
+  submitted = false;
+  successfull = false;
+  message = '';
+  acomments: ApplicantComment[] = [];
   applicationId: string = '';
   applicationData: FullApplication = {
     firstName: 'string',
@@ -32,19 +40,54 @@ export class ApplicationEditComponent implements OnInit, OnDestroy {
   paramsSubscribition!: Subscription;
   ngOnInit(): void {
     this.paramsSubscribition = this.route.params.subscribe((params) => {
-      // console.log(params['id']);
       this.applicationId = params['id'];
     });
+    this.fetchData(this.applicationId);
+  }
+  fetchData(applicationId: string) {
     this.applicationService
       .getSingleApplication(this.applicationId)
       .subscribe((res: any) => {
         console.log(res);
         this.applicationData = res.data;
+        this.acomments = this.applicationData.comments;
         this.ngSelect = this.applicationData.status || '';
       });
   }
   onSubmit(form: NgForm) {
+    this.loading = true;
+    this.submitted = true;
     console.log(form.form.value);
+    this.applicationService
+      .updateApplication(this.applicationId, form.form.value.status)
+      .subscribe(
+        (res: any) => {
+          this.loading = false;
+          this.successfull = res.success;
+        },
+        (error) => {
+          this.loading = false;
+          this.successfull = false;
+          this.message = error.message;
+        }
+      );
+  }
+  goBack() {
+    this.router.navigate(['applications']);
+  }
+  tryAgain() {
+    this.submitted = false;
+    this.loading = false;
+    this.successfull = false;
+  }
+  addComment(f: NgForm) {
+    console.log(f.form.value.comment);
+    this.applicationService
+      .addApplicationComment(this.applicationId, f.form.value.comment)
+      .subscribe((response) => {
+        console.log(response);
+        this.fetchData(this.applicationId);
+      });
   }
   ngOnDestroy(): void {
     this.paramsSubscribition.unsubscribe();

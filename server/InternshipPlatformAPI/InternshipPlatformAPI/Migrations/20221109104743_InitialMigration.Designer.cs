@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternshipPlatformAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221105213929_FixMigration")]
-    partial class FixMigration
+    [Migration("20221109104743_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -77,6 +77,19 @@ namespace InternshipPlatformAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Applications");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("2c851f2b-d047-4ee0-9585-0a3029484f92"),
+                            CV = "",
+                            CoverLetter = "",
+                            EducationLevel = "College-Undergraduate",
+                            Email = "mahirprcanovic@gmail.com",
+                            FirstName = "Mahir",
+                            LastName = "Prcanovic",
+                            Status = "applied"
+                        });
                 });
 
             modelBuilder.Entity("InternshipPlatformAPI.Models.ApplicationComment", b =>
@@ -201,6 +214,22 @@ namespace InternshipPlatformAPI.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "341743f0-asd2–42de-afbf-59kmkkmk72cf6",
+                            ConcurrencyStamp = "341743f0-asd2–42de-afbf-59kmkkmk72cf6",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        },
+                        new
+                        {
+                            Id = "413743e0-asd2–42fe-afbf-59kmccmk72cd6",
+                            ConcurrencyStamp = "413743e0-asd2–42fe-afbf-59kmccmk72cd6",
+                            Name = "Editor",
+                            NormalizedName = "EDITOR"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -291,6 +320,22 @@ namespace InternshipPlatformAPI.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "02174cf0–9412–4cfe - afbf - 59f706d72cf6",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "7e8a69f0-d960-49d3-a001-7eb084274a25",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAECHNQaBfAkARis+wa03169VMwzAH05BV5K2mZy/fzDQ2LZ2MkOKfsfVRcP55107R4w==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "9f30a1a1-1f95-4c06-b2bb-42368f8312ed",
+                            TwoFactorEnabled = false,
+                            UserName = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -353,6 +398,13 @@ namespace InternshipPlatformAPI.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "02174cf0–9412–4cfe - afbf - 59f706d72cf6",
+                            RoleId = "341743f0-asd2–42de-afbf-59kmkkmk72cf6"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

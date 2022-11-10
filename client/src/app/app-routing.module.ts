@@ -35,20 +35,28 @@ const routes: Routes = [
     component: ApplicationFormPageComponent,
   },
 
-  { path: 'selections', component: SelectionsPageComponent },
+  {
+     path: 'selections', 
+     component: SelectionsPageComponent,
+     canActivate: [AuthGuardService],
+ },
 
-  { path:'selections/addNewSelection',
-    component: SelectionsAddPageComponent
+  { 
+    path:'selections/addNewSelection',
+    component: SelectionsAddPageComponent,
+    canActivate: [AuthGuardService],
   },
 
   {
     path:'selections/edit/:id',
-    component: SelectionEditPageComponent
+    component: SelectionEditPageComponent,
+    canActivate: [AuthGuardService],
   },
 
   {
     path:'selections/details/:id',
-    component: SelectionsDetailsPageComponent
+    component: SelectionsDetailsPageComponent,
+    canActivate: [AuthGuardService],
   },
 
   {

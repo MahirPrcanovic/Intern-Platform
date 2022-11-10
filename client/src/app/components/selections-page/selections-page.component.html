@@ -71,13 +71,13 @@
               </div>
             </div>
           </td>
-          <div>
+          
             <td>
-              <p class="fw-normal mb-1">{{ selekcija.startDate }}</p>
+              <p class="fw-normal mb-1">{{ selekcija.startDate | date:'MMM d, y'}}</p>
             </td>
-          </div>
+          
           <td>
-            <p class="fw-normal mb-1">{{ selekcija.endDate }}</p>
+            <p class="fw-normal mb-1">{{ selekcija.endDate | date:'MMM d, y' }}</p>
           </td>
           <td>
             <p class="fw-normal mb-1">{{ selekcija.description }}</p>

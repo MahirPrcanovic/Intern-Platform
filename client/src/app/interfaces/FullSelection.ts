@@ -1,5 +1,6 @@
 import { FullApplication } from "./FullApplication";
 
+
 export interface FullSelection {
     id: string;
     name: string;

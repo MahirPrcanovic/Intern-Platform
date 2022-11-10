@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternshipPlatformAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221109104743_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20221110091457_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -81,13 +81,24 @@ namespace InternshipPlatformAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2c851f2b-d047-4ee0-9585-0a3029484f92"),
-                            CV = "",
-                            CoverLetter = "",
+                            Id = new Guid("0e59fcad-8493-49e8-a034-b5997c31d109"),
+                            CV = "https://github.com/MahirPrcanovic",
+                            CoverLetter = "cover letter",
                             EducationLevel = "College-Undergraduate",
                             Email = "mahirprcanovic@gmail.com",
                             FirstName = "Mahir",
                             LastName = "Prcanovic",
+                            Status = "applied"
+                        },
+                        new
+                        {
+                            Id = new Guid("7819b860-05cf-4219-876d-cacad24e6879"),
+                            CV = "https://github.com/asalcin3",
+                            CoverLetter = "cover letter",
+                            EducationLevel = "Master-Undergraduate",
+                            Email = "adnasalcin@gmail.com",
+                            FirstName = "Adna",
+                            LastName = "Salcin",
                             Status = "applied"
                         });
                 });
@@ -132,7 +143,12 @@ namespace InternshipPlatformAPI.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("SelectionId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("SelectionId");
 
                     b.ToTable("Comments");
                 });
@@ -326,13 +342,13 @@ namespace InternshipPlatformAPI.Migrations
                         {
                             Id = "02174cf0–9412–4cfe - afbf - 59f706d72cf6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7e8a69f0-d960-49d3-a001-7eb084274a25",
+                            ConcurrencyStamp = "fb95a401-2d93-4499-b43d-541b9c031e9d",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAECHNQaBfAkARis+wa03169VMwzAH05BV5K2mZy/fzDQ2LZ2MkOKfsfVRcP55107R4w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDUepIlM0mKLldgHqkHWSiYLrIFitq8QKwEyZFoHWFWcpznBbtkwderI9v4Lfvtx+Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9f30a1a1-1f95-4c06-b2bb-42368f8312ed",
+                            SecurityStamp = "673b8e50-c8c6-4018-993e-0b5b2b3da161",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
@@ -462,6 +478,13 @@ namespace InternshipPlatformAPI.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("InternshipPlatformAPI.Models.Comment", b =>
+                {
+                    b.HasOne("InternshipPlatformAPI.Models.Selection", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("SelectionId");
+                });
+
             modelBuilder.Entity("InternshipPlatformAPI.Models.SelectionComment", b =>
                 {
                     b.HasOne("InternshipPlatformAPI.Models.Comment", "Comment")
@@ -469,7 +492,7 @@ namespace InternshipPlatformAPI.Migrations
                         .HasForeignKey("CommentId");
 
                     b.HasOne("InternshipPlatformAPI.Models.Selection", "Selection")
-                        .WithMany("Comments")
+                        .WithMany()
                         .HasForeignKey("SelectionId");
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")

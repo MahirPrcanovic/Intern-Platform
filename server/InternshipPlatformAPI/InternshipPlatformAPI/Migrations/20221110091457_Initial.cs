@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace InternshipPlatformAPI.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -64,19 +64,6 @@ namespace InternshipPlatformAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Comments",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CommentText = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Comments", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -201,6 +188,49 @@ namespace InternshipPlatformAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ApplicationSelection",
+                columns: table => new
+                {
+                    ApplicationsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SelectionsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApplicationSelection", x => new { x.ApplicationsId, x.SelectionsId });
+                    table.ForeignKey(
+                        name: "FK_ApplicationSelection_Applications_ApplicationsId",
+                        column: x => x.ApplicationsId,
+                        principalTable: "Applications",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ApplicationSelection_Selections_SelectionsId",
+                        column: x => x.SelectionsId,
+                        principalTable: "Selections",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Comments",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CommentText = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SelectionId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Comments_Selections_SelectionId",
+                        column: x => x.SelectionId,
+                        principalTable: "Selections",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ApplicationComments",
                 columns: table => new
                 {
@@ -227,30 +257,6 @@ namespace InternshipPlatformAPI.Migrations
                         column: x => x.CommentId,
                         principalTable: "Comments",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ApplicationSelection",
-                columns: table => new
-                {
-                    ApplicationsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SelectionsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ApplicationSelection", x => new { x.ApplicationsId, x.SelectionsId });
-                    table.ForeignKey(
-                        name: "FK_ApplicationSelection_Applications_ApplicationsId",
-                        column: x => x.ApplicationsId,
-                        principalTable: "Applications",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ApplicationSelection_Selections_SelectionsId",
-                        column: x => x.SelectionsId,
-                        principalTable: "Selections",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -285,7 +291,11 @@ namespace InternshipPlatformAPI.Migrations
             migrationBuilder.InsertData(
                 table: "Applications",
                 columns: new[] { "Id", "CV", "CoverLetter", "EducationLevel", "Email", "FirstName", "LastName", "Status" },
-                values: new object[] { new Guid("2c851f2b-d047-4ee0-9585-0a3029484f92"), "", "", "College-Undergraduate", "mahirprcanovic@gmail.com", "Mahir", "Prcanovic", "applied" });
+                values: new object[,]
+                {
+                    { new Guid("0e59fcad-8493-49e8-a034-b5997c31d109"), "https://github.com/MahirPrcanovic", "cover letter", "College-Undergraduate", "mahirprcanovic@gmail.com", "Mahir", "Prcanovic", "applied" },
+                    { new Guid("7819b860-05cf-4219-876d-cacad24e6879"), "https://github.com/asalcin3", "cover letter", "Master-Undergraduate", "adnasalcin@gmail.com", "Adna", "Salcin", "applied" }
+                });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
@@ -299,7 +309,7 @@ namespace InternshipPlatformAPI.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "02174cf0–9412–4cfe - afbf - 59f706d72cf6", 0, "7e8a69f0-d960-49d3-a001-7eb084274a25", null, true, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAECHNQaBfAkARis+wa03169VMwzAH05BV5K2mZy/fzDQ2LZ2MkOKfsfVRcP55107R4w==", null, false, "9f30a1a1-1f95-4c06-b2bb-42368f8312ed", false, "Admin" });
+                values: new object[] { "02174cf0–9412–4cfe - afbf - 59f706d72cf6", 0, "fb95a401-2d93-4499-b43d-541b9c031e9d", null, true, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEDUepIlM0mKLldgHqkHWSiYLrIFitq8QKwEyZFoHWFWcpznBbtkwderI9v4Lfvtx+Q==", null, false, "673b8e50-c8c6-4018-993e-0b5b2b3da161", false, "Admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -364,6 +374,11 @@ namespace InternshipPlatformAPI.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_SelectionId",
+                table: "Comments",
+                column: "SelectionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SelectionComments_CommentId",

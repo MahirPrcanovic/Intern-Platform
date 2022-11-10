@@ -79,7 +79,7 @@ namespace InternshipPlatformAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ef634480-972e-47bd-bd9c-d785840ef799"),
+                            Id = new Guid("0e59fcad-8493-49e8-a034-b5997c31d109"),
                             CV = "https://github.com/MahirPrcanovic",
                             CoverLetter = "cover letter",
                             EducationLevel = "College-Undergraduate",
@@ -90,7 +90,7 @@ namespace InternshipPlatformAPI.Migrations
                         },
                         new
                         {
-                            Id = new Guid("fb3c05ce-42cd-42f0-a69e-f72834806efb"),
+                            Id = new Guid("7819b860-05cf-4219-876d-cacad24e6879"),
                             CV = "https://github.com/asalcin3",
                             CoverLetter = "cover letter",
                             EducationLevel = "Master-Undergraduate",
@@ -141,7 +141,12 @@ namespace InternshipPlatformAPI.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("SelectionId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("SelectionId");
 
                     b.ToTable("Comments");
                 });
@@ -335,13 +340,13 @@ namespace InternshipPlatformAPI.Migrations
                         {
                             Id = "02174cf0–9412–4cfe - afbf - 59f706d72cf6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4e0473af-7d9e-40e9-b4c4-7349294a889b",
+                            ConcurrencyStamp = "fb95a401-2d93-4499-b43d-541b9c031e9d",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEELhAdcygXfHCJKT0HeQYdjS4cdiKCJ8z/HiULrm0/m8XHbN1dhUA9Cc4OgydmPgcg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDUepIlM0mKLldgHqkHWSiYLrIFitq8QKwEyZFoHWFWcpznBbtkwderI9v4Lfvtx+Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ba6b1942-7824-4f8b-9389-12367b95f04e",
+                            SecurityStamp = "673b8e50-c8c6-4018-993e-0b5b2b3da161",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
@@ -471,6 +476,13 @@ namespace InternshipPlatformAPI.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("InternshipPlatformAPI.Models.Comment", b =>
+                {
+                    b.HasOne("InternshipPlatformAPI.Models.Selection", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("SelectionId");
+                });
+
             modelBuilder.Entity("InternshipPlatformAPI.Models.SelectionComment", b =>
                 {
                     b.HasOne("InternshipPlatformAPI.Models.Comment", "Comment")
@@ -478,7 +490,7 @@ namespace InternshipPlatformAPI.Migrations
                         .HasForeignKey("CommentId");
 
                     b.HasOne("InternshipPlatformAPI.Models.Selection", "Selection")
-                        .WithMany("Comments")
+                        .WithMany()
                         .HasForeignKey("SelectionId");
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")

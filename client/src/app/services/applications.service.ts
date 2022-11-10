@@ -27,7 +27,7 @@ export class ApplicationsService {
     if (queryParams.filterType != '' && queryParams.filterType) {
       params = params.append('filterType', queryParams.filterType);
     }
-    console.log(params);
+    // console.log(params);
     return this.http.get(environment.apiUrl + '/api/ApplicationForm', {
       params: params,
     });
@@ -44,7 +44,7 @@ export class ApplicationsService {
     const postData = {
       commentText: comment,
     };
-    console.log(postData);
+    // console.log(postData);
     return this.http.post(
       environment.apiUrl + '/api/ApplicationForm/' + id,
       postData

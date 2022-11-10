@@ -16,7 +16,7 @@ import { DashboardHeaderComponent } from './components/applications-page/header/
 import { ApplicationsPageComponent } from './pages/applications-page/applications-page/applications-page.component';
 import { ApplicationHeroComponent } from './components/applications-page/hero-section/application-hero/application-hero.component';
 import { ApplicationFormPageComponent } from './pages/application-form-page/application-form-page.component';
-import { FormsModule,ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ApplicationEditComponent } from './components/application-edit/application-edit/application-edit.component';
 import { SelectionEditPageComponent } from './pages/selection-edit-page/selection-edit-page.component';
 import { SelectionsPageComponent } from './components/selections-page/selections-page.component';
@@ -27,8 +27,6 @@ import { UsersHeroComponent } from './components/users-page/users-hero/users-her
 import { DatePipe } from '@angular/common';
 import { SelectionsDetailsPageComponent } from 'src/app/pages/selections-details-page/selections-details-page.component';
 import { AddApplicantToSelectionPageComponent } from './pages/add-applicant-to-selection-page/add-applicant-to-selection-page.component';
-
-
 
 @NgModule({
   declarations: [
@@ -54,14 +52,21 @@ import { AddApplicantToSelectionPageComponent } from './pages/add-applicant-to-s
     AddApplicantToSelectionPageComponent,
   ],
 
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule,ReactiveFormsModule],
-  providers: [ DatePipe,
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
+  providers: [
+    DatePipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true,
     },
   ],
-   bootstrap: [AppComponent],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -27,20 +27,20 @@ export class UsersHeroComponent implements OnInit {
         this.data = response.data;
       },
       (error) => {
-        console.log(error);
+        // console.log(error);
         if (error == 'Error: 403') {
           this.router.navigate(['/applications']);
         }
-        console.log(error);
+        // console.log(error);
       }
     );
   }
   deleteUser(id: string) {
-    console.log(id);
+    // console.log(id);
     this.deletionActivated = true;
     this.usersService.deleteUser(id).subscribe(
       (response: any) => {
-        console.log(response);
+        // console.log(response);
         if (response.success) {
           this.deletionSuccess = true;
           this.data = this.data.filter((obj) => obj.id !== id);
@@ -49,7 +49,7 @@ export class UsersHeroComponent implements OnInit {
         }
       },
       (error) => {
-        console.log(error);
+        // console.log(error);
       }
     );
     setTimeout(() => {
@@ -64,17 +64,17 @@ export class UsersHeroComponent implements OnInit {
       password: form.form.value.password,
       email: form.form.value.email,
     };
-    console.log(form.form.value.password);
+    // console.log(form.form.value.password);
     this.usersService.addUser(obj).subscribe(
       (response: any) => {
-        console.log(response);
+        // console.log(response);
         if (!response.success) {
           this.error = true;
         } else {
           this.error = false;
           const user = {
             id: response.data,
-            userName: form.form.value.userName,
+            userName: obj.userName,
           };
           this.data.push(user);
         }

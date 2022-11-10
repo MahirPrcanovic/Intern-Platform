@@ -38,7 +38,7 @@ export class TokenInterceptor implements HttpInterceptor {
             errorMsg = '403';
           }
         }
-        console.log(errorMsg);
+        // console.log(errorMsg);
         return throwError(() => new Error(errorMsg));
       })
     );

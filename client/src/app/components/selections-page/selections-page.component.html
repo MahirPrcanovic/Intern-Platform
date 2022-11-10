@@ -38,14 +38,14 @@
     >
       Find
     </button>
-    
+
     <button
-    class="btn btn-primary col-2 align-items-center justify-content-center"
-    type="button"
-     [routerLink]="['/selections/addNewSelection']"   
-  >
-    Add new selection
-  </button>
+      class="btn btn-primary col-2 align-items-center justify-content-center"
+      type="button"
+      [routerLink]="['/selections/addNewSelection']"
+    >
+      Add new selection
+    </button>
   </form>
   <div class="table-responsive">
     <table class="table align-middle mb-0 bg-white mt-6 table-bordered">
@@ -68,59 +68,58 @@
                 <p class="fw-bold mb-1">
                   {{ selekcija.name }}
                 </p>
-              </div>              
+              </div>
             </div>
           </td>
           <div>
-            <td> <p class="fw-normal mb-1">{{ selekcija.startDate }}</p></td>
+            <td>
+              <p class="fw-normal mb-1">{{ selekcija.startDate }}</p>
+            </td>
           </div>
           <td>
             <p class="fw-normal mb-1">{{ selekcija.endDate }}</p>
-       
           </td>
           <td>
             <p class="fw-normal mb-1">{{ selekcija.description }}</p>
-            
           </td>
-          
+
           <td>
             <button
               type="button"
               class="btn btn-link btn-rounded btn-sm fw-bold"
               mdbRipple
               rippleColor="dark"
-              routerLink="/selections/edit/{{selekcija.id}}"                
+              routerLink="/selections/edit/{{ selekcija.id }}"
             >
               Edit
             </button>
             <button
-            type="button"
-            class="btn btn-link btn-rounded btn-sm fw-bold"
-            mdbRipple
-            rippleColor="dark"
-            [routerLink]="['/selections', 'details', selekcija.id]"   
-          >
-         
-            View applicants
+              type="button"
+              class="btn btn-link btn-rounded btn-sm fw-bold"
+              mdbRipple
+              rippleColor="dark"
+              [routerLink]="['/selections', 'details', selekcija.id]"
+            >
+              View applicants
             </button>
 
             <button
-            type="button"
-            class="btn btn-link btn-rounded btn-sm fw-bold"
-            mdbRipple
-            rippleColor="dark"
-            [routerLink]="['/selections', 'addToSelection', selekcija.id]"   
-          >
-            Add new Applicant
+              type="button"
+              class="btn btn-link btn-rounded btn-sm fw-bold"
+              mdbRipple
+              rippleColor="dark"
+              [routerLink]="['/selections', 'addToSelection', selekcija.id]"
+            >
+              Add new Applicant
             </button>
             <button
-            type="button"
-            class="btn btn-link btn-rounded btn-sm fw-bold"
-            mdbRipple
-            rippleColor="dark"
-            [routerLink]="['/selections', 'edit', selekcija.id]"   
-          >
-            Comments
+              type="button"
+              class="btn btn-link btn-rounded btn-sm fw-bold"
+              mdbRipple
+              rippleColor="dark"
+              [routerLink]="['/selections', 'edit', selekcija.id]"
+            >
+              Comments
             </button>
           </td>
         </tr>
@@ -130,7 +129,10 @@
             <nav aria-label="Page navigation example">
               <ul class="pagination justify-content-center">
                 <li class="page-item">
-                  <button class="page-link btn-link" (click)="goToPreviousPage()">
+                  <button
+                    class="page-link btn-link"
+                    (click)="goToPreviousPage()"
+                  >
                     Previous
                   </button>
                 </li>

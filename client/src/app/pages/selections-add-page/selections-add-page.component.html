@@ -34,13 +34,12 @@
                 id="exampleFormControlInput1"
                 placeholder="yyyy-mm-dd"
                 name="StartDate"
-                ngModel     
+                ngModel
                 required
-              /> 
+              />
             </div>
           </div>
         </form>
-               
       </div>
 
       <div class="form-group">
@@ -54,14 +53,13 @@
                 placeholder="yyyy-mm-dd"
                 name="EndDate"
                 ngModel
-                required   
+                required
               />
             </div>
           </div>
         </form>
-        
+
         <hr />
-      
       </div>
 
       <div class="form-group">
@@ -76,7 +74,7 @@
         ></textarea>
       </div>
 
-        <div class="text-center text-lg-start mt-4 pt-2">
+      <div class="text-center text-lg-start mt-4 pt-2">
         <button type="submit" class="btn btn-primary btn-lg">Add</button>
       </div>
     </form>
@@ -84,9 +82,7 @@
   <div class="col mt-5" *ngIf="selectionFormValid && submitted && !loading">
     <div class="alert alert-success" role="alert">
       <h4 class="alert-heading">Well done!</h4>
-      <p>
-        You have successfully added new selection!
-      </p>
+      <p>You have successfully added new selection!</p>
       <hr />
     </div>
     <button class="btn btn-primary" (click)="goHome()">Return</button>
@@ -118,4 +114,4 @@
       />
     </div>
   </div>
-</div> 
+</div>

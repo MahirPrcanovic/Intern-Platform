@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     }
   }
   onSubmit(f: NgForm) {
-    console.log(f.form.value);
+    // console.log(f.form.value);
     let user = {
       userName: f.form.value.userName,
       password: f.form.value.password,
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     };
     this.loginService.login(user).subscribe(
       (response: any) => {
-        console.log(response);
+        // console.log(response);
         this.error = '';
         this.User.next({ token: response.token, userName: response.userName });
         localStorage.setItem('token', response.token);

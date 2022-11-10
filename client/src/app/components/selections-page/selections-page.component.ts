@@ -15,24 +15,24 @@ interface Selekcija {
 @Component({
   selector: 'app-selections-page',
   templateUrl: './selections-page.component.html',
-  styleUrls: ['./selections-page.component.css']
+  styleUrls: ['./selections-page.component.css'],
 })
 export class SelectionsPageComponent implements OnInit, OnDestroy {
   queryParams = {
-    pageNumber : 1,
-    pageSize : 5,
+    pageNumber: 1,
+    pageSize: 5,
     sort: null,
     filterBy: null,
   };
 
   constructor(
-    private route: ActivatedRoute, 
-    private router: Router, 
+    private route: ActivatedRoute,
+    private router: Router,
     private selectionService: SelectionsService
-    ) {}
-  params: { [key: string]: string | number} = {};
+  ) {}
+  params: { [key: string]: string | number } = {};
   DUMMYDATA: Selection[] = [];
-  data : Selekcija[] = [];
+  data: Selekcija[] = [];
   pagesNumber!: number;
   currentPage = 1;
   qParamsSubscribition!: Subscription;
@@ -45,65 +45,60 @@ export class SelectionsPageComponent implements OnInit, OnDestroy {
         this.queryParams.sort = qParams['sort'];
         this.queryParams.filterBy = qParams['filterBy'];
         this.fetchSelections();
-
       }
     );
   }
-    fetchSelections(){
-      this.selectionService.getAllSelections(this.queryParams)
-      .subscribe((response: any) =>{
+  fetchSelections() {
+    this.selectionService
+      .getAllSelections(this.queryParams)
+      .subscribe((response: any) => {
         this.data = response.data;
         this.currentPage = 1;
-        console.log(response);
-        this.pagesNumber = response.pagesCount;        
+        // console.log(response);
+        this.pagesNumber = response.pagesCount;
       });
+  }
+  goToPreviousPage() {
+    if (this.queryParams.pageNumber === 1) {
+      return;
+    } else {
+      this.queryParams.pageNumber -= 1;
+      this.fetchSelections();
     }
-    goToPreviousPage(){
-        if(this.queryParams.pageNumber === 1){
-          return;
-        } else {
-          this.queryParams.pageNumber -= 1;
-          this.fetchSelections();
-        }
+  }
+
+  goNextPage() {
+    if (this.queryParams.pageNumber === this.pagesNumber) {
+      return;
+    } else {
+      this.queryParams.pageNumber = +this.queryParams.pageNumber + 1;
+      this.fetchSelections();
     }
+  }
 
-    goNextPage(){
-      if(this.queryParams.pageNumber === this.pagesNumber){
-        return;
-      }
-      else{
-        this.queryParams.pageNumber = +this.queryParams.pageNumber + 1;
-        this.fetchSelections();
-      }
+  formSubmit(f: NgForm) {
+    // console.log(f.form.value);
+    const reqParams: { [key: string]: string | number } = {};
+    if (f.form.value.filterBy != '') {
+      this.queryParams.filterBy = f.form.value.filterBy;
+      reqParams['filterBy'] = f.form.value.filterBy;
     }
-
-    formSubmit(f:NgForm){
-      console.log(f.form.value);
-      const reqParams: {[key: string]: string | number} = {};
-      if(f.form.value.filterBy != ''){
-        this.queryParams.filterBy = f.form.value.filterBy;
-        reqParams['filterBy'] = f.form.value.filterBy;
-      }
-      if(f.form.value.sort !=''){
-        this.queryParams.sort = f.form.value.sort;
-        reqParams['sort'] = f.form.value.sort;
-
-      }
-      reqParams['pageNumber'] = 1;
-      this.params = reqParams;
-      this.router.navigate(['/selections'],{
-        queryParams: reqParams,
-      });
-
+    if (f.form.value.sort != '') {
+      this.queryParams.sort = f.form.value.sort;
+      reqParams['sort'] = f.form.value.sort;
     }
-  
+    reqParams['pageNumber'] = 1;
+    this.params = reqParams;
+    this.router.navigate(['/selections'], {
+      queryParams: reqParams,
+    });
+  }
 
-    getParams(num: number){
-      return {...this.params, pageNumber : num};
-    }
+  getParams(num: number) {
+    return { ...this.params, pageNumber: num };
+  }
 
-    ngOnDestroy(): void {
-      this.qParamsSubscribition.unsubscribe();
-    }
+  ngOnDestroy(): void {
+    this.qParamsSubscribition.unsubscribe();
+  }
 }
-

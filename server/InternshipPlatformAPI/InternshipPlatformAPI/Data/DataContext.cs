@@ -32,6 +32,96 @@ namespace InternshipPlatformAPI.Data
                 Email = "adnasalcin@gmail.com",
                 CoverLetter = "cover letter",
                 CV = "https://github.com/asalcin3"
+            },
+            new Application
+            {
+                FirstName = "Lewis",
+                LastName = "Hamilton",
+                EducationLevel = "Doctor-Undergraduate",
+                Email = "mahirprcanovic@gmail.com",
+                CoverLetter = "cover letter",
+                CV = "https://lewis.com/cv"
+            },
+            new Application
+            {
+                FirstName = "Emilia",
+                LastName = "Clarke",
+                EducationLevel = "College-Graduate",
+                Email = "mahirprcanovic@gmail.com",
+                CoverLetter = "cover letter",
+                CV = "https://emilia.com/cv"
+            },
+            new Application
+            {
+                FirstName = "Olivia",
+                LastName = "Wilde",
+                EducationLevel = "Master-Undergraduate",
+                Email = "mahirprcanovic@gmail.com",
+                CoverLetter = "cover letter",
+                CV = "https://olivia.com/cv"
+            },
+            new Application
+            {
+                FirstName = "Henry",
+                LastName = "Cavill",
+                EducationLevel = "Master-Graduate",
+                Email = "mahirprcanovic@gmail.com",
+                CoverLetter = "cover letter",
+                CV = "https://henry.com/cv"
+            },
+            new Application
+            {
+                FirstName = "Ryan",
+                LastName = "Reynolds",
+                EducationLevel = "College-Undergraduate",
+                Email = "mahirprcanovic@gmail.com",
+                CoverLetter = "cover letter",
+                CV = "https://ryan.com/cv"
+            },
+            new Application
+            {
+                FirstName = "Tom",
+                LastName = "Hardy",
+                EducationLevel = "Master-Undergraduate",
+                Email = "mahirprcanovic@gmail.com",
+                CoverLetter = "cover letter",
+                CV = "https://tom.com/cv"
+            },
+            new Application
+            {
+                FirstName = "Jack",
+                LastName = "Whitehall",
+                EducationLevel = "Doctor-Graduate",
+                Email = "mahirprcanovic@gmail.com",
+                CoverLetter = "cover letter",
+                CV = "https://jack.com/cv"
+            },
+            new Application
+            {
+                FirstName = "John",
+                LastName = "Doe",
+                EducationLevel = "College-Graduate",
+                Email = "mahirprcanovic@gmail.com",
+                CoverLetter = "cover letter",
+                CV = "https://john.com/cv"
+            },
+            new Application
+            {
+                FirstName = "Lorem",
+                LastName = "Ipsum",
+                EducationLevel = "HighSchool-Graduate",
+                Email = "mahirprcanovic@gmail.com",
+                CoverLetter = "cover letter",
+                CV = "https://loremipsum.com"
+            },
+            new Application
+            {
+                FirstName = "Mick",
+                LastName = "Schumacher",
+                EducationLevel = "College-Graduate",
+                Email = "mahirprcanovic@gmail.com",
+                CoverLetter = "cover letter",
+                CV = "https://mick.com"
             });
             string ADMIN_ID = "02174cf0–9412–4cfe - afbf - 59f706d72cf6";
             string ROLE_ID = "341743f0-asd2–42de-afbf-59kmkkmk72cf6";

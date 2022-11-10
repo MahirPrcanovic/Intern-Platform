@@ -293,8 +293,18 @@ namespace InternshipPlatformAPI.Migrations
                 columns: new[] { "Id", "CV", "CoverLetter", "EducationLevel", "Email", "FirstName", "LastName", "Status" },
                 values: new object[,]
                 {
-                    { new Guid("92f0a6e1-d8ce-470e-8a62-8329093c42bd"), "https://github.com/MahirPrcanovic", "cover letter", "College-Undergraduate", "mahirprcanovic@gmail.com", "Mahir", "Prcanovic", "applied" },
-                    { new Guid("c447f74f-d80c-4a9b-8a14-e89f7d2341da"), "https://github.com/asalcin3", "cover letter", "Master-Undergraduate", "adnasalcin@gmail.com", "Adna", "Salcin", "applied" }
+                    { new Guid("1178764c-5ebc-4d34-8152-5fc3395b8c1f"), "https://tom.com/cv", "cover letter", "Master-Undergraduate", "mahirprcanovic@gmail.com", "Tom", "Hardy", "applied" },
+                    { new Guid("1271404c-67a7-4368-8bf4-fbe39b05b62c"), "https://ryan.com/cv", "cover letter", "College-Undergraduate", "mahirprcanovic@gmail.com", "Ryan", "Reynolds", "applied" },
+                    { new Guid("46b08fa8-733a-4fe1-bd7d-73261410eb40"), "https://jack.com/cv", "cover letter", "Doctor-Graduate", "mahirprcanovic@gmail.com", "Jack", "Whitehall", "applied" },
+                    { new Guid("4e5a69fc-1be7-4aeb-9e3a-ff744e704d61"), "https://mick.com", "cover letter", "College-Graduate", "mahirprcanovic@gmail.com", "Mick", "Schumacher", "applied" },
+                    { new Guid("5ab00bd0-fb84-4bd0-9ee3-e50f1dfe4685"), "https://github.com/MahirPrcanovic", "cover letter", "College-Undergraduate", "mahirprcanovic@gmail.com", "Mahir", "Prcanovic", "applied" },
+                    { new Guid("5f9a2123-fd9f-469c-a4e0-c61268c306da"), "https://henry.com/cv", "cover letter", "Master-Graduate", "mahirprcanovic@gmail.com", "Henry", "Cavill", "applied" },
+                    { new Guid("7a491f86-4cc4-4cd7-9228-2286c10f1964"), "https://emilia.com/cv", "cover letter", "College-Graduate", "mahirprcanovic@gmail.com", "Emilia", "Clarke", "applied" },
+                    { new Guid("7ce59cd3-9454-4a00-8e6f-4a8ec490713c"), "https://github.com/asalcin3", "cover letter", "Master-Undergraduate", "adnasalcin@gmail.com", "Adna", "Salcin", "applied" },
+                    { new Guid("b5cbeeb0-3abf-4967-97ce-eb308a2387c5"), "https://lewis.com/cv", "cover letter", "Doctor-Undergraduate", "mahirprcanovic@gmail.com", "Lewis", "Hamilton", "applied" },
+                    { new Guid("be1f15d2-78c1-43b1-a5a5-e61c50f960cb"), "https://loremipsum.com", "cover letter", "HighSchool-Graduate", "mahirprcanovic@gmail.com", "Lorem", "Ipsum", "applied" },
+                    { new Guid("eeb7e313-8e7d-4911-8c3c-4db365350e26"), "https://olivia.com/cv", "cover letter", "Master-Undergraduate", "mahirprcanovic@gmail.com", "Olivia", "Wilde", "applied" },
+                    { new Guid("f196f98f-0645-426e-a951-f2d81113676f"), "https://john.com/cv", "cover letter", "College-Graduate", "mahirprcanovic@gmail.com", "John", "Doe", "applied" }
                 });
 
             migrationBuilder.InsertData(
@@ -309,7 +319,7 @@ namespace InternshipPlatformAPI.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "02174cf0–9412–4cfe - afbf - 59f706d72cf6", 0, "2fc692df-13ed-40fc-a2e3-824b5ee7c177", null, true, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEPBTr03ywcCR07KjOjOQm7kXH1yfC5VQCnsqZrSzcwxfOqZGeo+qtPCV5nETUZoFrQ==", null, false, "a3f95902-8db4-4224-bb7f-4c869e5b8e0d", false, "Admin" });
+                values: new object[] { "02174cf0–9412–4cfe - afbf - 59f706d72cf6", 0, "ed8a3456-968d-450d-9d53-ec8ca286cf66", null, true, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEFD8eIFSjmA9aOgYrfKdKpmSSQXbjjisEz3cMYGGeM6zvG/mwf2tMKpXR0mvaBE12w==", null, false, "0be3a31c-600a-4d19-98d2-097e633e443a", false, "Admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

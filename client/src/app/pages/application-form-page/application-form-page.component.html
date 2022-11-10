@@ -7,7 +7,7 @@
   </div>
 </div>
 <div class="container d-flex flex-column-reverse flex-md-row">
-  <div class="col-md-4 mt-5 col" *ngIf="!submitted && !loading">
+  <div class="col-md-4 mt-5 col p-2 rounded" *ngIf="!submitted && !loading">
     <h1 class="text-truncate">Application form</h1>
     <form (ngSubmit)="onSubmit(f)" #f="ngForm">
       <div class="form-group">
@@ -55,7 +55,7 @@
           name="EducationLevel"
           required
         >
-          <option value="High-School">High School Graduate</option>
+          <option value="HighSchool-Graduate">High School Graduate</option>
           <option value="College-Undergraduate">College Undergraduate</option>
           <option value="College-Graduate">College Graduate</option>
           <option value="Master-Undergraduate">Master's Undergraduate</option>

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using InternshipPlatformAPI.Dtos;
 using InternshipPlatformAPI.Models;
 using InternshipPlatformAPI.Dtos.SelectionDto;
+using InternshipPlatformAPI.Dtos.ApplicationDto;
 
 namespace InternshipPlatformAPI.Profiles
 {
@@ -11,17 +11,14 @@ namespace InternshipPlatformAPI.Profiles
         {
             CreateMap<ApplicationFormDto, Application>();
             CreateMap<ApplicationDto, Application>();
-            CreateMap<Application, ApplicationDto>();
-            CreateMap<ApplicationFormDto, Application>();            
+            CreateMap<Application, ApplicationDto>();          
             CreateMap<EditSelectionDto, Selection>();
             CreateMap<AddSelectionDto, Selection>();
             CreateMap<Selection, GetSelectionDto>();
             CreateMap<Application,AddApplicantDto>();
-
             CreateMap<ApplicationCommentDto,Comment>();
-         
-
             CreateMap<SelectionCommentDto,Comment>();
+            
         }
     }
 }

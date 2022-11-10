@@ -1,4 +1,4 @@
-﻿using InternshipPlatformAPI.Dtos;
+﻿using InternshipPlatformAPI.Dtos.ApplicationDto;
 using InternshipPlatformAPI.Models;
 
 using Microsoft.AspNetCore.JsonPatch;

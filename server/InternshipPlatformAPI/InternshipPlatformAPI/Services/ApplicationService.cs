@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using InternshipPlatformAPI.Data;
-using InternshipPlatformAPI.Dtos;
+using InternshipPlatformAPI.Dtos.ApplicationDto;
 using InternshipPlatformAPI.Models;
 using InternshipPlatformAPI.Services.EmailService;
 using MailKit.Net.Smtp;

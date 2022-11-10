@@ -1,4 +1,4 @@
-﻿namespace InternshipPlatformAPI.Dtos
+﻿namespace InternshipPlatformAPI.Dtos.User
 {
     public class LoginResponseDto
     {

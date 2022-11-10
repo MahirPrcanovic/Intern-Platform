@@ -1,4 +1,4 @@
-﻿namespace InternshipPlatformAPI.Dtos
+﻿namespace InternshipPlatformAPI.Dtos.ApplicationDto
 {
     public class ApplicationCommentDto
     {

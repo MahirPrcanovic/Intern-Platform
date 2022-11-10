@@ -9,7 +9,7 @@ using System.Formats.Asn1;
 
 namespace InternshipPlatformAPI.Controllers
 {
-    // [Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SelectionsController : ControllerBase

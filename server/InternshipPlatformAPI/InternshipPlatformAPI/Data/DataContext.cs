@@ -1,6 +1,8 @@
 ﻿using InternshipPlatformAPI.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using System.Data;
 
 namespace InternshipPlatformAPI.Data
@@ -16,5 +18,6 @@ namespace InternshipPlatformAPI.Data
         public DbSet<Comment>? Comments { get; set; }
         public DbSet<ApplicationComment>? ApplicationComments { get; set; }
         public DbSet<SelectionComment>? SelectionComments { get; set; }
+
     }
 }

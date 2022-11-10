@@ -85,11 +85,19 @@ namespace InternshipPlatformAPI.Services.SelectionService
         public async Task<ServiceResponse<GetSelectionDto>> GetSelectionById(Guid selectionId)
         {
             var response = new ServiceResponse<GetSelectionDto>();
-            var singleSelection = await _dataContext.Selections.Include(y => y.Applications)
+            var singleSelection = await _dataContext.Selections// Include(y => y.Applications).Include(y => y.Comments)
                 .FirstOrDefaultAsync(i => i.Id.Equals(selectionId));
+
+            singleSelection.Applications = await _dataContext.Applications.Where(x => x.Selections.Contains(singleSelection)).ToListAsync();
+            var selectionComments = await Task.Run(() => _dataContext.SelectionComments.ToList());
+            
+            var comms = _dataContext.Comments.ToList();
+            
+            singleSelection.Comments = _dataContext.Comments.Where(x => selectionComments.Select(y => y.Comment).ToList().Contains(x)).ToList();
+            
             if(singleSelection == null) //ako ne pronadje odgovarajucu selekciju pod tim id-em
             {
-                response.Success= false;
+                response.Success= false;  
                 response.Message = "No available selection.";
             }
 
@@ -181,7 +189,7 @@ namespace InternshipPlatformAPI.Services.SelectionService
 
             var addComment = _mapper.Map<Comment>(newComment);
             addComment.DateCreated = DateTime.Now;
-            this._dataContext.Comments.Add(addComment);
+            _dataContext.Comments.Add(addComment);
 
             var selectionComment = new SelectionComment()
             {
@@ -189,15 +197,16 @@ namespace InternshipPlatformAPI.Services.SelectionService
                 Selection = existis,
             };
 
-            this._dataContext.SelectionComments.Add(selectionComment);
-
-            
+            _dataContext.SelectionComments.Add(selectionComment);
+          
             response.Data = addComment;
-            await this._dataContext.SaveChangesAsync();
+            await _dataContext.SaveChangesAsync();
 
 
             return response;
 
         }
+
+       
     }
 }

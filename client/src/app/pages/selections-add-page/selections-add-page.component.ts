@@ -56,8 +56,11 @@ export class SelectionsAddPageComponent implements OnInit {
       new Date(this.addSelection.get('startDate')!.value!),
       new Date(this.addSelection.get('endDate')!.value!),
       this.addSelection.get('description')!.value!)).subscribe((result  : any) => {
-        console.log(result);
+        this.submitted = true;
+        this.selectionFormValid = true;
+        this.loading = false;
       })
+      
 
     
    }

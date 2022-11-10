@@ -5,6 +5,7 @@ using InternshipPlatformAPI.Models;
 using InternshipPlatformAPI.Services.EmailService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace InternshipPlatformAPI.Services.UsersService
 {
@@ -13,12 +14,14 @@ namespace InternshipPlatformAPI.Services.UsersService
         private readonly DataContext _dataContext;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IEmailService _emailService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UserService(DataContext dataContext,UserManager<IdentityUser> userManager,IEmailService emailService)
+        public UserService(DataContext dataContext,UserManager<IdentityUser> userManager,IEmailService emailService,IHttpContextAccessor httpContextAccessor)
         {
             this._dataContext = dataContext;
             this._userManager = userManager;
             this._emailService = emailService;
+            this._httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<ServiceResponse<string>> AddNewUser(RegisterDto registerData)
@@ -52,7 +55,7 @@ namespace InternshipPlatformAPI.Services.UsersService
         {
             var serviceResponse = new ServiceResponse<string>();
             var user = await this._userManager.FindByIdAsync(id);
-            if(user == null)
+            if (user == null)
             {
                 serviceResponse.Success = false;
                 serviceResponse.Message = "User not found.";
@@ -74,6 +77,9 @@ namespace InternshipPlatformAPI.Services.UsersService
         {
             var serviceResponse = new ServiceResponse<List<IdentityUser>>();
             var users = await this._dataContext.Users.ToListAsync();
+            //DO NOT INCLUDE ADMIN!
+            users.RemoveAll(el => el.Id == "02174cf0–9412–4cfe - afbf - 59f706d72cf6");
+
             serviceResponse.Data = users;
 
             return serviceResponse;

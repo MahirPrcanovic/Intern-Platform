@@ -4,6 +4,7 @@ import { catchError, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { FullApplication } from '../interfaces/FullApplication';
 import { UpdateSelection } from '../interfaces/UpdateSelection';
+import { AddSelection } from '../models/AddSelection';
 import { Application } from '../models/Application';
 import { Selection } from '../models/Selection';
 @Injectable({
@@ -12,7 +13,7 @@ import { Selection } from '../models/Selection';
 export class SelectionsService {
   constructor(private http: HttpClient) {}
 
-  postData(postData: Selection) {
+  postData(postData: AddSelection) {
     return this.http.post(
       environment.apiUrl + '/api/Selections/AddNewSelection',
       postData
@@ -77,7 +78,7 @@ export class SelectionsService {
     const postData = {
       commentText: comment,
     };
-    // console.log(postData);
+   
     return this.http.post(
       environment.apiUrl +
         '/api/Selections/AddNewCommentToSelection/' +

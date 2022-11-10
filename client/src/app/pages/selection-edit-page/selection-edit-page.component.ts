@@ -37,15 +37,18 @@ export class SelectionEditPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectionService.getSingleSelection(this.route.snapshot.params['id']).subscribe((result : any) =>{
-      
+      console.log("datum");
+      console.log(result.data.startDate);
       this.editSelection = new FormGroup({
          name: new FormControl(result.data.name),
-         startDate :  new FormControl(this.datePipe.transform(result.data.startDate,'yyyy-MM-dd')),
-         endDate :  new FormControl(this.datePipe.transform(result.data.endDate,'yyyy-MM-dd')),
+         startDate :  new FormControl(this.datePipe.transform(result.data.startDate,'mm/dd/yyyy')),
+         endDate :  new FormControl(this.datePipe.transform(result.data.endDate,'mm/dd/yyyy')),
          description :  new FormControl(result.data.description),
        });
         this.acomments = result.data.comments;
-  
+       
+        console.log("Acomments niz");
+        console.log(this.acomments);
     
     });
 }
@@ -70,7 +73,7 @@ addComment(f: NgForm) {
     .addSelectionComment(this.route.snapshot.params['id'], f.form.value.comment)
     .subscribe((response : any ) => {
       console.log("ovo")
-      console.log(response.value.data);
+      console.log(response.value);
      this.acomments.push(response.value.data);
     
       

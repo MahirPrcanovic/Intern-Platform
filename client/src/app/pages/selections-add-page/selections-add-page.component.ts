@@ -1,7 +1,10 @@
+import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AddSelection } from 'src/app/models/AddSelection';
+import { Selection } from 'src/app/models/Selection';
 import { SelectionsService } from 'src/app/services/selections.service';
 
 
@@ -17,6 +20,7 @@ export class SelectionsAddPageComponent implements OnInit {
     private router: Router,
     private selectionService: SelectionsService,
     private http : HttpClient,
+    private datePipe: DatePipe
      
   ) {}
 
@@ -25,35 +29,39 @@ export class SelectionsAddPageComponent implements OnInit {
   submitted = false;
   message = '';
 
+  addSelection = new FormGroup({
+    name: new FormControl('name'),
+    startDate :  new FormControl('startDate'),
+    endDate :  new FormControl('endDate'),
+    description :  new FormControl('description'),
+     
+  });
+
   ngOnInit(): void {
   }
 
-  onSubmit(f : NgForm) {
-    this.loading = true;
-    console.log(f);
-    if(!f.valid){
+
+
+   AddData(){
+
+    if(!this.addSelection.valid){
       this.submitted = true;
       this.selectionFormValid = false;
       this.loading = false;
       return;
     }
+    this.selectionService.postData(
+      new AddSelection(
+      this.addSelection.get('name')!.value!,
+      new Date(this.addSelection.get('startDate')!.value!),
+      new Date(this.addSelection.get('endDate')!.value!),
+      this.addSelection.get('description')!.value!)).subscribe((result  : any) => {
+        console.log(result);
+      })
 
-    this.selectionService.postData(f.form.value).subscribe(
-        (response) =>{
-          this.submitted = f.submitted;
-          this.selectionFormValid = f.form.valid;
-          this.loading = false;
-          console.log(response);
-        },
-        (error) =>{
-          this.loading = false;
-          this.message = error.statusText;
-          this.submitted = f.submitted;
-          console.log(error);
-        }
+    
+   }
 
-    );
-  }
   resetForm(){
     this.selectionFormValid = true;
     this.submitted = false;
@@ -62,5 +70,6 @@ export class SelectionsAddPageComponent implements OnInit {
   goHome() {
     this.router.navigate(['/selections']);
   }
+
 
 }

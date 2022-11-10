@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternshipPlatformAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221109131943_newMigration3")]
-    partial class newMigration3
+    [Migration("20221110090556_newMig")]
+    partial class newMig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -77,6 +77,30 @@ namespace InternshipPlatformAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Applications");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("86d59d16-d77a-4dbf-828b-b6edca8fd419"),
+                            CV = "https://github.com/MahirPrcanovic",
+                            CoverLetter = "cover letter",
+                            EducationLevel = "College-Undergraduate",
+                            Email = "mahirprcanovic@gmail.com",
+                            FirstName = "Mahir",
+                            LastName = "Prcanovic",
+                            Status = "applied"
+                        },
+                        new
+                        {
+                            Id = new Guid("86175f1b-635b-4374-bfbe-0be4df5e892a"),
+                            CV = "https://github.com/asalcin3",
+                            CoverLetter = "cover letter",
+                            EducationLevel = "Master-Undergraduate",
+                            Email = "adnasalcin@gmail.com",
+                            FirstName = "Adna",
+                            LastName = "Salcin",
+                            Status = "applied"
+                        });
                 });
 
             modelBuilder.Entity("InternshipPlatformAPI.Models.ApplicationComment", b =>
@@ -206,6 +230,22 @@ namespace InternshipPlatformAPI.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "341743f0-asd2–42de-afbf-59kmkkmk72cf6",
+                            ConcurrencyStamp = "341743f0-asd2–42de-afbf-59kmkkmk72cf6",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        },
+                        new
+                        {
+                            Id = "413743e0-asd2–42fe-afbf-59kmccmk72cd6",
+                            ConcurrencyStamp = "413743e0-asd2–42fe-afbf-59kmccmk72cd6",
+                            Name = "Editor",
+                            NormalizedName = "EDITOR"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -296,6 +336,22 @@ namespace InternshipPlatformAPI.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "02174cf0–9412–4cfe - afbf - 59f706d72cf6",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "a9bfd3c9-1014-4997-9032-72ce9c3613b0",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAELNMtujV3oNrmepM36smyl+ubAL7KP9mZJ6eL8Af5+kh+swH5EpV5UxCnmw23M2LXA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "ca472137-6aa3-4293-bc4d-4f27c6667368",
+                            TwoFactorEnabled = false,
+                            UserName = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -358,6 +414,13 @@ namespace InternshipPlatformAPI.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "02174cf0–9412–4cfe - afbf - 59f706d72cf6",
+                            RoleId = "341743f0-asd2–42de-afbf-59kmkkmk72cf6"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

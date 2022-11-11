@@ -7,7 +7,12 @@
   </div>
 </div>
 <div class="container d-flex flex-column-reverse flex-md-row">
-  <div class="col-md-4 mt-5 col p-2 rounded" *ngIf="!submitted && !loading">
+  <div
+    class="col-md-4 mt-5 col p-2 rounded"
+    *ngIf="!submitted && !loading"
+    data-aos="fade-right"
+    data-aos-duration="500"
+  >
     <h1 class="text-truncate">Application form</h1>
     <form (ngSubmit)="onSubmit(f)" #f="ngForm">
       <div class="form-group">
@@ -94,7 +99,7 @@
         />
       </div>
 
-      <div class="text-center text-lg-start mt-4 pt-2">
+      <div class="text-center text-lg-start mt-4 pt-2 d-flex">
         <button type="submit" class="btn btn-primary btn-lg">Apply</button>
       </div>
     </form>
@@ -126,6 +131,8 @@
   <div
     class="col d-md-flex justify-content-center align-items-center d-none"
     *ngIf="!submitted && !loading"
+    data-aos="fade-left"
+    data-aos-duration="500"
   >
     <div class="col-10 col-sm-8 col-lg-6">
       <img

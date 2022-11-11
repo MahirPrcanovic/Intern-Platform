@@ -33,14 +33,14 @@
       </div>
     </div>
     <button
-      class="btn btn-primary col-2 align-items-center justify-content-center"
+      class="btn btn-primary col align-items-center justify-content-center"
       type="submit"
     >
       Find
     </button>
 
     <button
-      class="btn btn-primary col-2 align-items-center justify-content-center"
+      class="btn btn-primary col align-items-center justify-content-center"
       type="button"
       [routerLink]="['/selections/addNewSelection']"
     >
@@ -71,13 +71,17 @@
               </div>
             </div>
           </td>
-          
-            <td>
-              <p class="fw-normal mb-1">{{ selekcija.startDate | date:'MMM d, y'}}</p>
-            </td>
-          
+
           <td>
-            <p class="fw-normal mb-1">{{ selekcija.endDate | date:'MMM d, y' }}</p>
+            <p class="fw-normal mb-1 col">
+              {{ selekcija.startDate | date: "MMM d, y" }}
+            </p>
+          </td>
+
+          <td>
+            <p class="fw-normal mb-1">
+              {{ selekcija.endDate | date: "MMM d, y" }}
+            </p>
           </td>
           <td>
             <p class="fw-normal mb-1">{{ selekcija.description }}</p>

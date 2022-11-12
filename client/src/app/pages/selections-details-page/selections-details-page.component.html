@@ -3,8 +3,8 @@
   <h1 class="f4 text-center mt-5">Welcome to Dashboard!</h1>
   <h2 class="f4 text-center">Details for {{ data.name }} selection</h2>
   <p class="f4 text-center">Description : {{ data.description }}</p>
-  <p class="f4 text-center">Start Date : {{ data.startDate }}</p>
-  <p class="f4 text-center">End Date : {{ data.endDate }}</p>
+  <p class="f4 text-center">Start Date : {{ data.startDate | date: "MMM d, y" }}</p>
+  <p class="f4 text-center">End Date : {{ data.endDate | date: "MMM d, y"  }}</p>
 
   <h2 class="f4 text-center">Applicants in {{ data.name }} selection</h2>
   <div class="table-responsive">
@@ -78,7 +78,7 @@
     Add applicant
     </button>
       <button
-        *ngIf="!deleted"
+    
         type="button"
         class="btn btn-primary"
         style="margin-top: 20%;  padding-right: 10%; "
@@ -89,7 +89,7 @@
     </div>
     </table>
   </div>
-  <div *ngIf="deleted" class="alert alert-success" role="alert">
+  <!-- <div *ngIf="deleted" class="alert alert-success" role="alert">
     <h4 class="alert-heading">Well done!</h4>
     <p>You successfully edited your selection.</p>
     <button
@@ -99,5 +99,5 @@
     >
       Back
     </button>
-  </div>
+  </div> -->
 </div>

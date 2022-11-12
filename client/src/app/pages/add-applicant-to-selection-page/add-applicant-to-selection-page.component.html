@@ -92,17 +92,9 @@
         </tbody>
       </table>
 
-      <button *ngIf="!added" type="button" class="btn btn-primary" style="margin-top:2%"
-      [routerLink]="['/selections']"  
+      <button  type="button" class="btn btn-primary" style="margin-top:2%"
+      [routerLink]="['/selections/details/'+ data.id]"   
       >Back</button>
-
-      <div *ngIf="added" class="alert alert-success" role="alert">
-        <h4 class="alert-heading">Well done!</h4>
-        <p>You successfully added new applicant to your selection.</p>
-        <button type="button" class="btn btn-success"
-        [routerLink]="['/selections/details/'+ data.id]"  
-        >Back</button>
-      </div>
     </div>
   </div>
   

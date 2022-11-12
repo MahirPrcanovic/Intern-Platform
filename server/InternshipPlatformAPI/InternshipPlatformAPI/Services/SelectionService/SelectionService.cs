@@ -112,10 +112,10 @@ namespace InternshipPlatformAPI.Services.SelectionService
         {
             ServiceResponse<List<GetSelectionDto>> response = new ServiceResponse<List<GetSelectionDto>>();
 
-            var selection = await _dataContext.Selections.Include(a => a.Applications)
-                .FirstOrDefaultAsync();
-           
-            if(selection == null)
+            var selection = await _dataContext.Selections.FirstOrDefaultAsync(i => i.Id.Equals(selectionId));
+            selection.Applications = await _dataContext.Applications.Where(x => x.Selections.Contains(selection)).ToListAsync();
+
+            if (selection == null)
             {
                 response.Success = false;
                 response.Message = "Selection not found";

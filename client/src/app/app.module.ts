@@ -29,6 +29,8 @@ import { SelectionsDetailsPageComponent } from 'src/app/pages/selections-details
 import { AddApplicantToSelectionPageComponent } from './pages/add-applicant-to-selection-page/add-applicant-to-selection-page.component';
 import { ErrorPageComponent } from './pages/error-page/error-page/error-page.component';
 import { ErrorHeroComponent } from './components/error-page/error-hero/error-hero/error-hero.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {NgToastModule} from 'ng-angular-popup';
 
 @NgModule({
   declarations: [
@@ -62,6 +64,9 @@ import { ErrorHeroComponent } from './components/error-page/error-hero/error-her
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    NgToastModule,
+    
   ],
   providers: [
     DatePipe,

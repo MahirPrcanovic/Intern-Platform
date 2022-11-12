@@ -32,12 +32,15 @@ data:FullSelection  = {
 deleted : boolean = false;
 
   ngOnInit(): void {
-    this.selectionService.getSingleSelection(this.route.snapshot.params['id']).subscribe((result : any) =>{
-      this.data = result.data;
-      console.log(result);
+    this.getSelection();
+}
+getSelection(){
+  this.selectionService.getSingleSelection(this.route.snapshot.params['id']).subscribe((result : any) =>{
+    this.data = result.data;
+    console.log(result);
 
-      
-    });
+    
+  });
 }
 
 deleteApplicant(selectionId: string, applicationsid: string){
@@ -45,7 +48,7 @@ deleteApplicant(selectionId: string, applicationsid: string){
     console.log('Deleted user');
     this.deleted = true;
     this.toast.success({detail:'Success Message', summary:'You added new applicant to selection.', position:'tr', duration:5000, sticky:false});
-
+    this.getSelection();
       }, err =>{
         this.toast.error({detail:'Fail Message', summary:'Error happend please try again.', position:'tr', duration:5000, sticky:false});
       }

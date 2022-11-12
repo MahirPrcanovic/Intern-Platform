@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { Selection } from 'src/app/models/Selection';
 import { SelectionsService } from 'src/app/services/selections.service';
 import { NgForm } from '@angular/forms';
+import { Sort } from '@angular/material/sort';
 interface Selekcija {
   id: string;
   name: string;
@@ -24,15 +25,17 @@ export class SelectionsPageComponent implements OnInit, OnDestroy {
     sort: null,
     filterBy: null,
   };
-
+  sortedData:Selekcija[] = [];
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private selectionService: SelectionsService
+    private selectionService: SelectionsService,
+
   ) {}
   params: { [key: string]: string | number } = {};
   DUMMYDATA: Selection[] = [];
-  data: Selekcija[] = [];
+
+
   pagesNumber!: number;
   currentPage = 1;
   qParamsSubscribition!: Subscription;
@@ -47,17 +50,41 @@ export class SelectionsPageComponent implements OnInit, OnDestroy {
         this.fetchSelections();
       }
     );
+
   }
   fetchSelections() {
     this.selectionService
       .getAllSelections(this.queryParams)
       .subscribe((response: any) => {
-        this.data = response.data;
+        this.sortedData = response.data;
         this.currentPage = 1;
-        // console.log(response);
         this.pagesNumber = response.pagesCount;
       });
+      
   }
+
+  sortData(sort: Sort) {
+    const data1 = this.sortedData;
+    if (!sort.active || sort.direction === '') {
+      this.sortedData = data1;
+      return;
+    }
+    this.sortedData = data1.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'name':
+          return this.compare(a.name, b.name, isAsc);
+        
+        default:
+          return 0;
+      }
+    });
+  }
+
+   compare(a:string, b:  | string, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
   goToPreviousPage() {
     if (this.queryParams.pageNumber === 1) {
       return;

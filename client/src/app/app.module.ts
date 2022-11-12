@@ -31,6 +31,7 @@ import { ErrorPageComponent } from './pages/error-page/error-page/error-page.com
 import { ErrorHeroComponent } from './components/error-page/error-hero/error-hero/error-hero.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NgToastModule} from 'ng-angular-popup';
+import {MatSortModule} from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import {NgToastModule} from 'ng-angular-popup';
     AddApplicantToSelectionPageComponent,
     ErrorPageComponent,
     ErrorHeroComponent,
+    
   ],
 
   imports: [
@@ -66,6 +68,7 @@ import {NgToastModule} from 'ng-angular-popup';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     NgToastModule,
+    MatSortModule,
     
   ],
   providers: [

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { FullSelection } from 'src/app/interfaces/FullSelection';
 import { Application } from 'src/app/models/Application';
 import { ApplicationsService } from 'src/app/services/applications.service';
@@ -53,6 +54,11 @@ export class AddApplicantToSelectionPageComponent implements OnInit {
     Status: '',
   };
   applicantsInSelection: Applicant[] = [];
+  pagesNumber!: number;
+  currentPage = 1;
+  qParamsSubscribition!: Subscription;
+  numberOfPostsToFetch = 5;
+  params: { [key: string]: string | number } = {};
 
   added: boolean = false;
 
@@ -62,13 +68,29 @@ export class AddApplicantToSelectionPageComponent implements OnInit {
       .subscribe((result: any) => {
         this.data = result.data;
       });
+      this.qParamsSubscribition = this.route.queryParams.subscribe(
+        (qParams: Params) => {
+          this.queryParams.page = qParams['page'] || 1;
+        
+          this.queryParams.pageSize = qParams['pageSize'] || 10;
+          this.queryParams.sortBy = qParams['sortBy'];
+          this.queryParams.filter = qParams['filter'];
+          this.queryParams.filterType = qParams['filterType'];
+      this.fetchApplicants();
+        }
+      );
+   
+  }
 
+  fetchApplicants(){
     this.applicationService
-      .getAllApplications(this.queryParams)
-      .subscribe((response: any) => {
-        this.applicantsInSelection = response.data;
-        // console.log(response);
-      });
+    .getAllApplications(this.queryParams)
+    .subscribe((response: any) => {
+      this.applicantsInSelection = response.data;
+      this.currentPage = 1;
+      this.pagesNumber = response.pagesCount;
+      // console.log(response);
+    });
   }
 
   addApplicantToSelection(id: string) {
@@ -86,5 +108,25 @@ export class AddApplicantToSelectionPageComponent implements OnInit {
       .subscribe((result: any) => {
         this.added = true;
       });
+  }
+  goToPreviousPage() {
+    if (this.queryParams.page === 1) {
+      return;
+    } else {
+      this.queryParams.page -= 1;
+      this.fetchApplicants();
+    }
+  }
+
+  goNextPage() {
+    if (this.queryParams.page === this.pagesNumber) {
+      return;
+    } else {
+      this.queryParams.page = +this.queryParams.page + 1;
+      this.fetchApplicants();
+    }
+  }
+  getParams(num: number) {
+    return { ...this.params, page: num };
   }
 }

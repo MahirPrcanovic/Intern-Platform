@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SelectionsService } from 'src/app/services/selections.service';
 import { FormControl, FormGroup, NgForm } from '@angular/forms';
-import { DatePipe } from '@angular/common';
+import { DatePipe, formatDate } from '@angular/common';
 import {Selection} from 'src/app/models/Selection'
 import {SelectionComment} from 'src/app/interfaces/SelectionComment';
 import { NgToastService } from 'ng-angular-popup';
@@ -34,21 +34,22 @@ export class SelectionEditPageComponent implements OnInit {
 
   updated : boolean = false;
   acomments: any[] = [];
-
+  selection: any;
  
 
   ngOnInit(): void {
     this.selectionService.getSingleSelection(this.route.snapshot.params['id']).subscribe((result : any) =>{
       console.log("datum");
       console.log(result.data.startDate);
+      this.selection = result.data;
       this.editSelection = new FormGroup({
          name: new FormControl(result.data.name),
-         startDate :  new FormControl(this.datePipe.transform(result.data.startDate,'mm/dd/yyyy')),
-         endDate :  new FormControl(this.datePipe.transform(result.data.endDate,'mm/dd/yyyy')),
+         startDate :  new FormControl(formatDate(result.data.startDate, 'yyyy-MM-dd', 'en')),
+         endDate :  new FormControl(formatDate(result.data.endDate, 'yyyy-MM-dd', 'en')),
          description :  new FormControl(result.data.description),
        });
         this.acomments = result.data.selectionComments;
-       
+        console.log(this.editSelection.value.startDate);
         console.log("Acomments niz");
         console.log(this.acomments);
     

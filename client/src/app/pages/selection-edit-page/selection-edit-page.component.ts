@@ -47,7 +47,7 @@ export class SelectionEditPageComponent implements OnInit {
          endDate :  new FormControl(this.datePipe.transform(result.data.endDate,'mm/dd/yyyy')),
          description :  new FormControl(result.data.description),
        });
-        this.acomments = result.data.comments;
+        this.acomments = result.data.selectionComments;
        
         console.log("Acomments niz");
         console.log(this.acomments);
@@ -78,8 +78,7 @@ addComment(f: NgForm) {
   this.selectionService
     .addSelectionComment(this.route.snapshot.params['id'], f.form.value.comment)
     .subscribe((response : any ) => {
-      console.log("ovo")
-      console.log(response.value);
+   
      this.acomments.push(response.value.data);
     
       

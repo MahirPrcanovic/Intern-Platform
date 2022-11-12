@@ -47,10 +47,10 @@ deleteApplicant(selectionId: string, applicationsid: string){
   this.selectionService.deleteApplicantFromSelection(selectionId,applicationsid).subscribe((result : any) =>{
     console.log('Deleted user');
     this.deleted = true;
-    this.toast.success({detail:'Success Message', summary:'You added new applicant to selection.', position:'tr', duration:5000, sticky:false});
+    this.toast.success({detail:'Success Message', summary:'You succesfully removed applicant from selection.', position:'tr', duration:4000, sticky:false});
     this.getSelection();
       }, err =>{
-        this.toast.error({detail:'Fail Message', summary:'Error happend please try again.', position:'tr', duration:5000, sticky:false});
+        this.toast.error({detail:'Fail Message', summary:'Error happend please try again.', position:'tr', duration:4000, sticky:false});
       }
   );
 }

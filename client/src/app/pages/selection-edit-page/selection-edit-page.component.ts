@@ -5,6 +5,7 @@ import { FormControl, FormGroup, NgForm } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import {Selection} from 'src/app/models/Selection'
 import {SelectionComment} from 'src/app/interfaces/SelectionComment';
+import { NgToastService } from 'ng-angular-popup';
 
 
 @Component({
@@ -18,7 +19,8 @@ export class SelectionEditPageComponent implements OnInit {
     private selectionService: SelectionsService,
     private route: ActivatedRoute,
     private router: Router,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private toast: NgToastService,
   ) {}
 
   editSelection = new FormGroup({
@@ -64,7 +66,11 @@ EditData(){
     new Date(this.editSelection.get('endDate')!.value!),
     this.editSelection.get('description')!.value!)).subscribe((result : any) =>{
       this.updated = true;
-    })
+      this.toast.success({detail:'Success Message', summary:'You succesfully edited selection.', position:'tr', duration:4000, sticky:false});
+    }, err =>{
+    this.toast.error({detail:'Fail Message', summary:'Error happend please try again.', position:'tr', duration:4000, sticky:false});
+  }
+    );
 }
    
 addComment(f: NgForm) {

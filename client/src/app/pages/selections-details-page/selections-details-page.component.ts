@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
+import { ButttonTextComponent } from 'src/app/components/buttton-type.component';
 import { FullSelection } from 'src/app/interfaces/FullSelection';
 import { Application } from 'src/app/models/Application';
 import { SelectionsService } from 'src/app/services/selections.service';
@@ -11,6 +12,9 @@ import { SelectionsService } from 'src/app/services/selections.service';
   styleUrls: ['./selections-details-page.component.css']
 })
 export class SelectionsDetailsPageComponent implements OnInit {
+
+  public classRef = ButttonTextComponent;
+
 
   constructor(
     private route: ActivatedRoute,

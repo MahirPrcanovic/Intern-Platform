@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { ButttonTextComponent } from 'src/app/components/buttton-type.component';
 import { FullSelection } from 'src/app/interfaces/FullSelection';
 import { Application } from 'src/app/models/Application';
 import { ApplicationsService } from 'src/app/services/applications.service';
@@ -27,6 +28,9 @@ export class AddApplicantToSelectionPageComponent implements OnInit {
     filter: null,
     filterType: null,
   };
+
+  public classRef = ButttonTextComponent;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,

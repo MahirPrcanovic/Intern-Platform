@@ -4,9 +4,8 @@ import { SelectionsService } from 'src/app/services/selections.service';
 import { FormControl, FormGroup, NgForm } from '@angular/forms';
 import { DatePipe, formatDate } from '@angular/common';
 import {Selection} from 'src/app/models/Selection'
-import {SelectionComment} from 'src/app/interfaces/SelectionComment';
 import { NgToastService } from 'ng-angular-popup';
-
+import {ButttonTextComponent} from 'src/app/components/buttton-type.component';
 
 @Component({
   selector: 'app-selection-edit-page',
@@ -14,6 +13,8 @@ import { NgToastService } from 'ng-angular-popup';
   styleUrls: ['./selection-edit-page.component.css']
 })
 export class SelectionEditPageComponent implements OnInit {
+
+  public classRef = ButttonTextComponent;
 
   constructor(
     private selectionService: SelectionsService,
@@ -23,6 +24,7 @@ export class SelectionEditPageComponent implements OnInit {
     private toast: NgToastService,
   ) {}
 
+
   editSelection = new FormGroup({
     name: new FormControl('name'),
     startDate :  new FormControl('startDate'),
@@ -31,6 +33,7 @@ export class SelectionEditPageComponent implements OnInit {
      
   
   });
+  
 
   updated : boolean = false;
   acomments: any[] = [];

@@ -15,13 +15,13 @@
       <thead class="bg-light">
         <tr>
           <th>#</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>EducationLevel</th>
-          <th>CoverLetter</th>
-          <th>Cv</th>
-          <th>Status</th>
-          <th>Actions</th>
+          <th>{{classRef.Name}}</th>
+          <th>{{classRef.email}}</th>
+          <th>{{classRef.EducationLevel}}</th>
+          <th>{{classRef.CoverLetter}}</th>
+          <th>{{classRef.CV}}</th>
+          <th>{{classRef.Status}}</th>
+          <th>{{classRef.action}}</th>
         </tr>
       </thead>
       <tbody>
@@ -62,7 +62,7 @@
               rippleColor="dark"
               (click)="deleteApplicant(data.id, applicant.id)"
             >
-              Delete
+              {{classRef.ButtonDelete}}
             </button>
           </td>
         </tr>
@@ -75,7 +75,7 @@
       style="margin-top: 20%;  margin-right: 20%; padding-right: 10%"
       [routerLink]="['/selections/addToSelection/' + data.id]"
     >
-    Add applicant
+    {{classRef.addApplicant}}
     </button>
       <button
     
@@ -84,7 +84,7 @@
         style="margin-top: 20%;  padding-right: 10%; "
         [routerLink]="['/selections']"
       >
-        Back
+        {{classRef.buttonBack}}
       </button>
     </div>
     </table>

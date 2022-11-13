@@ -5,6 +5,7 @@ import { Selection } from 'src/app/models/Selection';
 import { SelectionsService } from 'src/app/services/selections.service';
 import { NgForm } from '@angular/forms';
 import { Sort } from '@angular/material/sort';
+import { ButttonTextComponent } from '../buttton-type.component';
 interface Selekcija {
   id: string;
   name: string;
@@ -25,6 +26,7 @@ export class SelectionsPageComponent implements OnInit, OnDestroy {
     sort: '',
     filterBy: '',
   };
+  public classRef = ButttonTextComponent;
   sortedData:Selekcija[] = [];
   constructor(
     private route: ActivatedRoute,

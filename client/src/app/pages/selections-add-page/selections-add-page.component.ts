@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ButttonTextComponent } from 'src/app/components/buttton-type.component';
 import { AddSelection } from 'src/app/models/AddSelection';
-import { Selection } from 'src/app/models/Selection';
 import { SelectionsService } from 'src/app/services/selections.service';
 
 
@@ -15,6 +15,7 @@ import { SelectionsService } from 'src/app/services/selections.service';
 })
 export class SelectionsAddPageComponent implements OnInit {
   
+  public classRef = ButttonTextComponent;
 
   constructor(
     private router: Router,

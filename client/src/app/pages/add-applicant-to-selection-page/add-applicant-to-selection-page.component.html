@@ -8,11 +8,11 @@
         <thead class="bg-light">
           <tr>
             <th>#</th>
-            <th>Name</th>
-            <th>Education Level</th>
-            <th>Status</th>
+            <th>{{classRef.Name}}</th>
+            <th>{{classRef.EducationLevel}}</th>
+            <th>{{classRef.Status}}</th>
             <!-- <th>Position</th> -->
-            <th>Actions</th>
+            <th>{{classRef.action}}</th>
           </tr>
         </thead>
         <tbody>
@@ -46,7 +46,7 @@
                 rippleColor="dark"
                 (click)="addApplicantToSelection(applicant.id)"
               >
-                Add to Selection
+              {{classRef.AddToSelection}}
               </button>
               
             </td>
@@ -60,7 +60,7 @@
                       class="page-link btn-link"
                       (click)="goToPreviousPage()"
                     >
-                      Previous
+                    {{classRef.Previous}}
                     </button>
                   </li>
                   <li
@@ -81,7 +81,7 @@
   
                   <li class="page-item">
                     <button class="page-link btn-link" (click)="goNextPage()">
-                      Next
+                      {{classRef.Next}}
                     </button>
                   </li>
                 </ul>
@@ -94,7 +94,7 @@
 
       <button  type="button" class="btn btn-primary" style="margin-top:2%"
       [routerLink]="['/selections/details/'+ data.id]"   
-      >Back</button>
+      >{{classRef.buttonBack}}</button>
     </div>
   </div>
   

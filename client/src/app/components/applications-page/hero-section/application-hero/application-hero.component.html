@@ -3,23 +3,20 @@
   <h1 class="f4 text-center mt-5">Welcome to Dashboard!</h1>
   <h1 class="f4 text-center">Applications</h1>
   <form #form="ngForm" (ngSubmit)="formSubmit(form)">
-    <div class="row mb-3">
+    <!-- <div class="row mb-3">
       <div class="col-4">
         <label for="">Sort By</label>
-        <!-- <label class="mb-2">Sort by</label> -->
         <select class="form-control" name="sortBy" ngModel>
-          <!-- <option value="sortBy">Sort By</option> -->
           <option value="name">Name</option>
           <option value="EducationLevel">Education level</option>
           <option value="Status">Status</option>
         </select>
       </div>
-    </div>
+    </div> -->
     <div class="row">
       <div class="col-4">
         <label for="">Filter By</label>
         <select class="form-control" name="filterType" ngModel>
-          <!-- <option value="filterBy" selected>Filter By</option> -->
           <option value="name">Name</option>
           <option value="EducationLevel">Education level</option>
           <option value="Status">Status</option>
@@ -44,14 +41,17 @@
     </div>
   </form>
   <div class="table-responsive">
-    <table class="table align-middle mb-0 bg-white mt-5 table-bordered">
+    <table
+      class="table align-middle mb-0 bg-white mt-5 table-bordered"
+      matSort
+      (matSortChange)="sortData($event)"
+    >
       <thead class="bg-light">
         <tr>
           <th>#</th>
-          <th>Name</th>
-          <th>Education Level</th>
-          <th>Status</th>
-          <!-- <th>Position</th> -->
+          <th mat-sort-header="name">Name</th>
+          <th mat-sort-header="EducationLevel">Education Level</th>
+          <th mat-sort-header="Status">Status</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -86,7 +86,6 @@
               {{ applicant.status }}
             </span>
           </td>
-          <!-- <td>Senior</td> -->
           <td>
             <button
               type="button"

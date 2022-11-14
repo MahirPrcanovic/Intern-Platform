@@ -77,20 +77,29 @@ namespace InternshipPlatformAPI.Services
             serviceResponse.PagesCount = (await applications.CountAsync() / pageSize) + 1;
             switch (sortBy)
             {
-                case "name":
+                case "name_asc":
                     applications = applications.OrderBy(x => x.FirstName).Skip((page - 1) * pageSize).Take(pageSize);
                     break;
-                case "EducationLevel":
+                case "name_desc":
+                    applications = applications.OrderByDescending(x => x.FirstName).Skip((page - 1) * pageSize).Take(pageSize);
+                    break;
+                case "EducationLevel_asc":
                     applications = applications.OrderBy(x => x.EducationLevel).Skip((page - 1) * pageSize).Take(pageSize);
                     break;
-                case "Status":
+                case "EducationLevel_desc":
+                    applications = applications.OrderByDescending(x => x.EducationLevel).Skip((page - 1) * pageSize).Take(pageSize);
+                    break;
+                case "Status_asc":
                     applications = applications.OrderBy(x => x.Status).Skip((page - 1) * pageSize).Take(pageSize);
                     break;
-                 default:
+                case "Status_desc":
+                    applications = applications.OrderByDescending(x => x.Status).Skip((page - 1) * pageSize).Take(pageSize);
+                    break;
+                default:
                     applications = applications.OrderBy(x => x.Id).Skip((page - 1) * pageSize).Take(pageSize);
                     break;
             }
-      
+           
             var results = await applications.ToListAsync();
            
             serviceResponse.Data = results.Select(c=>this._mapper.Map<ApplicationDto>(c)).ToList();

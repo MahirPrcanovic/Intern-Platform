@@ -5,6 +5,7 @@ import { Application } from 'src/app/models/Application';
 import { ApplicationsService } from 'src/app/services/applications.service';
 import { NgForm } from '@angular/forms';
 import { Applicant } from 'src/app/interfaces/Applicant';
+import { Sort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-application-hero',
@@ -32,17 +33,13 @@ export class ApplicationHeroComponent implements OnInit, OnDestroy {
   qParamsSubscribition!: Subscription;
   numberOfPostsToFetch = 10;
   ngOnInit(): void {
-    // this.currentPage = this.route.snapshot.queryParams['page'];
     this.qParamsSubscribition = this.route.queryParams.subscribe(
       (qParams: Params) => {
-        // this.currentPage = qParams['page'];
         this.queryParams.page = qParams['page'] || 1;
-        // console.log(qParams['page'] || 1);
         this.queryParams.pageSize = qParams['pageSize'] || 10;
         this.queryParams.sortBy = qParams['sortBy'];
         this.queryParams.filter = qParams['filter'];
         this.queryParams.filterType = qParams['filterType'];
-        // console.log(this.queryParams);
         this.fetchApplications();
       }
     );
@@ -53,7 +50,6 @@ export class ApplicationHeroComponent implements OnInit, OnDestroy {
       .subscribe((response: any) => {
         this.data = response.data;
         this.currentPage = 1;
-        // console.log(response);
         this.pagesNumber = response.pagesCount;
       });
   }
@@ -66,6 +62,7 @@ export class ApplicationHeroComponent implements OnInit, OnDestroy {
     }
   }
   goNextPage() {
+    console.log(this.queryParams);
     if (this.queryParams.page === this.pagesNumber) {
       return;
     } else {
@@ -74,14 +71,11 @@ export class ApplicationHeroComponent implements OnInit, OnDestroy {
     }
   }
   formSubmit(f: NgForm) {
-    // console.log(f.form.value);
     this.queryParams.filterType = f.form.value.filterType;
     const reqParams: { [key: string]: string | number } = {};
-    // console.log(f.form.value.filterType);
     this.queryParams.sortBy = f.form.value.sortBy;
     if (f.form.value.filter != '') {
       this.queryParams.filter = f.form.value.filter;
-      // reqParams['page'] = 1;
       reqParams['filter'] = f.form.value.filter;
     }
     if (f.form.value.sortBy != '') {
@@ -100,6 +94,30 @@ export class ApplicationHeroComponent implements OnInit, OnDestroy {
   }
   getParams(num: number) {
     return { ...this.params, page: num };
+  }
+  sortData(sort: Sort) {
+    console.log(sort.direction);
+    if (!sort.direction) {
+      console.log('Nema ga');
+    }
+    const reqParams: { [key: string]: string | number } = {};
+    if (sort.direction) {
+      reqParams['sortBy'] = sort.active + '_' + sort.direction;
+      if (this.queryParams['filter']) {
+        reqParams['filter'] = this.queryParams['filter'];
+      }
+      if (this.queryParams['filterType']) {
+        reqParams['filterType'] = this.queryParams['filterType'];
+      }
+      if (this.queryParams['page'] > 1) {
+        reqParams['page'] = this.queryParams['page'];
+      }
+      console.log(reqParams);
+      this.params = reqParams;
+      this.router.navigate(['/applications'], {
+        queryParams: reqParams,
+      });
+    }
   }
   ngOnDestroy(): void {
     this.qParamsSubscribition.unsubscribe();

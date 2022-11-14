@@ -13,25 +13,29 @@ interface User {
 })
 export class UsersHeroComponent implements OnInit {
   constructor(private usersService: UserService, private router: Router) {}
+  loading = false;
+  notFound = false;
   data: User[] = [];
   error: boolean = false;
   submitted: boolean = false;
   deletionSuccess: boolean = false;
   deletionActivated: boolean = false;
   ngOnInit(): void {
+    this.loading = true;
     this.fetchData();
   }
   fetchData() {
     this.usersService.getAllUsers().subscribe(
       (response: any) => {
         this.data = response.data;
+        this.loading = false;
       },
       (error) => {
-        // console.log(error);
+        this.loading = false;
+        this.notFound = true;
         if (error == 'Error: 403') {
           this.router.navigate(['/applications']);
         }
-        // console.log(error);
       }
     );
   }

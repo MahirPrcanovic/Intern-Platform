@@ -1,6 +1,12 @@
 <div class="container">
-  <div class="table-responsive">
-    <table class="table align-middle mb-0 bg-white mt-5 table-bordered">
+  <div class="table-responsive mt-5">
+    <div *ngIf="loading && !notFound">Loading...</div>
+    <div *ngIf="!loading && notFound">No users found.</div>
+    <div *ngIf="data.length == 0">No users found.</div>
+    <table
+      class="table align-middle mb-0 bg-white mt-5 table-bordered"
+      *ngIf="data.length > 0"
+    >
       <thead class="bg-light">
         <tr>
           <th>ID</th>
@@ -28,7 +34,7 @@
         </tr>
       </tbody>
     </table>
-    <form #user="ngForm" (ngSubmit)="addUser(user)">
+    <form #user="ngForm" (ngSubmit)="addUser(user)" class="mt-5">
       <label>Add New User</label>
       <div class="form-group d-flex gap-3 mt-3">
         <input

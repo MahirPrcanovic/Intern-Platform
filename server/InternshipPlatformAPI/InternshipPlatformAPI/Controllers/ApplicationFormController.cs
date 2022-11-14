@@ -1,6 +1,6 @@
 ﻿using InternshipPlatformAPI.Dtos.ApplicationDto;
 using InternshipPlatformAPI.Models;
-using InternshipPlatformAPI.Services;
+using InternshipPlatformAPI.Services.ApplicationService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

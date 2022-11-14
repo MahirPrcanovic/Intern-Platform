@@ -8,7 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace InternshipPlatformAPI.Services
+namespace InternshipPlatformAPI.Services.LoginService
 {
     public class LoginService : ILoginService
     {
@@ -18,11 +18,11 @@ namespace InternshipPlatformAPI.Services
         private IdentityUser? _user;
         public LoginService(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, IConfiguration configuration)
         {
-            this._signInManager = signInManager;
-            this._userManager = userManager;
-            this._configuration = configuration;
+            _signInManager = signInManager;
+            _userManager = userManager;
+            _configuration = configuration;
         }
-        public async Task<bool> Login(string username, string password,bool rememberMe=true)
+        public async Task<bool> Login(string username, string password, bool rememberMe = true)
         {
             //ServiceResponse<string>
             _user = await _userManager.FindByNameAsync(username);

@@ -1,6 +1,6 @@
 ﻿using InternshipPlatformAPI.Dtos.User;
 using InternshipPlatformAPI.Models;
-using InternshipPlatformAPI.Services;
+using InternshipPlatformAPI.Services.LoginService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

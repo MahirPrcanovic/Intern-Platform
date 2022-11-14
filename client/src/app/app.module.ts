@@ -6,12 +6,10 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { LoginComponent } from './pages/login-page/login.component';
-
 import { HeroSectionComponent } from './components/landing-page/hero-section/hero-section/hero-section.component';
 import { SelectionSectionComponent } from './components/landing-page/selection-section/selection-section.component';
 import { SubscribeSectionComponent } from './components/landing-page/subscribe-section/subscribe-section.component';
 import { FooterComponent } from './components/footer/footer/footer.component';
-
 import { DashboardHeaderComponent } from './components/applications-page/header/dashboard-header/dashboard-header.component';
 import { ApplicationsPageComponent } from './pages/applications-page/applications-page/applications-page.component';
 import { ApplicationHeroComponent } from './components/applications-page/hero-section/application-hero/application-hero.component';
@@ -30,8 +28,8 @@ import { AddApplicantToSelectionPageComponent } from './pages/add-applicant-to-s
 import { ErrorPageComponent } from './pages/error-page/error-page/error-page.component';
 import { ErrorHeroComponent } from './components/error-page/error-hero/error-hero/error-hero.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {NgToastModule} from 'ng-angular-popup';
-import {MatSortModule} from '@angular/material/sort';
+import { NgToastModule } from 'ng-angular-popup';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -57,7 +55,6 @@ import {MatSortModule} from '@angular/material/sort';
     AddApplicantToSelectionPageComponent,
     ErrorPageComponent,
     ErrorHeroComponent,
-    
   ],
 
   imports: [
@@ -69,7 +66,6 @@ import {MatSortModule} from '@angular/material/sort';
     BrowserAnimationsModule,
     NgToastModule,
     MatSortModule,
-    
   ],
   providers: [
     DatePipe,

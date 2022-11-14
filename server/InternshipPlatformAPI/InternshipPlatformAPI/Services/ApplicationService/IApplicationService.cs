@@ -7,12 +7,12 @@ using Microsoft.AspNetCore.JsonPatch;
 
 using Microsoft.AspNetCore.Mvc;
 
-namespace InternshipPlatformAPI.Services
+namespace InternshipPlatformAPI.Services.ApplicationService
 {
     public interface IApplicationService
     {
         Task<ServiceResponse<ApplicationFormDto>> PostApplication(ApplicationFormDto applicationFormDto);
-        Task<ServiceResponse<List<ApplicationDto>>> GetApplications(int page,int pageSize,string sortBy,string filter,string filterType);
+        Task<ServiceResponse<List<ApplicationDto>>> GetApplications(int page, int pageSize, string sortBy, string filter, string filterType);
 
         Task<ServiceResponse<Application>> GetSingleApplication(Guid id);
         Task<ServiceResponse<Application>> UpdateApplication(Guid id, ApplicationUpdateDto updateDto);

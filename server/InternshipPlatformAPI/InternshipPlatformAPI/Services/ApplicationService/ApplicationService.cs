@@ -16,7 +16,7 @@ using System.Security.Claims;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
-namespace InternshipPlatformAPI.Services
+namespace InternshipPlatformAPI.Services.ApplicationService
 {
     public class ApplicationService : IApplicationService
     {
@@ -26,35 +26,37 @@ namespace InternshipPlatformAPI.Services
         private readonly IEmailService _emailService;
         private readonly ISendGridClient sendGridClient;
 
-        public ApplicationService(DataContext dataContext, IMapper mapper,IHttpContextAccessor httpContextAccessor,IEmailService emailService,ISendGridClient sendGridClient)
+        public ApplicationService(DataContext dataContext, IMapper mapper, IHttpContextAccessor httpContextAccessor, IEmailService emailService, ISendGridClient sendGridClient)
         {
-            this._dataContext = dataContext;
-            this._mapper = mapper;
-            this._httpContextAccessor = httpContextAccessor;
-            this._emailService = emailService;
+            _dataContext = dataContext;
+            _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
+            _emailService = emailService;
             this.sendGridClient = sendGridClient;
         }
 
-        
+
 
         public async Task<ServiceResponse<ApplicationFormDto>> PostApplication(ApplicationFormDto applicationFormDto)
         {
             var serviceResponse = new ServiceResponse<ApplicationFormDto>();
-           
+
             try
             {
-            var insertData = this._mapper.Map<Application>(applicationFormDto);
-            this._dataContext.Applications.Add(insertData);
-            await this._dataContext.SaveChangesAsync();
-            serviceResponse.Data = applicationFormDto;
-            }catch(Exception ex) {
+                var insertData = _mapper.Map<Application>(applicationFormDto);
+                _dataContext.Applications.Add(insertData);
+                await _dataContext.SaveChangesAsync();
+                serviceResponse.Data = applicationFormDto;
+            }
+            catch (Exception ex)
+            {
                 serviceResponse.Success = false;
                 serviceResponse.Message = ex.Message;
             }
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<List<ApplicationDto>>> GetApplications(int page , int pageSize, string sortBy,string filter,string filterType)
+        public async Task<ServiceResponse<List<ApplicationDto>>> GetApplications(int page, int pageSize, string sortBy, string filter, string filterType)
         {
             var serviceResponse = new ServiceResponse<List<ApplicationDto>>();
             IQueryable<Application> applications;
@@ -62,19 +64,19 @@ namespace InternshipPlatformAPI.Services
             switch (filterType)
             {
                 case "name":
-                    applications = this._dataContext.Applications.Where(x => x.FirstName.ToLower().Contains(filter.ToLower()));
+                    applications = _dataContext.Applications.Where(x => x.FirstName.ToLower().Contains(filter.ToLower()));
                     break;
                 case "EducationLevel":
-                    applications = this._dataContext.Applications.Where(x => x.EducationLevel.ToLower().Contains(filter.ToLower()));
+                    applications = _dataContext.Applications.Where(x => x.EducationLevel.ToLower().Contains(filter.ToLower()));
                     break;
                 case "Status":
-                    applications = this._dataContext.Applications.Where(x => x.Status.ToLower().Contains(filter.ToLower()));
+                    applications = _dataContext.Applications.Where(x => x.Status.ToLower().Contains(filter.ToLower()));
                     break;
                 default:
-                    applications = this._dataContext.Applications;
+                    applications = _dataContext.Applications;
                     break;
             }
-            serviceResponse.PagesCount = (await applications.CountAsync() / pageSize) + 1;
+            serviceResponse.PagesCount = await applications.CountAsync() / pageSize + 1;
             switch (sortBy)
             {
                 case "name_asc":
@@ -99,20 +101,20 @@ namespace InternshipPlatformAPI.Services
                     applications = applications.OrderBy(x => x.Id).Skip((page - 1) * pageSize).Take(pageSize);
                     break;
             }
-           
+
             var results = await applications.ToListAsync();
-           
-            serviceResponse.Data = results.Select(c=>this._mapper.Map<ApplicationDto>(c)).ToList();
+
+            serviceResponse.Data = results.Select(c => _mapper.Map<ApplicationDto>(c)).ToList();
             return serviceResponse;
         }
 
         public async Task<ServiceResponse<Application>> GetSingleApplication(Guid id)
         {
             var serviceResponse = new ServiceResponse<Application>();
-            var user = await this._dataContext.Applications.FirstOrDefaultAsync(a=>a.Id==id);
-                //FirstOrDefaultAsync(b => b.Id == id);
-                //.FirstOrDefaultAsync(x => x.Id == id);
-            
+            var user = await _dataContext.Applications.FirstOrDefaultAsync(a => a.Id == id);
+            //FirstOrDefaultAsync(b => b.Id == id);
+            //.FirstOrDefaultAsync(x => x.Id == id);
+
             if (user == null)
             {
 
@@ -129,7 +131,7 @@ namespace InternshipPlatformAPI.Services
         public async Task<ServiceResponse<Application>> UpdateApplication(Guid id, ApplicationUpdateDto updateDto)
         {
             var serviceResponse = new ServiceResponse<Application>();
-            var application = await this._dataContext.Applications.FirstOrDefaultAsync(x => x.Id == id);
+            var application = await _dataContext.Applications.FirstOrDefaultAsync(x => x.Id == id);
             if (application == null)
             {
 
@@ -138,25 +140,25 @@ namespace InternshipPlatformAPI.Services
             }
             else
             {
-                if(updateDto.Status.ToLower() == "in-selection")
+                if (updateDto.Status.ToLower() == "in-selection")
                 {
-                    await this._emailService.SendEmailAsync(application.Email, "Internship update", "Welcome to Internship!");
-                    
+                    await _emailService.SendEmailAsync(application.Email, "Internship update", "Welcome to Internship!");
+
                 }
                 application.Status = updateDto.Status;
-                await this._dataContext.SaveChangesAsync();
+                await _dataContext.SaveChangesAsync();
                 serviceResponse.Data = application;
             }
             return serviceResponse;
             //throw new NotImplementedException();
         }
 
-        public async Task<ServiceResponse<Comment>> AddApplicationComment(ApplicationCommentDto commentData,Guid id)
+        public async Task<ServiceResponse<Comment>> AddApplicationComment(ApplicationCommentDto commentData, Guid id)
         {
             var serviceResponse = new ServiceResponse<Comment>();
-            var application = await this._dataContext.Applications.FirstOrDefaultAsync(x => x.Id == id);
-            var loggedUserId = this._httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var user = await this._dataContext.Users.FirstOrDefaultAsync(x => x.Id == loggedUserId);
+            var application = await _dataContext.Applications.FirstOrDefaultAsync(x => x.Id == id);
+            var loggedUserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var user = await _dataContext.Users.FirstOrDefaultAsync(x => x.Id == loggedUserId);
 
             //var user2 = await this._dataContext.AspNetUsers.
             if (application == null)
@@ -165,7 +167,7 @@ namespace InternshipPlatformAPI.Services
                 serviceResponse.Message = "Application not found.";
                 return serviceResponse;
             }
-             if(user == null)
+            if (user == null)
             {
                 serviceResponse.Success = false;
                 serviceResponse.Message = "User not found.";
@@ -174,21 +176,21 @@ namespace InternshipPlatformAPI.Services
             var comment = new Comment() { CommentText = commentData.CommentText };
             var addComment = _mapper.Map<Comment>(comment);
             addComment.DateCreated = DateTime.Now;
-             this._dataContext.Comments.Add(addComment);
+            _dataContext.Comments.Add(addComment);
             var applicationComment = new ApplicationComment()
             {
                 Comment = addComment,
                 Application = application,
                 User = user
             };
-            this._dataContext.ApplicationComments.Add(applicationComment);
+            _dataContext.ApplicationComments.Add(applicationComment);
             serviceResponse.Data = addComment;
-            await this._dataContext.SaveChangesAsync();
+            await _dataContext.SaveChangesAsync();
             //serviceResponse.Data = results.Select(c=>this._mapper.Map<ApplicationDto>(c)).ToList();
             return serviceResponse;
 
         }
-        private void SendEmail(string sendTo,string textToSend)
+        private void SendEmail(string sendTo, string textToSend)
         {
             var email = new MimeMessage();
             email.From.Add(MailboxAddress.Parse("moses.rosenbaum@ethereal.email"));
@@ -196,7 +198,7 @@ namespace InternshipPlatformAPI.Services
             email.Subject = "Test Email Subject";
             email.Body = new TextPart(MimeKit.Text.TextFormat.Text) { Text = textToSend };
             using var smtp = new SmtpClient();
-            smtp.Connect("smtp.ethereal.email",587,SecureSocketOptions.StartTls);
+            smtp.Connect("smtp.ethereal.email", 587, SecureSocketOptions.StartTls);
             smtp.Authenticate("moses.rosenbaum@ethereal.email", "k6G8zkkujSpnVjkZBY");
             smtp.Send(email);
             smtp.Disconnect(true);
@@ -208,7 +210,7 @@ namespace InternshipPlatformAPI.Services
         //    var user = await this._dataContext.Applications.FirstOrDefaultAsync(a=>a.Id==id);
         //        //FirstOrDefaultAsync(b => b.Id == id);
         //        //.FirstOrDefaultAsync(x => x.Id == id);
-            
+
         //    if (user == null)
         //    {
 

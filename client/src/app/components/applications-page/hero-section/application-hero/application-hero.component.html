@@ -1,7 +1,9 @@
 <app-dashboard-header></app-dashboard-header>
-<div class="container">
-  <h1 class="f4 text-center mt-5">Welcome to Dashboard!</h1>
-  <h1 class="f4 text-center">Applications</h1>
+<div class="container" data-aos="fade-up" data-aos-duration="700">
+  <div>
+    <h1 class="f4 text-center mt-5">Welcome to Dashboard!</h1>
+    <h1 class="f4 text-center">Applications</h1>
+  </div>
   <form #form="ngForm" (ngSubmit)="formSubmit(form)">
     <!-- <div class="row mb-3">
       <div class="col-4">
@@ -13,7 +15,7 @@
         </select>
       </div>
     </div> -->
-    <div class="row">
+    <div class="row" *ngIf="data.length > 0">
       <div class="col-4">
         <label for="">Filter By</label>
         <select class="form-control" name="filterType" ngModel>
@@ -45,6 +47,7 @@
       class="table align-middle mb-0 bg-white mt-5 table-bordered"
       matSort
       (matSortChange)="sortData($event)"
+      *ngIf="data.length > 0"
     >
       <thead class="bg-light">
         <tr>
@@ -98,13 +101,16 @@
             </button>
           </td>
         </tr>
-
-        <tr>
+        <tr *ngIf="data.length > 0">
           <td colspan="6">
             <nav aria-label="Page navigation example">
               <ul class="pagination justify-content-center">
                 <li class="page-item">
-                  <button class="page-link btn-link" (click)="goPreviousPage()">
+                  <button
+                    class="page-link btn-link"
+                    (click)="goPreviousPage()"
+                    [disabled]="pagesNumber == 1"
+                  >
                     Previous
                   </button>
                 </li>
@@ -125,7 +131,11 @@
                 </li>
 
                 <li class="page-item">
-                  <button class="page-link btn-link" (click)="goNextPage()">
+                  <button
+                    class="page-link btn-link"
+                    (click)="goNextPage()"
+                    [disabled]="pagesNumber == 1"
+                  >
                     Next
                   </button>
                 </li>
@@ -135,5 +145,9 @@
         </tr>
       </tbody>
     </table>
+    <p *ngIf="data.length == 0 && !loading" class="mt-10">
+      No applicants found.
+    </p>
+    <p *ngIf="loading">Loading...</p>
   </div>
 </div>

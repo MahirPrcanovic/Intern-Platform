@@ -17,6 +17,6 @@ namespace InternshipPlatformAPI.Dtos.SelectionDto
         //Jedna selekcija moze imati vise aplikanata
         public ICollection<Application>? Applications { get; set; }
         //Jedna selekcija moze imati vise komentara
-        public ICollection<Comment>? Comments { get; set; }
+        public ICollection<SelectionComment>? SelectionComments { get; set; }
     }
 }

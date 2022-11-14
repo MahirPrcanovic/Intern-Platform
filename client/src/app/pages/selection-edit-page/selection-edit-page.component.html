@@ -1,11 +1,11 @@
 <app-dashboard-header></app-dashboard-header>
 <div class="container">
   <h1 class="f4 text-center mt-5">Welcome to Dashboard!</h1>
-  <h1 class="f4 text-center">Edit Selection</h1>
+  <h1 class="f4 text-center">{{classRef.EditSelection}}</h1>
   <div class="col mt-5 justify-content-center d-flex gap-5">
     <form [formGroup]="editSelection" (ngSubmit)="EditData()" class="col-4">
       <div class="form-group">
-        <label for="exampleFormControlInput1">Name</label>
+        <label for="exampleFormControlInput1">{{classRef.Name}}</label>
         <input
           type="text"
           class="form-control w-100"
@@ -14,26 +14,28 @@
         />
       </div>
       <div class="form-group">
-        <label for="exampleFormControlInput1">Start Date</label>
+        <label for="exampleFormControlInput1">{{classRef.startDate}}</label>
         <input
           type="date"
           class="form-control w-100"
           id="exampleformControlInput1"
           formControlName="startDate"
+          value="{{ selection.startDate }}"
         />
       </div>
       <div class="form-group">
-        <label for="exampleFormControlInput1">End Date</label>
+        <label for="exampleFormControlInput1">{{classRef.endDate}}</label>
         <input
           type="date"
           class="form-control w-100"
           id="exampleformControlInput1"
           formControlName="endDate"
+          value="{{ selection.endDate }}"
         />
       </div>
 
       <div class="form-group">
-        <label for="exampleFormControlInput1">Description</label>
+        <label for="exampleFormControlInput1">{{classRef.description}}</label>
         <input
           type="text"
           class="form-control w-100"
@@ -58,28 +60,19 @@
           Back
         </button>
       </div>
-      <div *ngIf="updated" class="alert alert-success" role="alert">
-        <h4 class="alert-heading">Well done!</h4>
-        <p>You successfully edited your selection.</p>
-        <button
-          type="button"
-          class="btn btn-success"
-          [routerLink]="['/selections']"
-        >
-          Back
-        </button>
-      </div>
+     
+     
     </form>
 
     <div class="mt-5">
       <div class="d-flex-col">
         <div class="card mb-4" *ngFor="let comment of acomments">
           <div class="card-body">
-            <p>{{ comment.commentText }}</p>
+            <p>{{ comment.comment.commentText }}</p>
             <div class="d-flex justify-content-between">
               <div class="d-flex flex-row align-items-center">
-                 <p class="small mb-0 ms-2">Written by:</p>
-                      <!-- <p class="small mb-0 ms-2">{{ comment.user.userName }}</p> -->
+                 <p class="small mb-0 ms-2">{{classRef.writtenBy}}</p>
+                      <p class="small mb-0 ms-2">{{ comment.user.userName }}</p>
               </div>
             </div>
           </div>
@@ -97,7 +90,7 @@
             name="comment"
           />
           <div class="text-center text-lg-start">
-            <button type="submit" class="btn btn-primary">Add</button>
+            <button type="submit" class="btn btn-primary">  {{classRef.buttonAdd}}</button>
           </div>
         </div>
       </form>

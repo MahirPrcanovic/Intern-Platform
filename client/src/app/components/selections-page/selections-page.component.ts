@@ -4,6 +4,8 @@ import { Subscription } from 'rxjs';
 import { Selection } from 'src/app/models/Selection';
 import { SelectionsService } from 'src/app/services/selections.service';
 import { NgForm } from '@angular/forms';
+import { Sort } from '@angular/material/sort';
+import { ButttonTextComponent } from '../buttton-type.component';
 interface Selekcija {
   id: string;
   name: string;
@@ -21,18 +23,22 @@ export class SelectionsPageComponent implements OnInit, OnDestroy {
   queryParams = {
     pageNumber: 1,
     pageSize: 5,
-    sort: null,
-    filterBy: null,
+    sort: '',
+    filterBy: '',
   };
-
+  public classRef = ButttonTextComponent;
+  sortedData:Selekcija[] = [];
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private selectionService: SelectionsService
+    private selectionService: SelectionsService,
+
   ) {}
   params: { [key: string]: string | number } = {};
   DUMMYDATA: Selection[] = [];
-  data: Selekcija[] = [];
+  gridSort = ""; 
+
+
   pagesNumber!: number;
   currentPage = 1;
   qParamsSubscribition!: Subscription;
@@ -47,17 +53,27 @@ export class SelectionsPageComponent implements OnInit, OnDestroy {
         this.fetchSelections();
       }
     );
+
   }
   fetchSelections() {
     this.selectionService
       .getAllSelections(this.queryParams)
       .subscribe((response: any) => {
-        this.data = response.data;
+        this.sortedData = response.data;
         this.currentPage = 1;
-        // console.log(response);
         this.pagesNumber = response.pagesCount;
       });
+      
   }
+
+  sortData(sort: Sort) {
+      this.gridSort =  sort.direction;
+      this.queryParams.sort = sort.direction;
+      this.fetchSelections();
+  }
+
+
+
   goToPreviousPage() {
     if (this.queryParams.pageNumber === 1) {
       return;
@@ -87,6 +103,11 @@ export class SelectionsPageComponent implements OnInit, OnDestroy {
       this.queryParams.sort = f.form.value.sort;
       reqParams['sort'] = f.form.value.sort;
     }
+    if(this.gridSort != ''){      
+      this.queryParams.sort = this.gridSort;
+      reqParams['sort'] = this.gridSort;
+    }
+
     reqParams['pageNumber'] = 1;
     this.params = reqParams;
     this.router.navigate(['/selections'], {

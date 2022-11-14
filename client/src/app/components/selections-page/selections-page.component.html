@@ -5,20 +5,18 @@
   <form #form="ngForm" (ngSubmit)="formSubmit(form)">
     <div class="row mb-3">
       <div class="col">
-        <label for="">Sort By</label>
-        <!-- <label class="mb-2">Sort by</label> -->
-        <select class="form-control" name="sort" ngModel>
-          <!-- <option value="sortBy">Sort By</option> -->
-          <option value="desc">desc</option>
-          <option value="asc">asc</option>
+        <label for="">{{classRef.sortBy}}</label>
+          <select class="form-control" name="sort" ngModel>
+          <option value="desc">{{classRef.desc}}</option>
+          <option value="asc">{{classRef.asc}}</option>
         </select>
       </div>
     </div>
     <div class="row">
       <div class="col">
-        <label for="">Filter By</label>
+        <label for="">{{classRef.filterBy}}</label>
         <select class="form-control" name="filterBy" ngModel>
-          <option value="name">Name</option>
+          <option value="name">{{classRef.Name}}</option>
         </select>
       </div>
       <div class="col mb-2">
@@ -36,7 +34,7 @@
       class="btn btn-primary col align-items-center justify-content-center"
       type="submit"
     >
-      Find
+    {{classRef.find}}
     </button>
 
     <button
@@ -44,23 +42,23 @@
       type="button"
       [routerLink]="['/selections/addNewSelection']"
     >
-      Add new selection
+    {{classRef.AddNewSelection}}
     </button>
   </form>
   <div class="table-responsive">
-    <table class="table align-middle mb-0 bg-white mt-6 table-bordered">
+    <table matSort (matSortChange)="sortData($event)" class="table align-middle mb-0 bg-white mt-6 table-bordered"  >
       <thead class="bg-light">
         <tr>
           <th>#</th>
-          <th>Name</th>
-          <th>Start Date</th>
-          <th>End Date</th>
-          <th>Description</th>
-          <th>Actions</th>
+          <th mat-sort-header="name">{{classRef.Name}}</th>
+          <th>{{classRef.startDate}}</th>
+          <th>{{classRef.endDate}}</th>
+          <th>{{classRef.description}}</th>
+          <th>{{classRef.action}}</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let selekcija of data; let x = index">
+        <tr *ngFor="let selekcija of sortedData; let x = index">
           <td>{{ x + 1 }}</td>
           <td>
             <div class="d-flex align-items-center">
@@ -95,7 +93,7 @@
               rippleColor="dark"
               routerLink="/selections/edit/{{ selekcija.id }}"
             >
-              Edit
+            {{classRef.editButton}}
             </button>
             <button
               type="button"
@@ -104,7 +102,7 @@
               rippleColor="dark"
               [routerLink]="['/selections', 'details', selekcija.id]"
             >
-              View applicants
+            {{classRef.viewApplicants}}
             </button>
 
             <button
@@ -114,7 +112,7 @@
               rippleColor="dark"
               [routerLink]="['/selections', 'addToSelection', selekcija.id]"
             >
-              Add new Applicant
+            {{classRef.addNewApplicant}}
             </button>
             <button
               type="button"
@@ -123,7 +121,7 @@
               rippleColor="dark"
               [routerLink]="['/selections', 'edit', selekcija.id]"
             >
-              Comments
+            {{classRef.comments}}
             </button>
           </td>
         </tr>
@@ -137,7 +135,7 @@
                     class="page-link btn-link"
                     (click)="goToPreviousPage()"
                   >
-                    Previous
+                  {{classRef.Previous}}
                   </button>
                 </li>
                 <li
@@ -158,7 +156,7 @@
 
                 <li class="page-item">
                   <button class="page-link btn-link" (click)="goNextPage()">
-                    Next
+                    {{classRef.Next}}
                   </button>
                 </li>
               </ul>

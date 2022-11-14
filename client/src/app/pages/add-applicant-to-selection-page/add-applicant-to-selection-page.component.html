@@ -8,11 +8,11 @@
         <thead class="bg-light">
           <tr>
             <th>#</th>
-            <th>Name</th>
-            <th>Education Level</th>
-            <th>Status</th>
+            <th>{{classRef.Name}}</th>
+            <th>{{classRef.EducationLevel}}</th>
+            <th>{{classRef.Status}}</th>
             <!-- <th>Position</th> -->
-            <th>Actions</th>
+            <th>{{classRef.action}}</th>
           </tr>
         </thead>
         <tbody>
@@ -37,7 +37,7 @@
                 {{ applicant.status }}
               </span>
             </td>
-            <!-- <td>Senior</td> -->
+            
             <td>
               <button
                 type="button"
@@ -46,25 +46,55 @@
                 rippleColor="dark"
                 (click)="addApplicantToSelection(applicant.id)"
               >
-                Add to Selection
+              {{classRef.AddToSelection}}
               </button>
               
             </td>
           </tr>
+          <tr>
+            <td colspan="6">
+              <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                  <li class="page-item">
+                    <button
+                      class="page-link btn-link"
+                      (click)="goToPreviousPage()"
+                    >
+                    {{classRef.Previous}}
+                    </button>
+                  </li>
+                  <li
+                    class="page-item"
+                    *ngFor="
+                      let dummy of ' '.repeat(pagesNumber).split('');
+                      let x = index
+                    "
+                  >
+                    <a
+                      class="page-link"
+                      href="#"
+                      [queryParams]="getParams(x + 1)"
+                      routerLink="/selections"
+                      >{{ x + 1 }}</a
+                    >
+                  </li>
+  
+                  <li class="page-item">
+                    <button class="page-link btn-link" (click)="goNextPage()">
+                      {{classRef.Next}}
+                    </button>
+                  </li>
+                </ul>
+              </nav>
+            </td>
+          </tr>
+
         </tbody>
       </table>
 
-      <button *ngIf="!added" type="button" class="btn btn-primary" style="margin-top:2%"
-      [routerLink]="['/selections']"  
-      >Back</button>
-
-      <div *ngIf="added" class="alert alert-success" role="alert">
-        <h4 class="alert-heading">Well done!</h4>
-        <p>You successfully added new applicant to your selection.</p>
-        <button type="button" class="btn btn-success"
-        [routerLink]="['/selections/details/'+ data.id]"  
-        >Back</button>
-      </div>
+      <button  type="button" class="btn btn-primary" style="margin-top:2%"
+      [routerLink]="['/selections/details/'+ data.id]"   
+      >{{classRef.buttonBack}}</button>
     </div>
   </div>
   

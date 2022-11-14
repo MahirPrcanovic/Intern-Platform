@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { ButttonTextComponent } from 'src/app/components/buttton-type.component';
 import { FullSelection } from 'src/app/interfaces/FullSelection';
 import { Application } from 'src/app/models/Application';
 import { ApplicationsService } from 'src/app/services/applications.service';
@@ -25,11 +28,15 @@ export class AddApplicantToSelectionPageComponent implements OnInit {
     filter: null,
     filterType: null,
   };
+
+  public classRef = ButttonTextComponent;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private selectionService: SelectionsService,
-    private applicationService: ApplicationsService
+    private applicationService: ApplicationsService,
+    private toast: NgToastService,
   ) {}
 
   data: FullSelection = {
@@ -53,6 +60,11 @@ export class AddApplicantToSelectionPageComponent implements OnInit {
     Status: '',
   };
   applicantsInSelection: Applicant[] = [];
+  pagesNumber!: number;
+  currentPage = 1;
+  qParamsSubscribition!: Subscription;
+  numberOfPostsToFetch = 5;
+  params: { [key: string]: string | number } = {};
 
   added: boolean = false;
 
@@ -62,13 +74,29 @@ export class AddApplicantToSelectionPageComponent implements OnInit {
       .subscribe((result: any) => {
         this.data = result.data;
       });
+      this.qParamsSubscribition = this.route.queryParams.subscribe(
+        (qParams: Params) => {
+          this.queryParams.page = qParams['page'] || 1;
+        
+          this.queryParams.pageSize = qParams['pageSize'] || 10;
+          this.queryParams.sortBy = qParams['sortBy'];
+          this.queryParams.filter = qParams['filter'];
+          this.queryParams.filterType = qParams['filterType'];
+      this.fetchApplicants();
+        }
+      );
+   
+  }
 
+  fetchApplicants(){
     this.applicationService
-      .getAllApplications(this.queryParams)
-      .subscribe((response: any) => {
-        this.applicantsInSelection = response.data;
-        // console.log(response);
-      });
+    .getAllApplications(this.queryParams)
+    .subscribe((response: any) => {
+      this.applicantsInSelection = response.data;
+      this.currentPage = 1;
+      this.pagesNumber = response.pagesCount;
+      // console.log(response);
+    });
   }
 
   addApplicantToSelection(id: string) {
@@ -84,7 +112,34 @@ export class AddApplicantToSelectionPageComponent implements OnInit {
         this.applicantForSelection
       )
       .subscribe((result: any) => {
-        this.added = true;
-      });
+        this.toast.success({detail:'Success Message', summary:'You added new applicant to selection.', position:'tr', duration:4000, sticky:false});
+
+      }, err =>{
+        this.toast.error({detail:'Fail Message', summary:'Error happend please try again.', position:'tr', duration:4000, sticky:false});
+      }
+
+      );
+  
+  }
+
+  goToPreviousPage() {
+    if (this.queryParams.page === 1) {
+      return;
+    } else {
+      this.queryParams.page -= 1;
+      this.fetchApplicants();
+    }
+  }
+
+  goNextPage() {
+    if (this.queryParams.page === this.pagesNumber) {
+      return;
+    } else {
+      this.queryParams.page = +this.queryParams.page + 1;
+      this.fetchApplicants();
+    }
+  }
+  getParams(num: number) {
+    return { ...this.params, page: num };
   }
 }

@@ -99,17 +99,28 @@ export class ApplicationEditComponent implements OnInit, OnDestroy {
 
     this.applicationService
       .addApplicationComment(this.applicationId, f.form.value.comment)
-      .subscribe((response) => {
-        // console.log(response);
-        this.fetchData(this.applicationId);
-        this.toast.success({
-          detail: 'Success Message',
-          summary: 'You succesfully added a comment.',
-          position: 'tr',
-          duration: 4000,
-          sticky: false,
-        });
-      });
+      .subscribe(
+        (response) => {
+          // console.log(response);
+          this.fetchData(this.applicationId);
+          this.toast.success({
+            detail: 'Success Message',
+            summary: 'You succesfully added a comment.',
+            position: 'tr',
+            duration: 4000,
+            sticky: false,
+          });
+        },
+        (error) => {
+          this.toast.error({
+            detail: 'Error!',
+            summary: 'Comment was not added.',
+            position: 'tr',
+            duration: 4000,
+            sticky: false,
+          });
+        }
+      );
   }
   ngOnDestroy(): void {
     this.paramsSubscribition.unsubscribe();

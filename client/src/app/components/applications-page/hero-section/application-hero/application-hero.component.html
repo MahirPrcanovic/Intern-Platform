@@ -3,7 +3,7 @@
   <h1 class="f4 text-center mt-5">Welcome to Dashboard!</h1>
   <h1 class="f4 text-center">Applications</h1>
   <form #form="ngForm" (ngSubmit)="formSubmit(form)">
-    <div class="row mb-3">
+    <!-- <div class="row mb-3">
       <div class="col-4">
         <label for="">Sort By</label>
         <select class="form-control" name="sortBy" ngModel>
@@ -12,7 +12,7 @@
           <option value="Status">Status</option>
         </select>
       </div>
-    </div>
+    </div> -->
     <div class="row">
       <div class="col-4">
         <label for="">Filter By</label>
@@ -50,8 +50,8 @@
         <tr>
           <th>#</th>
           <th mat-sort-header="name">Name</th>
-          <th>Education Level</th>
-          <th>Status</th>
+          <th mat-sort-header="EducationLevel">Education Level</th>
+          <th mat-sort-header="Status">Status</th>
           <th>Actions</th>
         </tr>
       </thead>

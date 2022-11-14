@@ -80,6 +80,7 @@ Before startin your backend, you will need to setup few environment variables
 To run this project, you will need to add the following environment variables to your project.
 
 ```bash
+  dotnet user-secrets init
   dotnet user-secrets set SendGridApiKey [YOUR_SENDGRID_API_KEY]
 ```
 

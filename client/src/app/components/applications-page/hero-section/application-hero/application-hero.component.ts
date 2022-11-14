@@ -62,7 +62,6 @@ export class ApplicationHeroComponent implements OnInit, OnDestroy {
     }
   }
   goNextPage() {
-    console.log(this.queryParams);
     if (this.queryParams.page === this.pagesNumber) {
       return;
     } else {
@@ -96,10 +95,6 @@ export class ApplicationHeroComponent implements OnInit, OnDestroy {
     return { ...this.params, page: num };
   }
   sortData(sort: Sort) {
-    console.log(sort.direction);
-    if (!sort.direction) {
-      console.log('Nema ga');
-    }
     const reqParams: { [key: string]: string | number } = {};
     if (sort.direction) {
       reqParams['sortBy'] = sort.active + '_' + sort.direction;
@@ -112,7 +107,6 @@ export class ApplicationHeroComponent implements OnInit, OnDestroy {
       if (this.queryParams['page'] > 1) {
         reqParams['page'] = this.queryParams['page'];
       }
-      console.log(reqParams);
       this.params = reqParams;
       this.router.navigate(['/applications'], {
         queryParams: reqParams,

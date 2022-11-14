@@ -13,6 +13,7 @@ import { Sort } from '@angular/material/sort';
   styleUrls: ['./application-hero.component.css'],
 })
 export class ApplicationHeroComponent implements OnInit, OnDestroy {
+  loading = false;
   queryParams = {
     page: 1,
     pageSize: 10,
@@ -33,6 +34,7 @@ export class ApplicationHeroComponent implements OnInit, OnDestroy {
   qParamsSubscribition!: Subscription;
   numberOfPostsToFetch = 10;
   ngOnInit(): void {
+    this.loading = true;
     this.qParamsSubscribition = this.route.queryParams.subscribe(
       (qParams: Params) => {
         this.queryParams.page = qParams['page'] || 1;
@@ -45,13 +47,17 @@ export class ApplicationHeroComponent implements OnInit, OnDestroy {
     );
   }
   fetchApplications() {
-    this.applicationService
-      .getAllApplications(this.queryParams)
-      .subscribe((response: any) => {
+    this.applicationService.getAllApplications(this.queryParams).subscribe(
+      (response: any) => {
         this.data = response.data;
         this.currentPage = 1;
         this.pagesNumber = response.pagesCount;
-      });
+        this.loading = false;
+      },
+      (error) => {
+        this.loading = false;
+      }
+    );
   }
   goPreviousPage() {
     if (this.queryParams.page === 1) {

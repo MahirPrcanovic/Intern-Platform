@@ -13,7 +13,7 @@
         </select>
       </div>
     </div> -->
-    <div class="row">
+    <div class="row" *ngIf="data.length > 0">
       <div class="col-4">
         <label for="">Filter By</label>
         <select class="form-control" name="filterType" ngModel>
@@ -45,6 +45,7 @@
       class="table align-middle mb-0 bg-white mt-5 table-bordered"
       matSort
       (matSortChange)="sortData($event)"
+      *ngIf="data.length > 0"
     >
       <thead class="bg-light">
         <tr>
@@ -98,8 +99,7 @@
             </button>
           </td>
         </tr>
-
-        <tr>
+        <tr *ngIf="data.length > 0">
           <td colspan="6">
             <nav aria-label="Page navigation example">
               <ul class="pagination justify-content-center">
@@ -135,5 +135,9 @@
         </tr>
       </tbody>
     </table>
+    <p *ngIf="data.length == 0 && !loading" class="mt-10">
+      No applicants found.
+    </p>
+    <p *ngIf="loading">Loading...</p>
   </div>
 </div>

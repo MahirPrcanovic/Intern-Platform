@@ -6,6 +6,7 @@ import { FullApplication } from 'src/app/interfaces/FullApplication';
 import { ApplicationsService } from 'src/app/services/applications.service';
 import { ApplicantComment } from 'src/app/interfaces/ApplicantComment';
 import { FullSelection } from 'src/app/interfaces/FullSelection';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-application-edit',
@@ -16,16 +17,19 @@ export class ApplicationEditComponent implements OnInit, OnDestroy {
   constructor(
     private applicationService: ApplicationsService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toast: NgToastService
   ) {}
   formValid = true;
   loading = false;
   submitted = false;
   successfull = false;
+  noApplicant = false;
   message = '';
   acomments: ApplicantComment[] = [];
   selections: FullSelection[] = [];
   applicationId: string = '';
+
   applicationData: FullApplication = {
     firstName: 'string',
     lastName: 'string',
@@ -41,21 +45,26 @@ export class ApplicationEditComponent implements OnInit, OnDestroy {
   ngSelect!: string;
   paramsSubscribition!: Subscription;
   ngOnInit(): void {
+    this.loading = true;
     this.paramsSubscribition = this.route.params.subscribe((params) => {
       this.applicationId = params['id'];
     });
     this.fetchData(this.applicationId);
   }
   fetchData(applicationId: string) {
-    this.applicationService
-      .getSingleApplication(this.applicationId)
-      .subscribe((res: any) => {
-        // console.log(res);
+    this.applicationService.getSingleApplication(this.applicationId).subscribe(
+      (res: any) => {
         this.applicationData = res.data;
         this.acomments = this.applicationData.comments;
         this.selections = this.applicationData.selections;
         this.ngSelect = this.applicationData.status || '';
-      });
+        this.loading = false;
+      },
+      (error) => {
+        this.loading = false;
+        this.noApplicant = true;
+      }
+    );
   }
   onSubmit(form: NgForm) {
     this.loading = true;
@@ -76,7 +85,9 @@ export class ApplicationEditComponent implements OnInit, OnDestroy {
       );
   }
   goBack() {
-    this.router.navigate(['applications']);
+    this.submitted = false;
+    this.loading = false;
+    this.successfull = false;
   }
   tryAgain() {
     this.submitted = false;
@@ -91,6 +102,13 @@ export class ApplicationEditComponent implements OnInit, OnDestroy {
       .subscribe((response) => {
         // console.log(response);
         this.fetchData(this.applicationId);
+        this.toast.success({
+          detail: 'Success Message',
+          summary: 'You succesfully added a comment.',
+          position: 'tr',
+          duration: 4000,
+          sticky: false,
+        });
       });
   }
   ngOnDestroy(): void {

@@ -12,7 +12,7 @@
     <form
       (ngSubmit)="onSubmit(f)"
       #f="ngForm"
-      *ngIf="!submitted"
+      *ngIf="!submitted && !loading && !noApplicant"
       class="col col-md-4"
     >
       <div class="form-group">
@@ -115,19 +115,13 @@
         </div>
       </div>
     </form>
-    <div class="mt-5" *ngIf="!submitted">
+    <div class="mt-5" *ngIf="!submitted && !loading && !noApplicant">
       <div class="d-flex-col">
         <div class="card mb-4" *ngFor="let comment of acomments">
           <div class="card-body">
             <p>{{ comment.comment.commentText }}</p>
             <div class="d-flex justify-content-between">
               <div class="d-flex flex-row align-items-center">
-                <!-- <img
-                  src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(4).webp"
-                  alt="avatar"
-                  width="25"
-                  height="25"
-                /> -->
                 <p class="small mb-0 ms-2">Written by:</p>
                 <p class="small mb-0 ms-2">{{ comment.user.userName }}</p>
               </div>
@@ -153,7 +147,9 @@
       </form>
     </div>
   </div>
-
+  <div *ngIf="!loading && noApplicant">
+    <p>User not found.</p>
+  </div>
   <div class="col mt-5" *ngIf="successfull && submitted && !loading">
     <div class="alert alert-success" role="alert">
       <h4 class="alert-heading">Well done!</h4>

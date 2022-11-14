@@ -23,8 +23,5 @@ export class LoginService {
       return true;
     }
     return false;
-    // Check whether the token is expired and return
-    // true or false
-    // return token == null;
   }
 }

@@ -104,7 +104,11 @@
             <nav aria-label="Page navigation example">
               <ul class="pagination justify-content-center">
                 <li class="page-item">
-                  <button class="page-link btn-link" (click)="goPreviousPage()">
+                  <button
+                    class="page-link btn-link"
+                    (click)="goPreviousPage()"
+                    [disabled]="pagesNumber == 1"
+                  >
                     Previous
                   </button>
                 </li>
@@ -125,7 +129,11 @@
                 </li>
 
                 <li class="page-item">
-                  <button class="page-link btn-link" (click)="goNextPage()">
+                  <button
+                    class="page-link btn-link"
+                    (click)="goNextPage()"
+                    [disabled]="pagesNumber == 1"
+                  >
                     Next
                   </button>
                 </li>

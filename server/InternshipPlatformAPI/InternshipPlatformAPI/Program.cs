@@ -1,11 +1,7 @@
 using InternshipPlatformAPI.Data;
-
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using InternshipPlatformAPI.Services.SelectionService;
 
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 using Microsoft.IdentityModel.Tokens;
@@ -18,6 +14,7 @@ using InternshipPlatformAPI.Services.EmailService;
 using SendGrid.Extensions.DependencyInjection;
 using InternshipPlatformAPI.Services.ApplicationService;
 using InternshipPlatformAPI.Services.LoginService;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 

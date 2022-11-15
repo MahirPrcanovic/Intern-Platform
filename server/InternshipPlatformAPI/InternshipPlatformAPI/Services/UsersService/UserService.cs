@@ -24,7 +24,7 @@ namespace InternshipPlatformAPI.Services.UsersService
             this._httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<ServiceResponse<string>> AddNewUser(RegisterDto registerData)
+        public async Task<ServiceResponse<string>> Post(RegisterDto registerData)
         {
             var user = new IdentityUser { UserName = registerData.UserName };
             var result = await this._userManager.CreateAsync(user, registerData.Password);
@@ -51,7 +51,7 @@ namespace InternshipPlatformAPI.Services.UsersService
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<string>> DeleteUser(string id)
+        public async Task<ServiceResponse<string>> Delete(string id)
         {
             var serviceResponse = new ServiceResponse<string>();
             var user = await this._userManager.FindByIdAsync(id);
@@ -62,7 +62,6 @@ namespace InternshipPlatformAPI.Services.UsersService
                 return serviceResponse;
             }
             var result = await this._userManager.DeleteAsync(user);
-            //await this.
             if (result.Succeeded)
             {
                 serviceResponse.Message = "Deletion successfull.";
@@ -72,15 +71,14 @@ namespace InternshipPlatformAPI.Services.UsersService
             serviceResponse.Message = "User deletion not successfull.";
             return serviceResponse;
         }
-        public async Task<ServiceResponse<List<IdentityUser>>> GetAllUsers()
+
+        public async Task<ServiceResponse<List<IdentityUser>>> Get()
         {
             var serviceResponse = new ServiceResponse<List<IdentityUser>>();
             var users = await this._dataContext.Users.ToListAsync();
             //DO NOT INCLUDE ADMIN!
             users.RemoveAll(el => el.Id == "02174cf0–9412–4cfe - afbf - 59f706d72cf6");
-
             serviceResponse.Data = users;
-
             return serviceResponse;
             
         }

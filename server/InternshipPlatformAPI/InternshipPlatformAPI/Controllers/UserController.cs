@@ -11,28 +11,28 @@ namespace InternshipPlatformAPI.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize(Roles ="Administrator")]
-    public class UsersController : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
 
-        public UsersController(IUserService userService)
+        public UserController(IUserService userService)
         {
             this._userService = userService;
         }
         [HttpGet]
-        public async Task<ActionResult<ServiceResponse<List<IdentityUser>>>> GetAllUsers()
+        public async Task<IActionResult> Get()
         {
-            return Ok(await this._userService.GetAllUsers());
+            return Ok(await this._userService.Get());
         }
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ServiceResponse<string>>> DeleteUser(string id)
+        public async Task<IActionResult> Delete(string id)
         {
-            return Ok(await this._userService.DeleteUser(id));
+            return Ok(await this._userService.Delete(id));
         }
         [HttpPost("addNewUser")]
-        public async Task<ActionResult<ServiceResponse<string>>> AddNewUser(RegisterDto registerData)
+        public async Task<IActionResult> Post(RegisterDto registerData)
         {
-            return Ok(await this._userService.AddNewUser(registerData));
+            return Ok(await this._userService.Post(registerData));
         }
     }
 }

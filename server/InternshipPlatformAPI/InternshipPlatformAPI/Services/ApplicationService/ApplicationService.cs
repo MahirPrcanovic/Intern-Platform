@@ -35,12 +35,9 @@ namespace InternshipPlatformAPI.Services.ApplicationService
             this.sendGridClient = sendGridClient;
         }
 
-
-
-        public async Task<ServiceResponse<ApplicationFormDto>> PostApplication(ApplicationFormDto applicationFormDto)
+        public async Task<ServiceResponse<ApplicationFormDto>> Post(ApplicationFormDto applicationFormDto)
         {
             var serviceResponse = new ServiceResponse<ApplicationFormDto>();
-
             try
             {
                 var insertData = _mapper.Map<Application>(applicationFormDto);
@@ -56,7 +53,7 @@ namespace InternshipPlatformAPI.Services.ApplicationService
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<List<ApplicationDto>>> GetApplications(int page, int pageSize, string sortBy, string filter, string filterType)
+        public async Task<ServiceResponse<List<ApplicationDto>>> Get(int page, int pageSize, string sortBy, string filter, string filterType)
         {
             var serviceResponse = new ServiceResponse<List<ApplicationDto>>();
             IQueryable<Application> applications;
@@ -64,13 +61,13 @@ namespace InternshipPlatformAPI.Services.ApplicationService
             switch (filterType)
             {
                 case "name":
-                    applications = _dataContext.Applications.Where(x => x.FirstName.ToLower().Contains(filter.ToLower()));
+                    applications = _dataContext.Applications.Where(x => x.FirstName.Trim().ToLower().Contains(filter.Trim().ToLower()));
                     break;
                 case "EducationLevel":
-                    applications = _dataContext.Applications.Where(x => x.EducationLevel.ToLower().Contains(filter.ToLower()));
+                    applications = _dataContext.Applications.Where(x => x.EducationLevel.Trim().ToLower().Contains(filter.Trim().ToLower()));
                     break;
                 case "Status":
-                    applications = _dataContext.Applications.Where(x => x.Status.ToLower().Contains(filter.ToLower()));
+                    applications = _dataContext.Applications.Where(x => x.Status.Trim().ToLower().Contains(filter.Trim().ToLower()));
                     break;
                 default:
                     applications = _dataContext.Applications;
@@ -101,20 +98,15 @@ namespace InternshipPlatformAPI.Services.ApplicationService
                     applications = applications.OrderBy(x => x.Id).Skip((page - 1) * pageSize).Take(pageSize);
                     break;
             }
-
             var results = await applications.ToListAsync();
-
             serviceResponse.Data = results.Select(c => _mapper.Map<ApplicationDto>(c)).ToList();
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<Application>> GetSingleApplication(Guid id)
+        public async Task<ServiceResponse<Application>> Get(Guid id)
         {
             var serviceResponse = new ServiceResponse<Application>();
             var user = await _dataContext.Applications.FirstOrDefaultAsync(a => a.Id == id);
-            //FirstOrDefaultAsync(b => b.Id == id);
-            //.FirstOrDefaultAsync(x => x.Id == id);
-
             if (user == null)
             {
 
@@ -128,7 +120,7 @@ namespace InternshipPlatformAPI.Services.ApplicationService
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<Application>> UpdateApplication(Guid id, ApplicationUpdateDto updateDto)
+        public async Task<ServiceResponse<Application>> Update(Guid id, ApplicationUpdateDto updateDto)
         {
             var serviceResponse = new ServiceResponse<Application>();
             var application = await _dataContext.Applications.FirstOrDefaultAsync(x => x.Id == id);
@@ -150,17 +142,14 @@ namespace InternshipPlatformAPI.Services.ApplicationService
                 serviceResponse.Data = application;
             }
             return serviceResponse;
-            //throw new NotImplementedException();
         }
 
-        public async Task<ServiceResponse<Comment>> AddApplicationComment(ApplicationCommentDto commentData, Guid id)
+        public async Task<ServiceResponse<Comment>> PostComment(ApplicationCommentDto commentData, Guid id)
         {
             var serviceResponse = new ServiceResponse<Comment>();
             var application = await _dataContext.Applications.FirstOrDefaultAsync(x => x.Id == id);
             var loggedUserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var user = await _dataContext.Users.FirstOrDefaultAsync(x => x.Id == loggedUserId);
-
-            //var user2 = await this._dataContext.AspNetUsers.
             if (application == null)
             {
                 serviceResponse.Success = false;
@@ -186,98 +175,7 @@ namespace InternshipPlatformAPI.Services.ApplicationService
             _dataContext.ApplicationComments.Add(applicationComment);
             serviceResponse.Data = addComment;
             await _dataContext.SaveChangesAsync();
-            //serviceResponse.Data = results.Select(c=>this._mapper.Map<ApplicationDto>(c)).ToList();
             return serviceResponse;
-
         }
-        private void SendEmail(string sendTo, string textToSend)
-        {
-            var email = new MimeMessage();
-            email.From.Add(MailboxAddress.Parse("moses.rosenbaum@ethereal.email"));
-            email.To.Add(MailboxAddress.Parse(sendTo));
-            email.Subject = "Test Email Subject";
-            email.Body = new TextPart(MimeKit.Text.TextFormat.Text) { Text = textToSend };
-            using var smtp = new SmtpClient();
-            smtp.Connect("smtp.ethereal.email", 587, SecureSocketOptions.StartTls);
-            smtp.Authenticate("moses.rosenbaum@ethereal.email", "k6G8zkkujSpnVjkZBY");
-            smtp.Send(email);
-            smtp.Disconnect(true);
-        }
-
-        //public async Task<ServiceResponse<Application>> GetSingleApplication(Guid id)
-        //{
-        //    var serviceResponse = new ServiceResponse<Application>();
-        //    var user = await this._dataContext.Applications.FirstOrDefaultAsync(a=>a.Id==id);
-        //        //FirstOrDefaultAsync(b => b.Id == id);
-        //        //.FirstOrDefaultAsync(x => x.Id == id);
-
-        //    if (user == null)
-        //    {
-
-        //        serviceResponse.Success = false;
-        //        serviceResponse.Message = "Applicant not found!";
-        //    }
-        //    else
-        //    {
-        //        serviceResponse.Data = user;
-        //    }
-        //    return serviceResponse;
-        //}
-
-        //public async Task<ServiceResponse<Application>> UpdateApplication(Guid id, ApplicationUpdateDto updateDto)
-        //{
-        //    var serviceResponse = new ServiceResponse<Application>();
-        //    var application = await this._dataContext.Applications.FirstOrDefaultAsync(x => x.Id == id);
-        //    if (application == null)
-        //    {
-
-        //        serviceResponse.Success = false;
-        //        serviceResponse.Message = "Applicant not found!";
-        //    }
-        //    else
-        //    {
-        //        application.Status = updateDto.Status;
-        //        await this._dataContext.SaveChangesAsync();
-        //        serviceResponse.Data = application;
-        //    }
-        //    return serviceResponse;
-        //    //throw new NotImplementedException();
-        //}
-
-        //public async Task<ServiceResponse<Comment>> AddApplicationComment(ApplicationCommentDto commentData)
-        //{
-        //    var serviceResponse = new ServiceResponse<Comment>();
-        //    var application = await this._dataContext.Applications.FirstOrDefaultAsync(x => x.Id == commentData.Id);
-        //    var user = await this._dataContext.Users.FirstOrDefaultAsync(x => x.Id == commentData.userId);
-        //    //var user2 = await this._dataContext.AspNetUsers.
-        //    if(application == null)
-        //    {
-        //        serviceResponse.Success = false;
-        //        serviceResponse.Message = "Application not found.";
-        //        return serviceResponse;
-        //    }
-        //     if(user == null)
-        //    {
-        //        serviceResponse.Success = false;
-        //        serviceResponse.Message = "User not found.";
-        //        return serviceResponse;
-        //    }
-        //    var comment = new Comment() { CommentText = commentData.CommentText };
-        //    var addComment = _mapper.Map<Comment>(comment);
-        //    addComment.DateCreated = DateTime.Now;
-        //     this._dataContext.Comments.Add(addComment);
-        //    var applicationComment = new ApplicationComment()
-        //    {
-        //        Comment = addComment,
-        //        Application = application,
-        //        User = user
-        //    };
-        //    this._dataContext.ApplicationComments.Add(applicationComment);
-        //    serviceResponse.Data = addComment;
-        //    await this._dataContext.SaveChangesAsync();
-        //    //serviceResponse.PagesCount = (results.Count() /pageSize)+1;
-        //    //serviceResponse.Data = results.Select(c=>this._mapper.Map<ApplicationDto>(c)).ToList();
-        //    return serviceResponse;
-        //}
     }
 }

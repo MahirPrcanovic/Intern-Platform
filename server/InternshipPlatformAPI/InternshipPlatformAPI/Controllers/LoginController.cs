@@ -1,7 +1,6 @@
 ﻿using InternshipPlatformAPI.Dtos.User;
 using InternshipPlatformAPI.Models;
 using InternshipPlatformAPI.Services.LoginService;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InternshipPlatformAPI.Controllers
@@ -22,7 +21,6 @@ namespace InternshipPlatformAPI.Controllers
         public async Task<IActionResult> login(LoginDto loginData)
         {
             return !await this._loginService.Login(loginData.UserName, loginData.Password, loginData.rememberMe) ? NotFound(new ServiceResponse<string>() { Success=false,Message="Incorrect login info."}) : Ok(new { Token = await this._loginService.CreateToken() , userName = loginData.UserName});
-        }
-       
+        }   
     }
 }

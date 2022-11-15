@@ -397,5 +397,7 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
+server/InternshipPlatformAPI/InternshipPlatformAPI/bin/
+server/InternshipPlatformAPI/InternshipPlatformAPI/obj/
 server/InternshipPlatformAPI/InternshipPlatformAPI/bin/Debug/*
 server/InternshipPlatformAPI/InternshipPlatformAPI/obj/Debug/*

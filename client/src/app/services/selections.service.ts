@@ -13,12 +13,6 @@ import { Selection } from '../models/Selection';
 export class SelectionsService {
   constructor(private http: HttpClient) {}
 
-  postData(postData: AddSelection) {
-    return this.http.post(
-      environment.apiUrl + '/api/Selections/AddNewSelection',
-      postData
-    );
-  }
 
   getAllSelections(queryParams: any) {
     let params = new HttpParams();
@@ -42,20 +36,10 @@ export class SelectionsService {
     );
   }
 
-  updateSelection(id: string, updateSelection: Selection) {
-    return this.http.put(
-      environment.apiUrl + '/api/Selections/EditSelection/' + id,
-      updateSelection
-    );
-  }
-
-  deleteApplicantFromSelection(selectionId: string, applicationId: string) {
-    return this.http.delete(
-      environment.apiUrl +
-        '/api/Selections/DeleteApplicants/' +
-        selectionId +
-        '/' +
-        applicationId
+  postData(postData: AddSelection) {
+    return this.http.post(
+      environment.apiUrl + '/api/Selections/AddNewSelection',
+      postData
     );
   }
 
@@ -86,4 +70,22 @@ export class SelectionsService {
       postData
     );
   }
+  updateSelection(id: string, updateSelection: Selection) {
+    return this.http.put(
+      environment.apiUrl + '/api/Selections/EditSelection/' + id,
+      updateSelection
+    );
+  }
+
+  deleteApplicantFromSelection(selectionId: string, applicationId: string) {
+    return this.http.delete(
+      environment.apiUrl +
+        '/api/Selections/DeleteApplicants/' +
+        selectionId +
+        '/' +
+        applicationId
+    );
+  }
+
+
 }

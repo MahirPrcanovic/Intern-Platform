@@ -1,8 +1,7 @@
-import { DatePipe } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 import { ButttonTextComponent } from 'src/app/components/buttton-type.component';
 import { AddSelection } from 'src/app/models/AddSelection';
 import { SelectionsService } from 'src/app/services/selections.service';
@@ -20,8 +19,7 @@ export class SelectionsAddPageComponent implements OnInit {
   constructor(
     private router: Router,
     private selectionService: SelectionsService,
-    private http : HttpClient,
-    private datePipe: DatePipe
+    private toast: NgToastService,
      
   ) {}
 
@@ -60,16 +58,19 @@ export class SelectionsAddPageComponent implements OnInit {
         this.submitted = true;
         this.selectionFormValid = true;
         this.loading = false;
-      })
+        this.toast.success({detail:'Success Message', summary:'You succesfully edited selection.', position:'tr', duration:4000, sticky:false});
+     this.goHome();
+      }, err =>{
+      this.toast.error({detail:'Fail Message', summary:'Error happend please try again.', position:'tr', duration:4000, sticky:false});
+    }
+      
+      )
       
 
     
    }
 
-  resetForm(){
-    this.selectionFormValid = true;
-    this.submitted = false;
-  }
+
 
   goHome() {
     this.router.navigate(['/selections']);

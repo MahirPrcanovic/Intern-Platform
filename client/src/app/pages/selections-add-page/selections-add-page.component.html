@@ -1,12 +1,4 @@
 <app-dashboard-header></app-dashboard-header>
-<div
-  class="container d-flex justify-content-center align-items-center"
-  *ngIf="loading"
->
-  <div class="spinner-border">
-    <span class="visually-hidden"></span>
-  </div>
-</div>
 <div class="container d-flex flex-column-reverse flex-md-row">
   <div class="col-md-4 mt-5 col" *ngIf="!submitted && !loading">
     <h1 class="text-truncate">{{classRef.AddNewSelection}}</h1>
@@ -61,44 +53,9 @@
         
       </div>
       <div class="text-center text-lg-start mt-4 pt-2">
-        <button type="submit" class="btn btn-primary btn-lg">{{classRef.buttonAdd}}</button>
+        <button type="submit" class="btn btn-primary btn-lg">{{classRef.buttonAdd}} </button>
         <button type="submit" class="btn btn-primary btn-lg" style="margin-left:2% ;" (click)="goHome()">{{classRef.Return}}</button>
       </div>
     </form>
-  </div>
-  <div class="col mt-5" *ngIf="selectionFormValid && submitted && !loading">
-    <div class="alert alert-success" role="alert">
-      <h4 class="alert-heading">Well done!</h4>
-      <p>You have successfully added new selection!</p>
-      <hr />
-    </div>
-    <button class="btn btn-primary" (click)="goHome()">Return</button>
-  </div>
-  <div class="col mt-5" *ngIf="!selectionFormValid && submitted && !loading">
-    <div class="alert alert-danger" role="alert">
-      <h4 class="alert-heading">Form is not valid!</h4>
-      <p>
-        Please try again and make sure you inserted your information correctly!
-      </p>
-      <hr />
-      <p>{{ message }}</p>
-      <p class="mb-0">Thank you for your time.</p>
-    </div>
-    <button class="btn btn-success" (click)="resetForm()">Try again</button>
-  </div>
-  <div
-    class="col d-md-flex justify-content-center align-items-center d-none"
-    *ngIf="!submitted && !loading"
-  >
-    <div class="col-10 col-sm-8 col-lg-6">
-      <img
-        src="https://www.mistral.ba/m/t/mistral/dist/assets/images/mistral-trademark-black.svg"
-        class="d-block mx-lg-auto img-fluid rounded"
-        alt="Bootstrap Themes"
-        width="700"
-        height="500"
-        loading="lazy"
-      />
-    </div>
   </div>
 </div>

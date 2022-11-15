@@ -6,7 +6,7 @@ namespace InternshipPlatformAPI.Services.SelectionService
 {
     public interface ISelectionService
     {
-        public Task<ServiceResponse<List<GetSelectionDto>>> GetAllSelections(int pageNumber, int pageSize, string sort, string filterBy);
+        public Task<ServiceResponse<List<GetSelectionDto>>> Get(int pageNumber, int pageSize, string sort, string filterBy);
         public Task<ServiceResponse<GetSelectionDto>> GetSelectionById(Guid selectionId);  
         public Task<ServiceResponse<List<GetSelectionDto>>> AddSelection(AddSelectionDto newSelection);
         public Task<ServiceResponse<List<GetSelectionDto>>> RemoveSelectionApplicant(Guid selectionId, Guid applicationId);

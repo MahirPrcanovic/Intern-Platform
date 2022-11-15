@@ -23,10 +23,9 @@ namespace InternshipPlatformAPI.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<ServiceResponse<List<GetSelectionDto>>>> GetAllSelections(int? pageNumber = 1, int? pageSize = 5, string? sort = "", string? filterBy = "")
+        public async Task<ActionResult<ServiceResponse<List<GetSelectionDto>>>> Get(int? pageNumber = 1, int? pageSize = 5, string? sort = "", string? filterBy = "")
         {
-
-            return Ok(await _selectionService.GetAllSelections((int)pageNumber, (int)pageSize, sort, filterBy));
+            return Ok(await _selectionService.Get((int)pageNumber, (int)pageSize, sort, filterBy));
         }
 
         [HttpGet("GetSelectionsById/{id}")]
@@ -41,31 +40,29 @@ namespace InternshipPlatformAPI.Controllers
             return Ok(await _selectionService.AddSelection(newSelection));
         }
 
+        [HttpPost("AddNewApplicantToSelection/{selectionId}/{applicantId}")]
+        public async Task<ActionResult<ServiceResponse<List<GetSelectionDto>>>> AddNewApplicantToSelection(Guid selectionId, Guid applicantId)
+        {
+            return Ok(await _selectionService.AddApplicantToSelection(selectionId, applicantId));
+        }
+
+        [HttpPost("AddNewCommentToSelection/{selectionId}")]
+        public async Task<ActionResult<ServiceResponse<Comment>>> AddComment(Guid selectionId, SelectionCommentDto comment)
+        {
+            return Ok(await _selectionService.AddComment(selectionId, comment));
+        }
+
         [HttpPut("EditSelection/{id}")]
         public async Task<ActionResult<ServiceResponse<GetSelectionDto>>> EditSelection(Guid id, [FromBody]  EditSelectionDto editSelection)
         {
             return Ok(await _selectionService.EditSelection(id,editSelection));
         }
         
-
         [HttpDelete("DeleteApplicants/{selectionId}/{applicationId}")]
         public async Task<ActionResult<ServiceResponse<List<GetSelectionDto>>>> RemoveSelectionApplicant(Guid selectionId,Guid applicationId)
         {
             return Ok(await _selectionService.RemoveSelectionApplicant(selectionId, applicationId));
         }
-
-        [HttpPost("AddNewApplicantToSelection/{selectionId}/{applicantId}")]
-        public async Task<ActionResult<ServiceResponse<List<GetSelectionDto>>>> AddNewApplicantToSelection(Guid selectionId,Guid applicantId)
-        {
-            return Ok(await _selectionService.AddApplicantToSelection(selectionId,applicantId));
-        }
-
-        [HttpPost("AddNewCommentToSelection/{selectionId}")]
-        public async Task<ActionResult<ServiceResponse<Comment>>>AddComment(Guid selectionId, SelectionCommentDto comment)
-        {
-            return Ok(await _selectionService.AddComment(selectionId,comment));
-        }
-
-   
+            
     }
 }

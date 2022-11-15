@@ -58,7 +58,7 @@ namespace InternshipPlatformAPI.Services.SelectionService
 
         }
 
-        public async Task<ServiceResponse<List<GetSelectionDto>>> GetAllSelections(int pageNumber, int pageSize, string sort, string filterBy)
+        public async Task<ServiceResponse<List<GetSelectionDto>>> Get(int pageNumber, int pageSize, string sort, string filterBy)
         {
             IQueryable<Selection> selections;
             switch (sort)

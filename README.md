@@ -109,7 +109,7 @@ You can now start your backend and frontend and try it out!
 
 
 ### Applications
-Every request for /api/ApplicationForm/* you will need:
+Every request for /api/Application/* you will need:
 
 | Header | Type     | Description                |
 | :-------- | :------- | :------------------------- |
@@ -117,7 +117,7 @@ Every request for /api/ApplicationForm/* you will need:
 
 #### Get all applications 
 ```http
-  GET /api/ApplicationForm
+  GET /api/Application
 ```
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
@@ -131,7 +131,7 @@ Every request for /api/ApplicationForm/* you will need:
 #### Add an application
 
 ```http
-  POST /api/ApplicationForm
+  POST /api/Application
 ```
 
 | Body | Type     | Description                       |
@@ -146,7 +146,7 @@ Every request for /api/ApplicationForm/* you will need:
 #### Get item
 
 ```http
-  GET /api/ApplicationForm/{id}
+  GET /api/Application/{id}
 ```
 
 | Parameter | Type     | Description                |
@@ -167,7 +167,7 @@ Every request for /api/ApplicationForm/* you will need:
 #### Add a comment to application
 
 ```http
-  POST /api/ApplicationForm/{id}
+  POST /api/Application/{id}
 ```
 
 | Body | Type     | Description                |

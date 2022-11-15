@@ -8,10 +8,7 @@ import { environment } from 'src/environments/environment';
 export class ApplicationsService {
   constructor(private http: HttpClient) {}
   postData(postData: Application) {
-    return this.http.post(
-      environment.apiUrl + '/api/ApplicationForm',
-      postData
-    );
+    return this.http.post(environment.apiUrl + '/api/Application', postData);
   }
   getAllApplications(queryParams: any) {
     let params = new HttpParams();
@@ -28,15 +25,15 @@ export class ApplicationsService {
       params = params.append('filterType', queryParams.filterType);
     }
     // console.log(params);
-    return this.http.get(environment.apiUrl + '/api/ApplicationForm', {
+    return this.http.get(environment.apiUrl + '/api/Application', {
       params: params,
     });
   }
   getSingleApplication(id: string) {
-    return this.http.get(environment.apiUrl + '/api/ApplicationForm/' + id);
+    return this.http.get(environment.apiUrl + '/api/Application/' + id);
   }
   updateApplication(id: string, status: string) {
-    return this.http.put(environment.apiUrl + '/api/ApplicationForm/' + id, {
+    return this.http.put(environment.apiUrl + '/api/Application/' + id, {
       Status: status,
     });
   }
@@ -46,7 +43,7 @@ export class ApplicationsService {
     };
     // console.log(postData);
     return this.http.post(
-      environment.apiUrl + '/api/ApplicationForm/' + id,
+      environment.apiUrl + '/api/Application/' + id,
       postData
     );
   }

@@ -11,12 +11,12 @@ namespace InternshipPlatformAPI.Services.ApplicationService
 {
     public interface IApplicationService
     {
-        Task<ServiceResponse<ApplicationFormDto>> PostApplication(ApplicationFormDto applicationFormDto);
-        Task<ServiceResponse<List<ApplicationDto>>> GetApplications(int page, int pageSize, string sortBy, string filter, string filterType);
+        Task<ServiceResponse<ApplicationFormDto>> Post(ApplicationFormDto applicationFormDto);
+        Task<ServiceResponse<List<ApplicationDto>>> Get(int page, int pageSize, string sortBy, string filter, string filterType);
 
-        Task<ServiceResponse<Application>> GetSingleApplication(Guid id);
-        Task<ServiceResponse<Application>> UpdateApplication(Guid id, ApplicationUpdateDto updateDto);
-        Task<ServiceResponse<Comment>> AddApplicationComment(ApplicationCommentDto commentData, Guid id);
+        Task<ServiceResponse<Application>> Get(Guid id);
+        Task<ServiceResponse<Application>> Update(Guid id, ApplicationUpdateDto updateDto);
+        Task<ServiceResponse<Comment>> PostComment(ApplicationCommentDto commentData, Guid id);
 
 
     }

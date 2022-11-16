@@ -268,12 +268,12 @@ On top of Authorization, you have to have Administrator role to access this endp
 
 #### Get all users
 ```http
-  GET /api/Users
+  GET /api/User
 ```
 
 #### Delete user
 ```http
-  DELETE /api/Users/{id}
+  DELETE /api/User/{id}
 ```
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
@@ -281,7 +281,7 @@ On top of Authorization, you have to have Administrator role to access this endp
 
 #### Add new user
 ```http
-  POST /api/Users/addNewUser
+  POST /api/User/addNewUser
 ```
 | Body | Type     | Description                |
 | :-------- | :------- | :------------------------- |

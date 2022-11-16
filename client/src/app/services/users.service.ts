@@ -8,15 +8,15 @@ import { environment } from 'src/environments/environment';
 export class UserService {
   constructor(private http: HttpClient) {}
   getAllUsers() {
-    return this.http.get(environment.apiUrl + '/api/Users');
+    return this.http.get(environment.apiUrl + '/api/User');
   }
   deleteUser(id: string) {
     // console.log(id);
-    return this.http.delete(environment.apiUrl + '/api/Users/' + id);
+    return this.http.delete(environment.apiUrl + '/api/User/' + id);
   }
   addUser(userData: { userName: string; password: string; email: string }) {
     return this.http.post(
-      environment.apiUrl + '/api/Users/addNewUser',
+      environment.apiUrl + '/api/User/addNewUser',
       userData
     );
   }
